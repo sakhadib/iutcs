@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-5">
                 <img src="{{url('rsx/logo.svg')}}" alt="" style="width: 300px">
-                <h1 class="display-4 l mt-3">IUT Computer Society</h1>
+                {{-- <h1 class="display-4 l mt-3">IUT Computer Society</h1> --}}
                 {{-- <p class="text-light lead"> #LookUpToWonder</p> --}}
             </div>
             <div class="col-md-7 df dfc jcc">
@@ -42,7 +42,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <p class="text-secondary text-center">© <span id="year"></span> IUT Al-Fazari Interstellar Society. All rights reserved.</p>
+                <p class="text-secondary text-center">© <span id="year"></span> IUT Computer Society. All rights reserved.</p>
             </div>
         </div>
     </div>
