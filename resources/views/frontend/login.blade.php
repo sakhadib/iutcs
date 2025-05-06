@@ -20,10 +20,12 @@
         </div>
 
         <form
-          id="login-form"
-          class="mt-8 space-y-6"
-          onSubmit="{handleSubmit}"
+            id="login-form"
+            class="mt-8 space-y-6"
+            action="/login"
+            method="POST"
         >
+            @csrf  <!-- CSRF token for security -->
           <div>
             <label
               htmlFor="email"
@@ -74,7 +76,7 @@
           <p class="text-sm text-gray-600">
             Don't have an account?
             <a
-              href="../signup/signup.html"
+              href="/signup"
               class="font-medium text-cyan hover:text-cyan/80"
             >
               Sign up
