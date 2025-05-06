@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FestsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,8 @@ Route::get('/', function () {
 
 Route::get('/signup', [SignupController::class, 'showPage']);
 Route::get('/login', [LoginController::class, 'showLoginPage']);
+
+Route::get('/home', [HomeController::class, 'showHomePage']);
+
+Route::get('/fests', [FestsController::class, 'showFestsPage']);
+Route::get('/fest/{fest}', [FestsController::class, 'festDetails']);
