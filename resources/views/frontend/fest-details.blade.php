@@ -78,7 +78,7 @@
               </div>
               <h3 class="text-xl font-bold mb-2">Coderush 2.0</h3>
               <a
-                href="./event-details.html"
+                href="/fest/1/event/1"
                 class="text-red font-medium hover:underline flex items-center"
               >
                 View Details

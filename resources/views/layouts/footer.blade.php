@@ -54,5 +54,64 @@
       </div>
     </div>
   </footer>
+
+
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+  --color-navy: #0a1929;
+  --color-red: #e63946;
+  --color-cyan: #00a8e8;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--color-red);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.active-nav-link::after {
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+  </style>
 </body>
 </html>
