@@ -1,103 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>IUTCS</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>IUTCS | IUT Computer Society</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-navy: #0a1929;
+        --color-red: #e63946;
+        --color-cyan: #00a8e8;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="./home.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./global.css"
+    />
+  </head>
+  <body>
 
-    {{-- Icon --}}
-    <link rel="icon" href="/rsx/ico.svg">
-
-    {{-- Bootstrap --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    {{-- own css and js --}}
-    <link rel="stylesheet" href="{{ url('css/util.css') }}">
-
-    {{-- icons --}}
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
-    {{-- Math --}}
-    <script defer type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"> </script>
-
-    {{-- Data Table --}}
-    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script defer src="{{url('css/dt.js')}}"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-
-
-    {{-- markdown --}}
-
-    {{-- <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> --}}
-    <script defer src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script defer type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-        
-
-</head>
-<body>
-
-    <nav class="navbar navbar-dark navbar-expand-lg bgd fixed-top bs" id="boss_navbar">
-        <div class="container">
-          <a class="navbar-brand" href="/" style="font-family: poppins, sans-sherif"><img src="/rsx/logo.svg" alt="" style="width: 90px; margin-top:-5px"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/">Home</a>
-              </li>
-              
-              {{-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Workshops
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li> --}}
-              {{-- <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-              </li> --}}
-            </ul>
-
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="signup">Signup</a>
-              </li>
-            </ul>
-            
-          </div>
+    <header class="bg-navy text-white sticky top-0 z-50 shadow-md px-4 py-6">
+      <div class="container mx-auto">
+        <div class="flex justify-between items-center">
+          <a
+            href="/"
+            class="flex items-center space-x-2"
+          >
+            <span class="font-bold text-xl">IUTCS</span>
+          </a>
+          <nav class="hidden md:flex flex items-center gap-x-6">
+            <a
+              href="/home"
+              class="nav-link py-2 hover:text-cyan transition-colors"
+            >
+              Home
+            </a>
+            <a
+              href="/fests"
+              class="nav-link py-2 hover:text-cyan transition-colors"
+            >
+              Fests
+            </a>
+            <a
+              href="/about"
+              class="nav-link py-2 hover:text-cyan transition-colors"
+            >
+              About
+            </a>
+            <div class="flex items-center space-x-4 ml-6">
+              <a
+                href="/login"
+                class="bg-transparent border-2 border-cyan hover:bg-cyan/10 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Login
+              </a>
+              <a
+                href="/signup"
+                class="text-white bg-red hover:bg-red/90 px-4 py-2 rounded-md text-sm font-medium transition-colors border-2 border-red"
+              >
+                Sign Up
+              </a>
+            </div>
+          </nav>
         </div>
-      </nav>
-
-      <style>
-        .bgd{
-          background-color: rgba(0, 14, 24, 0.5);
-          transition: background-color ease-in-out 0.3s;
-          backdrop-filter: blur(6px);
-        }
-
-        .bg-body-tertiary{
-          transition: background-color ease-in-out 0.3s;
-        }
-      </style>
+      </div>
+    </header>

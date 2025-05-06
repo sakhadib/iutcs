@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SignupController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,5 @@ Route::get('/', function () {
 });
 
 
-Route::get('/auth/signup', [SignupController::class, 'showPage']);
+Route::get('/signup', [SignupController::class, 'showPage']);
+Route::get('/login', [LoginController::class, 'showLoginPage']);
