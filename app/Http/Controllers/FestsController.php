@@ -23,8 +23,12 @@ class FestsController extends Controller
 
     public function festDetails($fest_id)
     {
-        $fest = Fest::find($fest_id);
+        $fest = Fest::where('id', $fest_id)
+                    ->with(['events'])
+                    ->first();
         
-        return view('frontend.fest-details');
+        return view('frontend.fest-details',[
+            'fest' => $fest
+        ]);
     }
 }
