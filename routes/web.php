@@ -21,6 +21,8 @@ use App\Http\Controllers\EventController;
 
 
 Route::get('/signup', [SignupController::class, 'showPage']);
+Route::post('/signup', [SignupController::class, 'register']);
+
 Route::get('/login', [LoginController::class, 'showLoginPage']);
 
 Route::get('/', [HomeController::class, 'showHomePage']);

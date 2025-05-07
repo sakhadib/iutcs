@@ -32,7 +32,7 @@
             </label>
             <input
               id="fullName"
-              name="fullName"
+              name="name"
               type="text"
               required
               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-cyan focus:border-transparent"
@@ -55,6 +55,24 @@
               required
               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-cyan focus:border-transparent"
               placeholder="your.email@example.com"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="StudentID"
+              class="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Student ID
+            </label>
+            <input
+              id="studentID"
+              name="studentID"
+              type="text"
+              autocomplete="studentID"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-cyan focus:border-transparent"
+              placeholder="your student id"
             />
           </div>
 
@@ -131,26 +149,6 @@ const errorBlock = document.getElementById("error-message");
 // assign error message and set display to block to display validation errors
 errorBlock.textContent = "";
 errorBlock.style.display = "none";
-
-signupForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  errorBlock.textContent = "";
-  errorBlock.style.display = "none";
-
-  if (passwordField.value === confirmPasswordField.value) {
-    const data = {
-      name: nameField.value,
-      email: emailField.value,
-      passwordField: passwordField.value,
-    };
-
-    // make POST request here
-  } else {
-    errorBlock.style.display = "block";
-    errorBlock.textContent = "Passwords don't match.";
-  }
-});
 
   </script>
 
