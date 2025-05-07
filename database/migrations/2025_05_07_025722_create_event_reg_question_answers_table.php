@@ -11,20 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registration_question_answers', function (Blueprint $table) {
+        Schema::create('event_reg_question_answers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('event_id')->nullable();
-            $table->unsignedBigInteger('question_id')->nullable();
-            $table->string('answer')->nullable(); // answer to the question
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('team_id');
+            $table->string('answer')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('registration_question_fields')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
 
-            // Add a unique constraint to prevent duplicate answers for the same user and question
-            $table->unique(['user_id', 'event_id', 'question_id'], 'unique_user_event_question_answer');
+            // Adding a unique constraint to prevent duplicate answers for the same question
+            $table->unique(['user_id', 'event_id', 'question_id', 'team_id'], 'event_reg_question_answers_unique');
         });
     }
 
@@ -33,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('registration_question_answers');
+        Schema::dropIfExists('event_reg_question_answers');
     }
 };

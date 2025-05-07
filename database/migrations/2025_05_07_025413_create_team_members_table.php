@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registration_logs', function (Blueprint $table) {
+        Schema::create('team_members', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('event_id')->nullable();
-            $table->string('status')->default('pending'); // pending, accepted, rejected
+            $table->unsignedBigInteger('team_id')->nullable();
+            $table->string('role')->default('member'); // member, team-lead
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('registration_logs');
+        Schema::dropIfExists('team_members');
     }
 };

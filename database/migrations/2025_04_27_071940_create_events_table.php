@@ -16,8 +16,19 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('rules')->nullable();
-            $table->string('start_date');
-            $table->string('end_date')->nullable();
+            $table->string('rulebook-link')->nullable();
+            $table->text('prizes')->nullable();
+            $table->text('judges')->nullable();
+            $table->string('registration_link')->nullable();
+            $table->text('contact')->nullable();
+            $table->text('medium')->nullable(); // online, offline
+            $table->text('location')->nullable(); // location of the event
+            $table->string('registration_fee')->nullable();
+            $table->string('max_team_size')->nullable();
+            $table->string('min_team_size')->nullable();
+            $table->dateTime('registration_closing_date')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->string('image')->nullable();
             $table->unsignedBigInteger('fest_id')->nullable();
             $table->timestamps();

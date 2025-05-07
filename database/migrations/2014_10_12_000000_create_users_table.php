@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('student_id')->unique();
-            $table->string('department');
-            $table->string('batch');
             $table->string('password');
+            $table->string('phone')->nullable();
+            $table->string('university')->nullable();
+            $table->string('batch')->nullable();
+            $table->string('student_id')->unique();
+            $table->dateTime('last_login')->nullable();
+            $table->string('role')->default('user'); // user, event-head, admin, president
             $table->rememberToken();
             $table->timestamps();
         });

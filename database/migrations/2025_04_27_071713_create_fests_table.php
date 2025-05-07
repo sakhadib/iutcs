@@ -15,13 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('start_date');
-            $table->string('end_date')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('medium')->nullable(); // online, offline
+            $table->string('location')->nullable(); // location of the fest
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

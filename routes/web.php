@@ -19,14 +19,11 @@ use App\Http\Controllers\EventController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 Route::get('/signup', [SignupController::class, 'showPage']);
 Route::get('/login', [LoginController::class, 'showLoginPage']);
 
+Route::get('/', [HomeController::class, 'showHomePage']);
 Route::get('/home', [HomeController::class, 'showHomePage']);
 
 Route::get('/fests', [FestsController::class, 'showFestsPage']);
