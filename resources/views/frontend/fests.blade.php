@@ -4,71 +4,75 @@
 <main>
     <div class="py-12">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-          <h1 class="text-4xl font-bold mb-4">Our Fests</h1>
-          <p class="text-gray-600 max-w-2xl mx-auto">
-            Explore the exciting technology festivals organized by IUTCS,
-            featuring competitions, workshops, and networking opportunities
-            for tech enthusiasts.
-          </p>
+        <div class="text-left mb-12">
+          
         </div>
 
-        <div class="flex flex-col gap-y-16">
+        <div class="flex flex-col gap-y-2">
           <!-- ONGOING FESTS -->
-          <section class="mt-8">
+            <section class="mt-2 flex items-center justify-between">
             <h2
-              class="text-2xl font-bold mb-6 flex items-center text-center justify-center"
+              class="text-2xl font-bold mb-6 flex items-center text-left"
             >
               <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
               Ongoing Fests
             </h2>
+            @if(session('role') === 'admin')
+              <a 
+              href="/admin/fests/create" 
+              class="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-md font-medium transition-colors"
+              >
+              Create New Fest
+              </a>
+            @endif
+            </section>
 
-            <div class="grid grid-cols-1 gap-6">
+            <div class="grid grid-cols-1 gap-6 mt-6">
               <!-- FEST CARD -->
               <div
-                class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-shadow w-[90%] max-w-[900px] mx-auto"
+              class="bg-white rounded-xl overflow-hidden  border border-gray-100 hover:shadow-xl transition-shadow w-full"
               >
-                <div class="md:flex">
-                  <div class="md:w-1/3 h-48 md:h-auto bg-red relative">
-                    <div
-                      class="absolute inset-0 flex items-center justify-center text-white text-xl font-bold"
-                    >
-                      Image
-                    </div>
-                  </div>
-                  <div class="p-6 md:w-2/3">
-                    <div class="flex flex-wrap gap-3 mb-3">
-                      <span
-                        class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center"
-                      >
-                        May, 2025
-                      </span>
-                      <span
-                        class="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm font-medium flex items-center"
-                      >
-                        IUT Campus
-                      </span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">ICT Fest 2025</h3>
-                    <p class="text-gray-600 mb-6">
-                      The Xth ICT Fest brings together students from
-                      universities across the country to compete in various
-                      technology-focused events.
-                    </p>
-                    <div class="flex justify-between items-center">
-                      <span class="text-gray-700">15+ Events</span>
-                      <a
-                        href="/fest/1"
-                        class="bg-red hover:bg-red/90 text-white px-4 py-2 rounded-md font-medium transition-colors inline-flex items-center"
-                      >
-                        View Details
-                      </a>
-                    </div>
-                  </div>
+              <div class="md:flex">
+                <div class="md:w-1/3 h-48 md:h-auto bg-red relative">
+                <div
+                  class="absolute inset-0 flex items-center justify-center text-white text-xl font-bold"
+                >
+                  Image
+                </div>
+                </div>
+                <div class="p-6 md:w-2/3">
+                <div class="flex flex-wrap gap-3 mb-3">
+                  <span
+                  class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center"
+                  >
+                  May, 2025
+                  </span>
+                  <span
+                  class="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm font-medium flex items-center"
+                  >
+                  IUT Campus
+                  </span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">ICT Fest 2025</h3>
+                <p class="text-gray-600 mb-6">
+                  The Xth ICT Fest brings together students from
+                  universities across the country to compete in various
+                  technology-focused events.
+                </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-700">15+ Events</span>
+                  <a
+                  href="/fest/1"
+                  class="bg-red hover:bg-red/90 text-white px-4 py-2 rounded-md font-medium transition-colors inline-flex items-center"
+                  >
+                  View Details
+                  </a>
+                </div>
                 </div>
               </div>
+              </div>
             </div>
-          </section>
+            </section>
 
           <section class="mt-20">
             <h2

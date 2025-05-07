@@ -9,6 +9,8 @@ use App\Http\Controllers\FestsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 
+use App\Http\Controllers\AdminController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,3 +43,17 @@ Route::get('fest/{fest}/event/{event}/register', [EventController::class, 'event
 
 
 Route::get('/profile/{user_id}', [ProfileController::class, 'viewProfile']);
+
+
+
+
+
+
+
+
+
+
+
+//! Admin
+
+Route::get('/admin/fests/create', [AdminController::class, 'showCreateFestPage']);
