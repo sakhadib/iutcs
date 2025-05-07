@@ -1,5 +1,5 @@
-@if(session('is_admin') == true)
-    @include('layouts.admin_header')
+@if(session('role') == 'admin')
+    @include('layouts.admin-header')
 @else
     @include('layouts.header')
 @endif

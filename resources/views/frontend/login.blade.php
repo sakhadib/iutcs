@@ -98,16 +98,7 @@ const errorBlock = document.getElementById("error-message");
 errorBlock.textContent = "";
 errorBlock.style.display = "none";
 
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
 
-  const data = {
-    email: emailField.value,
-    password: passwordField.value,
-  };
-
-  // make POST request here
-});
 
   </script>
 

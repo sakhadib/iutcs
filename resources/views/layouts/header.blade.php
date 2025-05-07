@@ -8,6 +8,15 @@
     />
     <title>IUTCS | IUT Computer Society</title>
 
+    {{-- Bootstrap --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    {{-- End Bootstrap --}}
+
+    {{-- Utility CSS --}}
+    <link rel="stylesheet" href="/css/util.css">
+    {{-- End Utility CSS --}}
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
       @theme {
@@ -30,12 +39,7 @@
     <header class="bg-navy text-white sticky top-0 z-50 shadow-md px-4 py-6">
       <div class="container mx-auto">
         <div class="flex justify-between items-center">
-          <a
-            href="/"
-            class="flex items-center space-x-2"
-          >
-            <span class="font-bold text-xl">IUTCS</span>
-          </a>
+          <img src="/rsx/logo.svg" alt="" style="width:110px">
           <nav class="hidden md:flex flex items-center gap-x-6">
             <a
               href="/home"
