@@ -1,44 +1,7 @@
 @extends('layouts.main')
 
 @section('main')
-{{-- <main>
-  <div class="container-fluid sh-hero">
-    <div class="row sh-flex">
-      <div class="col-md-10 offset-md-2 " class='' >
-      </div>
-    </div>
-  </div>
-
-  <div class="container vh-70">
-    <div class="row mt-4">
-      <div class="col-md-12">
-        <h1 class="display-3">{{$fest->title}}</h1>
-      </div>
-    </div>
-  </div>
-</main>
-
-<style>
-  .sh-hero {
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url("{{$fest->image}}");
-    background-size: cover;
-    background-position: center;
-    height: 60vh;
-    position: relative;
-
-
-  }
-
-  .sh-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: start;
-  }
-</style> --}}
-
-
-<div class="container py-5">
+{{-- <div class="container py-5">
   <!-- Hero Section -->
   <div class="row mb-5">
       <div class="col-lg-8 mx-auto text-center">
@@ -256,51 +219,197 @@
   </div>
 </div>
 </div>
+ --}}
+
+
+ <div class="festival-page">
+    <!-- Hero Section -->
+    <div class="relative h-[90vh] bg-black">
+      <img src="{{$fest->image}}" alt="Event Cover" class="w-full h-full object-cover opacity-75">
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 text-white p-8">
+        <div class="container mx-auto">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4">{{$fest->title}}</h1>
+          <div class="flex items-center space-x-4">
+            <span class="bg-purple-600 text-sm px-3 py-1 rounded-full">
+              <i class="bi bi-geo-alt-fill mr-2"></i>{{$fest->location}}
+            </span>
+            <span class="bg-green-600 text-sm px-3 py-1 rounded-full">
+              <i class="bi bi-calendar-event mr-2"></i> {{ count($events) }} Events
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  <!-- Main Content -->
+  <div class="container py-5">
+      <div class="tab-content">
+          <!-- Overview Tab -->
+          <div class="tab-pane fade show active" id="overview">
+              <div class="row g-5">
+                  <div class="col-lg-8">
+                      <div class="content-card">
+                          <h3 class="section-title mb-4">Festival Details</h3>
+                          <div class="prose">
+                              {!! Str::markdown($fest->description) !!}
+                          </div>
+                      </div>
+                  </div> 
+                  <div class="col-lg-4">
+                      <div class="card mb-4">
+                          <div class="card-body">
+                              <h3 class="section-title">Organizer</h3>
+                              <div class="d-flex align-items-center mb-3">
+                                  <i class="bi bi-people fs-1 text-muted"></i>
+                                  <div class="flex-grow-1 ms-3">
+                                      <p class="mb-0">IUT Computer Society (IUTCS)</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>                                
+              </div>
+          </div>
+
+          <!-- Events Tab -->
+          <div>
+              <div class="d-flex justify-content-between align-items-center mb-4 mt-10">
+                  <h3 class="section-title">Featured Events</h3>
+                  @if(session('role') == 'admin')
+                  <a href="/admin/fest/{{$fest->id}}/event/create" class="btn btn-dark">
+                      <i class="bi bi-plus-circle me-2"></i>Add New Event
+                  </a>
+                  @endif
+              </div>
+
+              <div class="row g-4">
+                  @if(count($events) > 0)
+                      @foreach($events as $event)
+                        <div class="col-md-6 col-lg-4">
+                          <div class="event-card shadow-lg hover-lift transform transition-transform duration-300 hover:scale-105">
+                          <div class="event-image relative overflow-hidden rounded-t-lg">
+                            <img src="{{ $event->image }}" alt="{{ $event->title }}" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-75"></div>
+                            <div class="absolute bottom-2 left-2 text-white text-sm bg-purple-600 px-2 py-1 rounded">
+                            {{ \Carbon\Carbon::parse($event->start_date)->format('M j, Y') }}
+                            </div>
+                            <div class="absolute bottom-2 right-2 text-white text-sm bg-green-600 px-2 py-1 rounded">
+                            {{ Str::limit($event->location, 25) }}
+                            </div>
+                            <div class="absolute top-2 right-2 text-white text-sm bg-indigo-600 px-2 py-1 rounded">
+                            BDT {{ $event->registration_fee }}
+                            </div>
+                          </div>
+                          <div class="event-body p-4 bg-white rounded-b-lg">
+                            <h4 class="event-title text-lg font-semibold text-gray-800 mb-2">
+                            {{ Str::limit($event->title, 40) }}
+                            </h4>
+                            <div class="d-grid">
+                            <a href="/fest/{{$fest->id}}/event/{{$event->id}}" 
+                               class="btn btn-lg btn-dark w-100">
+                              View Event Page
+                            </a>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      @endforeach
+                  @else
+                      <div class="col-12">
+                          <div class="empty-state">
+                              <i class="bi bi-calendar-x"></i>
+                              <p>No events announced yet</p>
+                              @if(session('role') == 'admin')
+                              <a href="/admin/fest/{{$fest->id}}/event/create" class="btn btn-dark mt-3">
+                                  Create First Event
+                              </a>
+                              @endif
+                          </div>
+                      </div>
+                  @endif
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 <style>
+.hero-section {
+  height: 70vh;
+  min-height: 600px;
+  background: linear-gradient(45deg, #0f172a, #1e293b);
+}
+
+.gradient-overlay {
+  background: linear-gradient(to top, rgba(15, 23, 42, 1) 10%, rgba(15, 23, 42, 0.2) 100%);
+  z-index: 1;
+}
+
 .hero-image {
-        max-height: 500px;
-        overflow: hidden;
-    }
-    
-    .hero-image img {
-        object-fit: cover;
-        height: 100%;
-    }
-    
-    .card {
-        border: none;
-        border-radius: 12px;
-    }
-    
-    .content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-    }
-    
-    .event-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    
-    .event-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-    }
-    
-    .event-image {
-        height: 180px;
-        overflow: hidden;
-    }
-    
-    .event-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.event-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.event-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-title {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  min-height: 3rem;
+}
+
+.event-meta {
+  margin-bottom: auto;
+}
+
+.meta-item {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem;
+  color: #64748b;
+  border: 2px dashed #e2e8f0;
+  border-radius: 12px;
+}
 </style>
 
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 @endsection
