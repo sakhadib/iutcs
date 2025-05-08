@@ -58,3 +58,7 @@ Route::get('/profile/{user_id}', [ProfileController::class, 'viewProfile']);
 
 Route::get('/admin/fests/create', [AdminController::class, 'showCreateFestPage']);
 Route::post('/admin/fests/create', [AdminController::class, 'createFest']);
+
+
+Route::get('admin/fest/{fest}/event/create', [AdminController::class, 'showCreateEventPage']);
+Route::post('/admin/fest/{fest}/event/create', [AdminController::class, 'createEvent']);

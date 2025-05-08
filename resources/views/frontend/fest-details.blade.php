@@ -173,7 +173,7 @@
 
           @if(session('role') == 'admin')
           <div class="d-flex justify-content-center mb-3">
-              <a href="admin/events/create" class="btn btn-dark">Create New Event</a>
+              <a href="/admin/fest/{{$fest->id}}/event/create" class="btn btn-dark">Create New Event</a>
           </div>
           @endif
       </div>
@@ -186,25 +186,25 @@
       @if(count($events) > 0)
           <div class="row g-4">
               @foreach($events as $event)
-              <div class="col-md-6">
+              <div class="col-md-4">
                   <div class="card h-100 border-0 shadow-sm event-card">
                       @if($event->image)
                       <div class="event-image">
-                          <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" alt="{{ $event->title }}">
+                          <img src="{{$event->image}}" class="card-img-top" alt="{{ $event->title }}">
                       </div>
                       @endif
                       <div class="card-body">
-                          <h3 class="h5 card-title">{{ $event->title }}</h3>
+                          <h3 class="h4 card-title mb-3">{{ $event->title }}</h3>
                           
                           <div class="d-flex align-items-center mb-2">
                               <i class="bi bi-calendar-event me-2 text-muted"></i>
-                              <small>{{ $event->start_date->format('M j, Y g:i A') }}</small>
+                                <small>Starts : {{ \Carbon\Carbon::parse($event->start_date)->format('M j, Y g:i A') }}</small>
                           </div>
                           
                           @if($event->end_date)
                           <div class="d-flex align-items-center mb-2">
                               <i class="bi bi-calendar-x me-2 text-muted"></i>
-                              <small>Ends: {{ $event->end_date->format('M j, Y g:i A') }}</small>
+                                <small>Ends: {{ \Carbon\Carbon::parse($event->end_date)->format('M j, Y g:i A') }}</small>
                           </div>
                           @endif
                           
@@ -233,14 +233,13 @@
                               
                               @if($event->registration_fee)
                               <div class="registration-fee">
-                                  <i class="bi bi-currency-rupee me-1 text-muted"></i>
-                                  <small>{{ $event->registration_fee }}</small>
+                                  <small>BDT {{ $event->registration_fee }}</small>
                               </div>
                               @endif
                           </div>
                           
                           <div class="d-grid gap-2">
-                              <a href="{{ route('events.show', $event->id) }}" class="btn btn-sm btn-outline-primary">
+                              <a href="/fest/{{$fest->id}}/event/{{$event->id}}" class="btn btn-lg btn-outline-dark">
                                   View Details
                               </a>
                           </div>

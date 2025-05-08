@@ -14,9 +14,9 @@ class Event extends Model
         return $this->belongsTo(Fest::class);
     }
 
-    public function registrationLogs()
+    public function participants()
     {
-        return $this->hasMany(RegistrationLog::class);
+        return $this->hasMany(EventRegistrationLog::class);
     }
 
     public function registrationQuestionAnswers()
