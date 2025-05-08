@@ -224,21 +224,21 @@
 
  <div class="festival-page">
     <!-- Hero Section -->
-    <div class="relative h-[90vh] bg-black">
-      <img src="{{$fest->image}}" alt="Event Cover" class="w-full h-full object-cover opacity-75">
+    <div class="relative h-[80vh] bg-black">
+      <img src="{{$fest->image}}" alt="Event Cover" class="w-full h-full object-cover opacity-75 bg-fixed">
       <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
       <div class="absolute bottom-0 left-0 right-0 text-white p-8">
-        <div class="container mx-auto">
-          <h1 class="text-4xl md:text-6xl font-bold mb-4">{{$fest->title}}</h1>
-          <div class="flex items-center space-x-4">
-            <span class="bg-purple-600 text-sm px-3 py-1 rounded-full">
-              <i class="bi bi-geo-alt-fill mr-2"></i>{{$fest->location}}
-            </span>
-            <span class="bg-green-600 text-sm px-3 py-1 rounded-full">
-              <i class="bi bi-calendar-event mr-2"></i> {{ count($events) }} Events
-            </span>
-          </div>
+      <div class="container mx-auto">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">{{$fest->title}}</h1>
+        <div class="flex items-center space-x-4">
+        <span class="bg-purple-600 text-sm px-3 py-1 rounded-full">
+          <i class="bi bi-geo-alt-fill mr-2"></i>{{$fest->location}}
+        </span>
+        <span class="bg-green-600 text-sm px-3 py-1 rounded-full">
+          <i class="bi bi-calendar-event mr-2"></i> {{ count($events) }} Events
+        </span>
         </div>
+      </div>
       </div>
     </div>
 
@@ -250,27 +250,14 @@
           <!-- Overview Tab -->
           <div class="tab-pane fade show active" id="overview">
               <div class="row g-5">
-                  <div class="col-lg-8">
+                  <div class="col-lg-12">
                       <div class="content-card">
                           <h3 class="section-title mb-4">Festival Details</h3>
                           <div class="prose">
                               {!! Str::markdown($fest->description) !!}
                           </div>
                       </div>
-                  </div> 
-                  <div class="col-lg-4">
-                      <div class="card mb-4">
-                          <div class="card-body">
-                              <h3 class="section-title">Organizer</h3>
-                              <div class="d-flex align-items-center mb-3">
-                                  <i class="bi bi-people fs-1 text-muted"></i>
-                                  <div class="flex-grow-1 ms-3">
-                                      <p class="mb-0">IUT Computer Society (IUTCS)</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>                                
+                  </div>                     
               </div>
           </div>
 
