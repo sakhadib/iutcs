@@ -72,3 +72,8 @@ Route::post('/admin/fests/create', [AdminController::class, 'createFest']);
 
 Route::get('admin/fest/{fest}/event/create', [AdminController::class, 'showCreateEventPage']);
 Route::post('/admin/fest/{fest}/event/create', [AdminController::class, 'createEvent']);
+
+Route::get('/admin/fest/{fest}/event/{event}/form', [AdminController::class, 'showFormBuilderPage']);
+
+Route::post('admin/questions/add', [AdminController::class, 'addQuestion']);
+Route::get('admin/questions/delete/{questionId}', [AdminController::class, 'deleteQuestion']);

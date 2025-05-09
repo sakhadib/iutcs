@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Fest;
 use App\Models\Event;
+use App\Models\RegistrationQuestionField;
 
 class AdminController extends Controller
 {
@@ -157,5 +158,83 @@ class AdminController extends Controller
         $event->save();
 
         return redirect('/event/'. $event->id);
+    }
+
+
+
+    // Form Builder
+    public function showFormBuilderPage($festId, $eventId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $fest = Fest::find($festId);
+        if (!$fest) {
+            return redirect('/404')->with('error', 'Fest not found.');
+        }
+
+        $event = Event::find($eventId);
+        if (!$event) {
+            return redirect('/404')->with('error', 'Event not found.');
+        }
+        if ($event->fest_id != $festId) {
+            return redirect('/404')->with('error', 'Event does not belong to this fest.');
+        }
+
+        // Fetch existing questions for the event
+        $questions = RegistrationQuestionField::where('event_id', $eventId)->get();
+
+        return view('admin.form_builder', ['fest' => $fest, 'event' => $event, 'questions' => $questions]);
+    }
+
+
+    public function addQuestion(Request $request)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $request->validate([
+            'question' => 'required|string|max:255',
+            'type' => 'required|string|in:text,radio,checkbox',
+            'options' => 'nullable|string',
+        ]);
+
+        $question = new RegistrationQuestionField();
+        $question->question = $request->input('question');
+        $question->type = $request->input('type');
+        $question->options = $request->input('options');
+        $question->event_id = $request->input('event_id');
+
+        // Handle the logic for saving the question to the database
+        $question->save();        
+
+        return redirect()->back()->with('success', 'Question added successfully!');
+    }
+
+
+    public function deleteQuestion($questionId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $question = RegistrationQuestionField::find($questionId);
+        if ($question) {
+            $question->delete();
+            return redirect()->back()->with('success', 'Question deleted successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Question not found.');
+        }
     }
 }
