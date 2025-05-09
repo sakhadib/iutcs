@@ -9,6 +9,7 @@ use App\Http\Controllers\FestsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\ParticipantRegisterController;
 
 use App\Http\Controllers\AdminController;
 
@@ -41,6 +42,7 @@ Route::get('/fest/{fest}', [FestsController::class, 'festDetails']);
 Route::get('fest/{fest}/event/{event}', [EventController::class, 'showEventPage']);
 
 Route::get('fest/{fest}/event/{event}/register', [EventController::class, 'eventRegistration']);
+Route::post('fest/{fest}/event/{event}/register', [ParticipantRegisterController::class, 'registerParticipant']);
 
 
 Route::get('/profile/{user_id}', [ProfileController::class, 'viewProfile']);
@@ -74,6 +76,7 @@ Route::get('admin/fest/{fest}/event/create', [AdminController::class, 'showCreat
 Route::post('/admin/fest/{fest}/event/create', [AdminController::class, 'createEvent']);
 
 Route::get('/admin/fest/{fest}/event/{event}/form', [AdminController::class, 'showFormBuilderPage']);
+
 
 Route::post('admin/questions/add', [AdminController::class, 'addQuestion']);
 Route::get('admin/questions/delete/{questionId}', [AdminController::class, 'deleteQuestion']);
