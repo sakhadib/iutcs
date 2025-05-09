@@ -88,7 +88,7 @@
                                     </button>
                                     @endif
                                 </div>
-                                <div class="prose text-muted">
+                                <div class="prose text-muted text-justify">
                                     {!!  Str::markdown($team->description) !!}
                                 </div>
                             </div>

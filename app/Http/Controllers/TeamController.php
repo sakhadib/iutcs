@@ -19,6 +19,16 @@ class TeamController extends Controller
         $teams = Team::where('team_lead', session('user_id'))
                      ->withCount('members')
                      ->get();
+
+        $other_team_ids = TeamMember::where('user_id', session('user_id'))
+                                        ->pluck('team_id')
+                                        ->toArray();
+        $other_teams = Team::whereIn('id', $other_team_ids)
+                            ->withCount('members')
+                            ->get();
+        $teams = $teams->merge($other_teams);
+        $teams = $teams->sortByDesc('created_at');
+        $teams = $teams->values()->all();
         
         return view('frontend.team',[
             'teams' => $teams,
