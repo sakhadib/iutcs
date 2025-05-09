@@ -16,6 +16,9 @@
                   <span class="bg-green-600 text-sm px-3 py-1 rounded-full">
                       <i class="bi bi-trophy mr-2"></i>Prize Pool: {{ $object['event']['prizes'] ? 'Available' : 'N/A' }}
                   </span>
+                  @if(session('role') == 'admin')
+                        <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/form" class="btn btn-outline-light btn-sm">Edit Form</a>
+                  @endif
               </div>
           </div>
       </div>
