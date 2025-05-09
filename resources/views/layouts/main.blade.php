@@ -1,4 +1,4 @@
-@if(session('role') == 'admin')
+@if(session('user_id'))
     @include('layouts.admin-header')
 @else
     @include('layouts.header')

@@ -55,6 +55,12 @@
               Fests
             </a>
             <a
+              href="/teams"
+              class="nav-link py-2 hover:text-cyan transition-colors"
+            >
+              Teams
+            </a>
+            <a
               href="/about"
               class="nav-link py-2 hover:text-cyan transition-colors"
             >

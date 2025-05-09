@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FestsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeamController;
 
 use App\Http\Controllers\AdminController;
 
@@ -43,6 +44,12 @@ Route::get('fest/{fest}/event/{event}/register', [EventController::class, 'event
 
 
 Route::get('/profile/{user_id}', [ProfileController::class, 'viewProfile']);
+
+
+Route::get('/teams', [TeamController::class, 'showTeamPage']);
+Route::get('/team/create', [TeamController::class, 'showCreateTeamPage']);
+Route::post('/teams/store', [TeamController::class, 'storeTeam']);
+Route::get('/team/show/{team_id}', [TeamController::class, 'showTeamDetails']);
 
 
 
