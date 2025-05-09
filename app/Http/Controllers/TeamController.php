@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Team;
+use App\Models\TeamMember;
 
 class TeamController extends Controller
 {
@@ -14,8 +15,14 @@ class TeamController extends Controller
         if(!session('user_id')){
             return redirect('/404');
         }
+
+        $teams = Team::where('team_lead', session('user_id'))
+                     ->withCount('members')
+                     ->get();
         
-        return view('frontend.team');
+        return view('frontend.team',[
+            'teams' => $teams,
+        ]);
     }
 
     public function showCreateTeamPage()
@@ -48,7 +55,44 @@ class TeamController extends Controller
         $team->team_lead = session('user_id');
         $team->save();
 
+        $team_member = new TeamMember();
+        $team_member->user_id = session('user_id');
+        $team_member->team_id = $team->id;
+        $team_member->role = 'team-lead';
+        $team_member->save();
+
         return redirect('/team/show/'.$team->id);
+    }
+
+
+    public function editTeam(Request $request)
+    {
+        if(!session('user_id')){
+            return redirect('/404');
+        }
+        
+        $request->validate([
+            'team_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'color' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $team = Team::find($request->team_id);
+        if(!$team){
+            return redirect('/404');
+        }
+
+        if($team->team_lead != session('user_id')){
+            return redirect('/404');
+        }
+
+        $team->name = $request->name;
+        $team->color = $request->color;
+        $team->description = $request->description;
+        $team->save();
+
+        return redirect()->back()->with('success', 'Team updated successfully');
     }
 
 
@@ -63,11 +107,94 @@ class TeamController extends Controller
             return redirect('/404');
         }
 
-        // $members = User::where('team_id', $team_id)->get();
+        $team_members = TeamMember::where('team_id', $team_id)
+                                  ->with('user')
+                                  ->get();
+
+        $user_emails = User::all(['id', 'email']);
+
+        $obejects = [
+            'team' => $team,
+            'team_members' => $team_members,
+            'user_emails' => $user_emails,
+        ];
 
         return view('frontend.team_details',[
-            'team' => $team,
-            // 'members' => $members,
+            'objects' => $obejects,
         ]);
+    }
+
+
+
+    public function addMember(Request $request)
+    {
+        if(!session('user_id')){
+            return redirect('/404');
+        }
+        
+        $request->validate([
+            'email' => 'required|email',
+            'team_id' => 'required|integer',
+            'role' => 'required|string',
+        ]);
+
+        $team = Team::find($request->team_id);
+        if(!$team){
+            return redirect('/404');
+        }
+
+        if($team->team_lead != session('user_id')){
+            return redirect('/404');
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if(!$user){
+            return redirect()->back()->withErrors(['email' => 'User not found']);
+        }
+
+        if(TeamMember::where('user_id', $user->id)->where('team_id', $request->team_id)->exists()){
+            return redirect('/404');
+        }
+
+        $team_member = new TeamMember();
+        $team_member->user_id = $user->id;
+        $team_member->team_id = $request->team_id;
+        $team_member->role = $request->role;
+        $team_member->save();
+
+        return redirect()->back()->with('success', 'Member added successfully');
+    }
+
+
+    public function removeMember(Request $request)
+    {
+        if(!session('user_id')){
+            return redirect('/404');
+        }
+        
+        $request->validate([
+            'team_member_id' => 'required|integer',
+            'team_id' => 'required|integer',
+        ]);
+
+        $team = Team::find($request->team_id);
+        if(!$team){
+            return redirect('/404');
+        }
+
+        if($team->team_lead != session('user_id')){
+            return redirect('/404');
+        }
+
+        $team_member = TeamMember::where('id', $request->team_member_id)
+                                 ->where('team_id', $request->team_id)
+                                 ->first();
+        if(!$team_member){
+            return redirect('/404');
+        }
+
+        $team_member->delete();
+
+        return redirect()->back()->with('success', 'Member removed successfully');
     }
 }

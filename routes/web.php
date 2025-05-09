@@ -49,7 +49,10 @@ Route::get('/profile/{user_id}', [ProfileController::class, 'viewProfile']);
 Route::get('/teams', [TeamController::class, 'showTeamPage']);
 Route::get('/team/create', [TeamController::class, 'showCreateTeamPage']);
 Route::post('/teams/store', [TeamController::class, 'storeTeam']);
+Route::post('team/edit', [TeamController::class, 'editTeam']);
 Route::get('/team/show/{team_id}', [TeamController::class, 'showTeamDetails']);
+Route::post('team/add/member', [TeamController::class, 'addMember']);
+Route::post('team/remove/member', [TeamController::class, 'removeMember']);
 
 
 
