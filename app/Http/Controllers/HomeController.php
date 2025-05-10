@@ -14,8 +14,13 @@ class HomeController extends Controller
         $recentFest = Fest::orderBy('created_at', 'desc')
                           ->first();
 
-        $event_count = Event::where('fest_id', $recentFest->id)
-                          ->count();
+        if ($recentFest) {
+            $event_count = Event::where('fest_id', $recentFest->id)
+                            ->count();
+        }
+        else{
+            $event_count = 0;
+        }
         
         return view('frontend.home',[
             'featuredFest' => $recentFest,

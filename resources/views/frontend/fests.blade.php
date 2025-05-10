@@ -10,6 +10,7 @@
 
         <div class="flex flex-col gap-y-2">
           <!-- ONGOING FESTS -->
+          
             <section class="mt-2 flex items-center justify-between">
             <h2
               class="text-2xl font-bold mb-6 flex items-center text-left"
@@ -26,7 +27,8 @@
               </a>
             @endif
             </section>
-
+            
+            @if($ongoing_fest)
             <div class="grid grid-cols-1 gap-6 mt-6">
               <!-- FEST CARD -->
               <div
@@ -70,8 +72,8 @@
               </div>
               </div>
             </div>
-            </section>
-
+          </section>
+          @endif
           {{-- <section class="mt-20">
             <h2
               class="text-2xl font-bold mb-6 flex items-center justify-center"

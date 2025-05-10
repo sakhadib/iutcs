@@ -34,6 +34,8 @@
         </div>
       </section>
 
+      @if($featuredFest)
+
       <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
           <div class="text-center mb-12">
@@ -92,6 +94,7 @@
           </div>
         </div>
       </section>
+      @endif
     </div>
   </main>
 
