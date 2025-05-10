@@ -58,7 +58,7 @@ Route::post('team/add/member', [TeamController::class, 'addMember']);
 Route::post('team/remove/member', [TeamController::class, 'removeMember']);
 
 
-
+Route::get('/about', [HomeController::class, 'showAboutPage']);
 
 
 
@@ -91,6 +91,7 @@ Route::get('admin/questions/delete/{questionId}', [AdminController::class, 'dele
 Route::get('admin/event/{id}/report', [EventReportController::class, 'generate']);
 Route::get('admin/event/{id}/summary', [EventReportController::class, 'generateEventSummaryReport']);
 Route::get('admin/event/{id}/csv', [EventReportController::class, 'exportRegistrationQnAAsCSV']);
+
 
 
 

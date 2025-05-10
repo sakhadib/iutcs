@@ -22,4 +22,10 @@ class HomeController extends Controller
             'event_count' => $event_count,
         ]);
     }
+
+
+    public function showAboutPage()
+    {
+        return view('frontend.about');
+    }
 }
