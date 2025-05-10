@@ -40,6 +40,23 @@
       <div class="container mx-auto">
         <div class="flex justify-between items-center">
           <img src="/rsx/logo.svg" alt="" style="width:70px">
+          <!-- Mobile menu toggle button -->
+          <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          </button>
           <nav class="hidden md:flex flex items-center gap-x-6">
             <a
               href="/home"
@@ -75,5 +92,25 @@
             </div>
           </nav>
         </div>
+        <!-- Mobile menu: hidden by default and toggled via button -->
+        <nav id="mobile-menu" class="mt-4 flex-col gap-y-4 hidden md:hidden">
+          <a href="/home" class="block nav-link py-2 hover:text-cyan transition-colors">Home</a>
+          <a href="/fests" class="block nav-link py-2 hover:text-cyan transition-colors">Fests</a>
+          <a href="/about" class="block nav-link py-2 hover:text-cyan transition-colors">About</a>
+          <div class="flex flex-col items-start space-y-2 ml-0">
+            <a href="/login" class="nav-link py-2 hover:text-cyan transition-colors">
+              login            
+            </a>
+            <a href="/signup" class="bg-transparent border-2 border-cyan hover:bg-cyan/10 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+              signup
+            </a>
+          </div>
+        </nav>
       </div>
     </header>
+     <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        var mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+        });
+     </script>
