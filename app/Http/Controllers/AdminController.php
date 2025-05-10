@@ -322,6 +322,12 @@ class AdminController extends Controller
                     ->with(['leader', 'members'])
                     ->first();
 
+        $reglog = EventRegistrationLog::where('team_id', $teamId)
+                    ->where('event_id', $eventId)
+                    ->first();
+
+        $team->registration_log = $reglog;
+
         if (!$team) {
             return redirect('/404')->with('error', 'Team not found.');
         }
@@ -350,6 +356,67 @@ class AdminController extends Controller
             'team' => $team,
             'questions' => $ques,
         ]);
+    }
+
+
+
+    public function approveTeam($festId, $eventId, $teamId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $team = Team::find($teamId);
+        if (!$team) {
+            return redirect('/404')->with('error', 'Team not found.');
+        }
+
+        $reglog = EventRegistrationLog::where('team_id', $teamId)
+                    ->where('event_id', $eventId)
+                    ->first();
+
+        if(!$reglog)
+        {
+            return redirect('/404')->with('error', 'Registration log not found.');
+        }
+
+        $reglog->status = 'approved';
+        $reglog->save();
+
+        return redirect()->back()->with('success', 'Team approved successfully!');
+    }
+
+
+    public function rejectTeam($festId, $eventId, $teamId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $team = Team::find($teamId);
+        if (!$team) {
+            return redirect('/404')->with('error', 'Team not found.');
+        }
+
+        $reglog = EventRegistrationLog::where('team_id', $teamId)
+                    ->where('event_id', $eventId)
+                    ->first();
+
+        if(!$reglog)
+        {
+            return redirect('/404')->with('error', 'Registration log not found.');
+        }
+
+        $reglog->status = 'rejected';
+        $reglog->save();
+
+        return redirect()->back()->with('success', 'Team rejected successfully!');
     }
     
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ParticipantRegisterController;
+use App\Http\Controllers\EventReportController;
 
 use App\Http\Controllers\AdminController;
 
@@ -77,8 +78,31 @@ Route::post('/admin/fest/{fest}/event/create', [AdminController::class, 'createE
 
 Route::get('/admin/fest/{fest}/event/{event}/form', [AdminController::class, 'showFormBuilderPage']);
 Route::get('/admin/fest/{fest}/event/{event}/participants', [AdminController::class, 'ShowParticipantsPage']);
-Route::get('/admin/fest/{fest}/event/{event}/teams/{team}', [AdminController::class, 'individualTeamDetails']);
+Route::get('/admin/fest/{fest}/event/{event}/team/{team}', [AdminController::class, 'individualTeamDetails']);
+
+Route::post('/admin/fest/{fest}/event/{event}/team/{team}/approve', [AdminController::class, 'approveTeam']);
+Route::post('/admin/fest/{fest}/event/{event}/team/{team}/reject', [AdminController::class, 'rejectTeam']);
 
 
 Route::post('admin/questions/add', [AdminController::class, 'addQuestion']);
 Route::get('admin/questions/delete/{questionId}', [AdminController::class, 'deleteQuestion']);
+
+// web.php
+Route::get('admin/event/{id}/report', [EventReportController::class, 'generate']);
+Route::get('admin/event/{id}/summary', [EventReportController::class, 'generateEventSummaryReport']);
+Route::get('admin/event/{id}/csv', [EventReportController::class, 'exportRegistrationQnAAsCSV']);
+
+
+
+
+
+
+
+
+
+
+//! Fallback route
+
+Route::fallback(function () {
+    return view('frontend.404');
+});

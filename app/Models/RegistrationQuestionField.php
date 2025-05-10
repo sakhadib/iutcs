@@ -16,6 +16,6 @@ class RegistrationQuestionField extends Model
 
     public function registrationQuestionAnswers()
     {
-        return $this->hasMany(RegistrationQuestionAnswer::class);
+        return $this->hasMany(EventRegQuestionAnswer::class);
     }
 }

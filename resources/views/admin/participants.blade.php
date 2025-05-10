@@ -17,17 +17,17 @@
 
         <div class="row mt-4 g-3">
             <div class="col-auto">
-                <a href="#" class="btn btn-outline-dark shadow-sm">
+                <a href="/admin/event/{{$event->id}}/report" class="btn btn-outline-dark shadow-sm">
                     <i class="bi bi-printer me-2"></i>Print Report
                 </a>
             </div>
             <div class="col-auto">
-                <a href="#" class="btn btn-outline-danger shadow-sm">
+                <a href="/admin/event/{{$event->id}}/summary" class="btn btn-outline-danger shadow-sm">
                     <i class="bi bi-file-earmark-pdf me-2"></i>PDF Summary
                 </a>
             </div>
             <div class="col-auto">
-                <a href="#" class="btn btn-outline-success shadow-sm">
+                <a href="/admin/event/{{$event->id}}/csv" class="btn btn-outline-success shadow-sm">
                     <i class="bi bi-file-earmark-spreadsheet me-2"></i>Export CSV
                 </a>
             </div>
@@ -51,7 +51,7 @@
                                 @forelse($teams as $team)
                                 <tr class="border-top">
                                     <td class="px-4">
-                                        <a href="/admin/fests/{{ $fest->id }}/events/{{ $event->id }}/teams/{{ $team->id }}" 
+                                        <a href="/admin/fest/{{ $fest->id }}/event/{{ $event->id }}/team/{{ $team->id }}" 
                                            class="text-decoration-none text-dark fw-semibold">
                                             {{ $team->name }}
                                         </a>
@@ -92,7 +92,7 @@
                                         @if($team->registration_log->status !== 'approved')
                                             <div class="d-flex justify-content-end gap-2">
                                                 <form method="POST" 
-                                                      action="/admin/fests/{{ $fest->id }}/events/{{ $event->id }}/teams/{{ $team->id }}/approve">
+                                                      action="/admin/fest/{{ $fest->id }}/event/{{ $event->id }}/team/{{ $team->id }}/approve">
                                                     @csrf
                                                     <button type="submit" 
                                                             class="btn btn-sm btn-outline-success rounded-pill px-3">
@@ -101,7 +101,7 @@
                                                 </form>
                                                 
                                                 <form method="POST" 
-                                                      action="/admin/fests/{{ $fest->id }}/events/{{ $event->id }}/teams/{{ $team->id }}/reject">
+                                                      action="/admin/fest/{{ $fest->id }}/event/{{ $event->id }}/team/{{ $team->id }}/reject">
                                                     @csrf
                                                     <button type="submit" 
                                                             class="btn btn-sm btn-outline-danger rounded-pill px-3">

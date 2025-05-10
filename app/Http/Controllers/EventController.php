@@ -89,7 +89,7 @@ class EventController extends Controller
 
         $me = User::where('id', session('user_id'))->first();
         if(!$me) {
-            return redirect('/404');
+            return redirect('/login');
         }
 
         $my_teams = Team::where('team_lead', session('user_id'))
