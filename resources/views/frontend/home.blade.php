@@ -18,13 +18,13 @@
             </p>
             <div class="flex flex-wrap gap-4">
               <a
-                href="/"
+                href="/fests"
                 class="bg-red hover:bg-red/90 text-white px-6 py-3 rounded-md font-medium transition-colors"
               >
                 Explore Fests
               </a>
               <a
-                href="/"
+                href="/about"
                 class="bg-transparent border-2 border-cyan hover:bg-cyan/10 text-white px-6 py-3 rounded-md font-medium transition-colors"
               >
                 About Us
@@ -47,11 +47,15 @@
           <div
             class="bg-gray-50 rounded-xl overflow-hidden shadow-lg max-w-4xl mx-auto"
           >
-            <div class="h-64 bg-red relative">
+            <div class="h-80 bg-red relative">
               <div
                 class="absolute inset-0 flex items-center justify-center text-white text-xl font-bold"
               >
-                Image
+                <img
+                  src="{{ asset($featuredFest->image) }}"
+                  alt="Featured Fest"
+                  class="w-full h-full object-cover"
+                />
               </div>
             </div>
             <div class="p-6 md:p-8">
@@ -59,27 +63,26 @@
                 <span
                   class="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm font-medium flex items-center"
                 >
-                  Ongoing
+                <i class="bi bi-geo-alt-fill mr-2"></i>
+                  {{ $featuredFest->location }}
                 </span>
                 <span
                   class="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm font-medium flex items-center"
                 >
-                  IUT Campus
+                  <i class="bi bi-calendar-fill mr-2"></i>
+                    {{ \Carbon\Carbon::parse($featuredFest->start_date)->format('d M Y') }} - {{ \Carbon\Carbon::parse($featuredFest->end_date)->format('d M Y') }}
                 </span>
               </div>
-              <h3 class="text-2xl font-bold mb-3">ICT Fest 2025</h3>
-              <p class="text-gray-600 mb-6">
-                The Xth ICT Fest brings together students from universities
-                across the country to compete in various technology-focused
-                events, from programming contests to hackathons and gaming
-                competitions.
+              <h3 class="text-2xl font-bold mb-3">{{$featuredFest->title}}</h3>
+              <p class="text-gray-600 mb-6 text-justify">
+                {{$featuredFest->description}}
               </p>
               <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                  <span class="text-gray-700">15+ Events</span>
+                  <span class="text-gray-700">{{$event_count}} Events</span>
                 </div>
                 <a
-                  href="./fest/fest.html"
+                  href="/fest/{{$featuredFest->id}}"
                   class="flex items-center text-red font-medium hover:underline"
                 >
                   View Details

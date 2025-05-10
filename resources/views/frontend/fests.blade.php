@@ -72,7 +72,7 @@
             </div>
             </section>
 
-          <section class="mt-20">
+          {{-- <section class="mt-20">
             <h2
               class="text-2xl font-bold mb-6 flex items-center justify-center"
             >
@@ -180,7 +180,7 @@
                 </div>
               </div>
             </div>
-          </section>
+          </section> --}}
         </div>
       </div>
     </div>
