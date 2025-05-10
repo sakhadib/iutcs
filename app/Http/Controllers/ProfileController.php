@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\userInfo;
 
 class ProfileController extends Controller
 {
@@ -19,10 +21,18 @@ class ProfileController extends Controller
             return redirect('/home')->with('error', 'User not found.');
         }
 
+        $userInfo = userInfo::where('user_id', $user_id)
+                    ->first();
+
+        $team_count = TeamMember::where('user_id', $user_id)
+                    ->count();
+
         // Pass the user data to the profile view
         return view('frontend.profile', 
-                [
-                    'user' => $user
-                ]);
+        [
+            'user' => $user,
+            'userInfo' => $userInfo,
+            'team_count' => $team_count,
+        ]);
     }
 }

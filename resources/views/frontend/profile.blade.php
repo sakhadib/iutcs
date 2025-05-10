@@ -1,108 +1,137 @@
 @extends('layouts.main')
 @section('main')
 
-<div class="container py-5">
-    <!-- Header -->
-    <div class="profile-header d-flex align-items-center">
-      <div class="me-4">
-        <img src="https://avatar.iran.liara.run/public/{{$user->userInfo->gender}}?username={{ explode('@', $user->email)[0] }}" alt="Avatar" class="avatar-img">
-      </div>
-      <div>
-        <h2 class="mb-1">{{$user->name}}</h2>
-        <p class="mb-1"><strong>{{$user->student_id}}</strong></p>
-        <p class="mb-0">{{$user->university}}</p>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <!-- Profile Header -->
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <!-- Cover Photo -->
+    <div class="h-32 bg-gradient-to-r from-blue-100 to-indigo-100 relative">
+      <div class="absolute -bottom-16 left-6">
+        <img src="https://avatar.iran.liara.run/public/{{ $user->userInfo->gender }}?username={{ explode('@', $user->email)[0] }}"
+           alt="Avatar"
+           class="w-32 h-32 rounded-full border-4 border-white shadow-lg">
       </div>
     </div>
-  
-    <!-- Bio and Contact Info -->
-    <div class="row mt-4">
-      <div class="col-lg-12 mb-3">
-        <div class="card p-4 info-card">
-          <h5>Bio</h5>
-          <p>{{$user->userInfo->bio}}</p>
+
+    <!-- Profile Info -->
+    <div class="pt-20 px-6 pb-6">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="text-2xl font-bold text-gray-800">{{ $user->name }}</h1>
+        <span class="text-sm px-3 py-1 rounded-full bg-blue-100 text-blue-800">{{ $user->batch ?? 'Batch not set' }}</span>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-6">
+        <div class="flex items-center gap-2">
+          <i class="bi bi-person-badge text-gray-500"></i>
+          <span>{{ $user->student_id }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="bi bi-building text-gray-500"></i>
+          <span>{{ $user->university ?? 'University not set' }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="bi bi-gender-ambiguous text-gray-500"></i>
+          <span>{{ ucfirst($user->userInfo->gender ?? 'Not set') }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="bi bi-clock text-gray-500"></i>
+            <span>{{ $user->last_login ? \Carbon\Carbon::parse($user->last_login)->diffForHumans() : 'Never logged in' }}</span>
         </div>
       </div>
     </div>
-  
-    <!-- Additional Info -->
-    <div class="row">
-      <div class="col-lg-4 mb-3">
-        <div class="card p-4 info-card">
-          <h6 class="text-muted">Gender</h6>
-          <p class="mb-0">Boy</p>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-3">
-        <div class="card p-4 info-card">
-          <h6 class="text-muted">University</h6>
-          <p class="mb-0">
-            @if($user->university)
-                {{$user->university}}
-            @else
-                Not Set
-            @endif
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-3">
-        <div class="card p-4 info-card">
-          <h6 class="text-muted">Batch</h6>
-          <p class="mb-0">Not Set</p>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Events and Teams -->
-    <h4 class="section-title">Participated Events</h4>
-    <div class="card p-3 mb-4 info-card">
-      <p class="text-muted mb-0">No events participated yet.</p>
-    </div>
-  
-    <h4 class="section-title">Teams</h4>
-    <div class="card p-3 info-card">
-      <p class="text-muted mb-0">No teams joined yet.</p>
-    </div>
-  
   </div>
-  
 
+  <!-- Main Content -->
+  <div class="grid gap-6 md:grid-cols-3 mt-8">
+    <!-- Left Column -->
+    <div class="md:col-span-2 space-y-6">
+      <!-- Bio Section -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+          <i class="bi bi-pencil-square text-blue-600"></i>
+          About Me
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          {{ $user->userInfo->bio ?? 'No bio provided.' }}
+        </p>
+      </div>
 
-  <style>
-    body {
-      background-color: #f4f6f9;
-    }
-    .profile-header {
-      background: linear-gradient(to right, #4e54c8, #8f94fb);
-      color: white;
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .avatar-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-    .info-card {
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .section-title {
-      font-weight: 600;
-      margin-top: 30px;
-      margin-bottom: 15px;
-    }
-    .social-icons a {
-      margin-right: 15px;
-      font-size: 1.3rem;
-      color: #555;
-    }
-    .social-icons a:hover {
-      color: #4e54c8;
-    }
-  </style>
+      <!-- Contact Info -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+          <i class="bi bi-envelope text-blue-600"></i>
+          Contact Information
+        </h3>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <i class="bi bi-envelope text-gray-500 w-5"></i>
+            <a href="mailto:{{ $user->email }}" class="text-blue-600 hover:underline">{{ $user->email }}</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="bi bi-telephone text-gray-500 w-5"></i>
+            <span class="text-gray-600">Private</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="bi bi-geo-alt text-gray-500 w-5"></i>
+            <span class="text-gray-600">{{ $user->userInfo->address ?? 'Address not set' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Right Column -->
+    <div class="space-y-6">
+      <!-- Social Links -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+          <i class="bi bi-share text-blue-600"></i>
+          Social Profiles
+        </h3>
+        <div class="space-y-3">
+          @if($user->userInfo->website)
+          <a href="{{ $user->userInfo->website }}" target="_blank" class="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition-colors">
+            <i class="bi bi-globe w-5"></i>
+            <span class="truncate">Website</span>
+          </a>
+          @endif
+          
+          @if($user->userInfo->linkedin)
+          <a href="{{ $user->userInfo->linkedin }}" target="_blank" class="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition-colors">
+            <i class="bi bi-linkedin w-5"></i>
+            <span class="truncate">LinkedIn</span>
+          </a>
+          @endif
+          
+          @if($user->userInfo->github)
+          <a href="{{ $user->userInfo->github }}" target="_blank" class="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition-colors">
+            <i class="bi bi-github w-5"></i>
+            <span class="truncate">GitHub</span>
+          </a>
+          @endif
+
+          @if(!$user->userInfo->website && !$user->userInfo->linkedin && !$user->userInfo->github)
+          <p class="text-gray-500 text-sm">No social profiles added</p>
+          @endif
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+          <i class="bi bi-bar-chart text-blue-600"></i>
+          Stats
+        </h3>
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600">No. of Teams</span>
+            <span class="text-blue-600 font-medium">{{$team_count}}</span>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
 @endsection

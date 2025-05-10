@@ -42,6 +42,9 @@ class LoginController extends Controller
             'role' => $user->role,
         ]);
 
+        $user->last_login = now();
+        $user->save();
+
         // Redirect to the home page
         return redirect('/home')->with('success', 'Login successful.');
         

@@ -36,10 +36,10 @@
   </head>
   <body>
 
-    <header class="bg-navy text-white top-0 z-50 shadow-md px-4 py-6">
+    <header class="bg-navy sticky text-white top-0 z-50 shadow-md px-4 py-6">
       <div class="container mx-auto">
         <div class="flex justify-between items-center">
-          <img src="/rsx/logo.svg" alt="" style="width:110px">
+          <img src="/rsx/logo.svg" alt="" style="width:70px">
           <nav class="hidden md:flex flex items-center gap-x-6">
             <a
               href="/home"
