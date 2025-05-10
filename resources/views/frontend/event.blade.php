@@ -59,7 +59,7 @@
               <div class="tab-content" id="nav-tabContent">
                   <!-- Description Tab -->
                   <div class="tab-pane fade show active" id="nav-description" role="tabpanel">
-                      <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                      <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
                           <div class="prose max-w-none">
                               {{ $object['event']['description'] }}
                           </div>
@@ -68,7 +68,7 @@
 
                   <!-- Rules Tab -->
                   <div class="tab-pane fade" id="nav-rules" role="tabpanel">
-                      <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                      <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
                           <div class="prose max-w-none">
                               {!! Str::markdown($object['event']['rules']) !!}
                           </div>
@@ -77,7 +77,7 @@
 
                   <!-- Prizes Tab -->
                   <div class="tab-pane fade" id="nav-prizes" role="tabpanel">
-                      <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                      <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
                           <div class="prose max-w-none">
                               {!! Str::markdown($object['event']['prizes']) !!}
                           </div>
@@ -86,7 +86,7 @@
 
                   <!-- Judges Tab -->
                   <div class="tab-pane fade" id="nav-judges" role="tabpanel">
-                      <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                      <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
                           <div class="prose max-w-none">
                               {!! Str::markdown($object['event']['judges']) !!}
                           </div>
@@ -95,7 +95,7 @@
 
                   <!-- Contact Tab -->
                   <div class="tab-pane fade" id="nav-contact" role="tabpanel">
-                      <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                      <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
                           <div class="prose max-w-none">
                               {!! Str::markdown($object['event']['contact']) !!}
                           </div>
@@ -165,11 +165,23 @@
                           <i class="bi bi-rocket-takeoff me-2"></i>Registration
                       </h3>
                       
-                        @if(now()->lessThan(\Carbon\Carbon::parse($object['event']['registration_closing_date'])))
+                        @if(now()->lessThan(\Carbon\Carbon::parse($object['event']['registration_closing_date'])) && $object['status'] == null)
                           <a href="/fest/{{ $object['fest']['id'] }}/event/{{ $object['event']['id'] }}/register" 
                            class="btn btn-dark hover:bg-dark text-white w-full py-3 rounded-lg fw-semibold mb-3">
                             <i class="bi bi-pencil-square me-2"></i>Register Now
                           </a>
+                        @elseif($object['status'] == 'pending')
+                            <div class="alert alert-warning text-center">
+                                Registration Pending
+                            </div>
+                        @elseif($object['status'] == 'approved')
+                            <div class="alert alert-success text-center">
+                                Registration Approved
+                            </div>
+                        @elseif($object['status'] == 'rejected')
+                            <div class="alert alert-danger text-center">
+                                Registration Rejected
+                            </div>
                         @else
                           <div class="alert alert-secondary text-center">
                             Registration Closed

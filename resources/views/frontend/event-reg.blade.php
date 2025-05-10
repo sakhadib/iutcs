@@ -15,93 +15,104 @@
             @csrf
 
 			<!-- Team Selection Section -->
-			<div class="bg-white rounded-xl shadow-sm p-6 sm:p-8 border border-gray-100">
-				<div class="space-y-6">
-					<div class="pb-4 border-b border-gray-100">
-						<h2 class="text-xl font-semibold text-gray-900">Select Your Team</h2>
-						<p class="mt-1 text-sm text-gray-500">Choose the team you'll be participating with</p>
-					</div>
-					
-					<div class="team-selection-container mt-4">
-						@foreach ($my_teams as $team)
-						<div class="team-option">
-							<input type="radio" name="team_id" id="team_{{$team->id}}" value="{{$team->id}}" 
-								   class="peer hidden" {{ $loop->first ? 'checked' : '' }} required>
-								   
-							<label for="team_{{$team->id}}" 
-								   class="team-card flex flex-col  rounded-xl border-2 cursor-pointer transition-all overflow-hidden"
-								   style="--team-color: {{$team->color}};">
-								
-								<!-- Team color banner -->
-								<div class="h-2 w-full" style="background-color: {{$team->color}};"></div>
-								
-								<div class="p-5 flex-grow flex flex-col">
-									<!-- Team details -->
-									<div class="space-y-1 mt-auto">
-										<h3 class="font-medium text-gray-900 text-lg line-clamp-1" title="{{$team->name}}">
-											{{$team->name}}
-										</h3>
-										<div class="flex items-center text-sm text-gray-500">
-											<span class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: {{$team->color}};"></span>
-											<span class="truncate">Team #{{$team->id}}</span>
-										</div>
-									</div>
-								</div>
-							</label>
-						</div>
-						@endforeach
+			@if($my_teams->isEmpty())
+				<div class="bg-white rounded-xl shadow-sm p-6 sm:p-8 border border-gray-100">
+					<div class="space-y-6">
+						<p class="text-lg text-gray-500">You don't have any teams. Or may be you are not the owner. Please create a team to register.</p>
+						<a href="/team/create" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-all transform hover:-translate-y-0.5 shadow-md hover:shadow-lg">
+							Create Team
+						</a>
 					</div>
 				</div>
-			</div>
+			@else
+				<div class="bg-white rounded-xl shadow-sm p-6 sm:p-8 border border-gray-100">
+					<div class="space-y-6">
+						<div class="pb-4 border-b border-gray-100">
+							<h2 class="text-xl font-semibold text-gray-900">Select Your Team</h2>
+							<p class="mt-1 text-sm text-gray-500">Choose the team you'll be participating with</p>
+						</div>
+						
+						<div class="team-selection-container mt-4">
+							@foreach ($my_teams as $team)
+							<div class="team-option">
+								<input type="radio" name="team_id" id="team_{{$team->id}}" value="{{$team->id}}" 
+									class="peer hidden" {{ $loop->first ? 'checked' : '' }} required>
+									
+								<label for="team_{{$team->id}}" 
+									class="team-card flex flex-col  rounded-xl border-2 cursor-pointer transition-all overflow-hidden"
+									style="--team-color: {{$team->color}};">
+									
+									<!-- Team color banner -->
+									<div class="h-2 w-full" style="background-color: {{$team->color}};"></div>
+									
+									<div class="p-5 flex-grow flex flex-col">
+										<!-- Team details -->
+										<div class="space-y-1 mt-auto">
+											<h3 class="font-medium text-gray-900 text-lg line-clamp-1" title="{{$team->name}}">
+												{{$team->name}}
+											</h3>
+											<div class="flex items-center text-sm text-gray-500">
+												<span class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: {{$team->color}};"></span>
+												<span class="truncate">Team #{{$team->id}}</span>
+											</div>
+										</div>
+									</div>
+								</label>
+							</div>
+							@endforeach
+						</div>
+					</div>
+				</div>
 
-			<style>
-				.team-selection-container {
-					display: grid;
-					grid-template-columns: repeat(1, 1fr);
-					gap: 1rem;
-				}
-				
-				@media (min-width: 640px) {
+				<style>
 					.team-selection-container {
-						grid-template-columns: repeat(2, 1fr);
+						display: grid;
+						grid-template-columns: repeat(1, 1fr);
+						gap: 1rem;
 					}
-				}
-				
-				.team-card {
-					border-color: #e5e7eb;
-					transition: all 0.2s ease;
-				}
-				
-				.team-card:hover {
-					border-color: #d1d5db;
-					transform: translateY(-3px);
-					box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-				}
-				
-				.peer:checked + .team-card {
-					border-color: var(--team-color);
-					background-color: #f9fafb;
-				}
-				
-				.select-icon {
-					opacity: 0;
-					transform: scale(0.8);
-					transition: all 0.2s ease;
-				}
-				
-				.peer:checked + .team-card .select-icon {
-					opacity: 1;
-					transform: scale(1);
-				}
-				
-				/* Text truncation */
-				.line-clamp-1 {
-					display: -webkit-box;
-					-webkit-line-clamp: 1;
-					-webkit-box-orient: vertical;
-					overflow: hidden;
-				}
-			</style>
+					
+					@media (min-width: 640px) {
+						.team-selection-container {
+							grid-template-columns: repeat(2, 1fr);
+						}
+					}
+					
+					.team-card {
+						border-color: #e5e7eb;
+						transition: all 0.2s ease;
+					}
+					
+					.team-card:hover {
+						border-color: #d1d5db;
+						transform: translateY(-3px);
+						box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+					}
+					
+					.peer:checked + .team-card {
+						border-color: var(--team-color);
+						background-color: #f9fafb;
+					}
+					
+					.select-icon {
+						opacity: 0;
+						transform: scale(0.8);
+						transition: all 0.2s ease;
+					}
+					
+					.peer:checked + .team-card .select-icon {
+						opacity: 1;
+						transform: scale(1);
+					}
+					
+					/* Text truncation */
+					.line-clamp-1 {
+						display: -webkit-box;
+						-webkit-line-clamp: 1;
+						-webkit-box-orient: vertical;
+						overflow: hidden;
+					}
+				</style>
+			@endif
 
             <!-- Questions Section -->
             <div class="space-y-8">
