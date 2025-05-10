@@ -11,9 +11,9 @@ class Team extends Model
 
     public function members()
     {
-        return $this->hasMany(TeamMember::class);
+        return $this->hasMany(TeamMember::class)->with('user');
     }
-    public function teamLead()
+    public function leader()
     {
         return $this->belongsTo(User::class, 'team_lead');
     }

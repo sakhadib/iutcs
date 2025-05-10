@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Models\Fest;
 use App\Models\Event;
+use App\Models\EventRegistrationLog;
+use App\Models\EventRegQuestionAnswer;
 use App\Models\RegistrationQuestionField;
+use App\Models\Team;
+use App\Models\User;
+use App\Models\TeamMember;
 
 class AdminController extends Controller
 {
@@ -237,4 +242,119 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Question not found.');
         }
     }
+
+
+
+    public function ShowParticipantsPage($festId, $eventId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $fest = Fest::find($festId);
+        if (!$fest) {
+            return redirect('/404')->with('error', 'Fest not found.');
+        }
+
+        $event = Event::find($eventId);
+        if (!$event) {
+            return redirect('/404')->with('error', 'Event not found.');
+        }
+        if ($event->fest_id != $festId) {
+            return redirect('/404')->with('error', 'Event does not belong to this fest.');
+        }
+
+        $regLogs = EventRegistrationLog::where('event_id', $eventId)->get();
+        $participant_teams = [];
+
+        foreach($regLogs as $log){
+            $team = Team::where('id', $log->team_id)
+                        ->with(['leader', 'members'])
+                        ->first();
+            
+            if ($team) {
+                $team->registration_log = $log;
+                $team->members = $team->members->map(function ($member) {
+                    return [
+                        'id' => $member->user->id, // Add this line
+                        'name' => $member->user->name,
+                        'email' => $member->user->email,
+                    ];
+                });
+                $participant_teams[] = $team;
+            }
+        }
+
+        return view('admin.participants', [
+            'fest' => $fest,
+            'event' => $event,
+            'teams' => $participant_teams,
+        ]);
+    }
+
+
+    public function individualTeamDetails($festId, $eventId, $teamId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $fest = Fest::find($festId);
+        if (!$fest) {
+            return redirect('/404')->with('error', 'Fest not found.');
+        }
+
+        $event = Event::find($eventId);
+        if (!$event) {
+            return redirect('/404')->with('error', 'Event not found.');
+        }
+        if ($event->fest_id != $festId) {
+            return redirect('/404')->with('error', 'Event does not belong to this fest.');
+        }
+
+        $team = Team::where('id', $teamId)
+                    ->with(['leader', 'members'])
+                    ->first();
+
+        if (!$team) {
+            return redirect('/404')->with('error', 'Team not found.');
+        }
+
+        $questions = RegistrationQuestionField::where('event_id', $eventId)->get();
+
+        $ques = [];
+
+        foreach($questions as $question)
+        {
+            $ans = EventRegQuestionAnswer::where('team_id', $teamId)
+                        ->where('question_id', $question->id)
+                        ->first();
+
+            $object = [
+                'question' => $question,
+                'answer' => $ans ? $ans->answer : null,
+            ];
+
+            $ques[] = $object;
+        }
+
+        return view('admin.team_details', [
+            'fest' => $fest,
+            'event' => $event,
+            'team' => $team,
+            'questions' => $ques,
+        ]);
+    }
+    
+
+
+
+
+
 }

@@ -18,6 +18,8 @@
                   </span>
                   @if(session('role') == 'admin')
                         <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/form" class="btn btn-outline-light btn-sm">Edit Form</a>
+                        <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/participants" class="btn btn-outline-light btn-sm">participants</a>
+
                   @endif
               </div>
           </div>
