@@ -38,7 +38,9 @@
   <header class="bg-navy sticky text-white top-0 z-50 shadow-md px-4 py-6">
     <div class="container mx-auto">
     <div class="flex justify-between items-center">
-      <img src="/rsx/logo.svg" alt="" style="width:70px">
+      <a href="/">
+        <img src="/rsx/logo.svg" alt="" style="width:70px">
+      </a>
       <!-- Mobile menu toggle button -->
       <button id="mobile-menu-button" class="md:hidden focus:outline-none">
         <svg
