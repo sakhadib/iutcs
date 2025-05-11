@@ -22,19 +22,19 @@
         <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-4">Explore</h3>
         <ul class="space-y-4">
           <li>
-            <a href="./home.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300">
+            <a href="./home.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
               <span class="h-[2px] w-4 bg-cyan-400 mr-2 transition-all duration-300 group-hover:w-6"></span>
               Home
             </a>
           </li>
           <li>
-            <a href="./fests.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300">
+            <a href="./fests.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
               <span class="h-[2px] w-4 bg-purple-400 mr-2 transition-all duration-300 group-hover:w-6"></span>
               Fests
             </a>
           </li>
           <li>
-            <a href="./about.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300">
+            <a href="./about.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
               <span class="h-[2px] w-4 bg-cyan-400 mr-2 transition-all duration-300 group-hover:w-6"></span>
               About
             </a>
@@ -52,7 +52,7 @@
           </div>
           <div class="flex items-center">
             <i class="bi bi-envelope text-purple-400 mr-3 text-lg"></i>
-            <a href="mailto:iutcs@iut-dhaka.edu" class="text-gray-400/90 hover:text-cyan-300 transition-colors">iutcs@iut-dhaka.edu</a>
+            <a href="mailto:iutcs@iut-dhaka.edu" class="text-gray-400/90 hover:text-cyan-300 transition-colors rk">iutcs@iut-dhaka.edu</a>
           </div>
         </address>
       </div>
@@ -80,7 +80,7 @@
       <p class="text-sm text-gray-500/80">&copy; {{ date('Y') }} IUTCS. All rights reserved.</p>
       <p class="text-sm mt-2 text-gray-500/80">
         Crafted with <span class="text-red-400">❤️</span> by 
-        <a href="https://portfolio.sakhawatadib.com" class="hover:text-cyan-400 transition-colors">Adib Sakhawat</a>
+        <a href="https://portfolio.sakhawatadib.com" class="hover:text-cyan-400 transition-colors rk">Adib Sakhawat</a>
       </p>
     </div>
   </div>
@@ -142,6 +142,10 @@ body {
 
 button {
   cursor: pointer;
+}
+
+.rk{
+  color: var(--color-red) !important;
 }
 
   </style>
