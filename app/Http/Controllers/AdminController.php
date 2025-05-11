@@ -162,7 +162,9 @@ class AdminController extends Controller
 
         $event->save();
 
-        return redirect('/event/'. $event->id);
+
+
+        return redirect('/fest/'. $festId .'/event/'. $event->id);
     }
 
 

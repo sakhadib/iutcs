@@ -5,15 +5,15 @@
     <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <!-- Form Header -->
         <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-4">
-            <h1 class="text-2xl font-bold text-white">Create New Event for {{$fest->title}}</h1>
+            <h1 class="text-2xl font-bold text-white">Edit {{$event->title}} Event for {{$fest->title}}</h1>
             <p class="text-blue-100">Fill out the form below to add a new event to the festival</p>
         </div>
 
         <!-- Main Form -->
-        <form action="/admin/fest/{{$fest->id}}/event/create" method="POST" enctype="multipart/form-data" class="p-6">
+        <form action="/admin/fest/{{$fest->id}}/event/{{$event->id}}/edit" method="POST" enctype="multipart/form-data" class="p-6">
             @csrf
             <input type="hidden" name="fest_id" value="{{ $fest_id ?? '' }}">
-
+            <input type="hidden" name="event_id" value="{{ $event->id ?? '' }}">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Left Column -->
                 <div class="space-y-6">
@@ -21,6 +21,7 @@
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Event Title *</label>
                         <input type="text" id="title" name="title" required
+                            value="{{ $event->title ?? '' }}"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                             placeholder="Enter event title">
                     </div>
@@ -30,7 +31,9 @@
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
                         <textarea id="description" name="description" rows="4" required
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                            placeholder="Describe the event in detail"></textarea>
+                            placeholder="Describe the event in detail">
+                            {{ $event->description ?? '' }}
+                        </textarea>
                     </div>
 
                     <!-- Rules -->
@@ -38,13 +41,14 @@
                         <label for="rules" class="block text-sm font-medium text-gray-700 mb-1">Rules</label>
                         <textarea id="rules" name="rules" rows="3"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                            placeholder="List the event rules (markdown supported)"></textarea>
+                            placeholder="List the event rules (markdown supported)">{{ $event->rules ?? '' }}</textarea>
                     </div>
 
                     <!-- Rulebook Link -->
                     <div>
                         <label for="rulebook-link" class="block text-sm font-medium text-gray-700 mb-1">Rulebook Link</label>
                         <input type="url" id="rulebook-link" name="rulebook_link"
+                            value="{{ $event->rulebook_link ?? '' }}"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                             placeholder="https://example.com/rulebook.pdf">
                     </div>
@@ -54,7 +58,9 @@
                         <label for="prizes" class="block text-sm font-medium text-gray-700 mb-1">Prizes</label>
                         <textarea id="prizes" name="prizes" rows="2"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                            placeholder="Describe prizes for winners (markdown supported)"></textarea>
+                            placeholder="Describe prizes for winners (markdown supported)">
+                            {{ $event->prizes ?? '' }}
+                        </textarea>
                     </div>
                 </div>
 
@@ -66,8 +72,10 @@
                         <div class="mt-1">
                             <input id="image" name="image" type="file" accept="image/*" 
                                 class="hidden" onchange="previewImage(event)">
-                            <div id="image-preview-container" class="relative hidden">
-                                <img id="image-preview" class="w-full h-auto rounded-lg" alt="Event Image Preview">
+                            <div id="image-preview-container" class="{{ $event->image ? '' : 'hidden' }} relative">
+                                <img id="image-preview" class="w-full h-auto rounded-lg" 
+                                    src="{{ $event->image ? asset($event->image) : '' }}" 
+                                    alt="Event Image Preview">
                                 <button type="button" onclick="removeImage()" 
                                     class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
                                     &times;
@@ -75,7 +83,7 @@
                             </div>
                             <button type="button" onclick="document.getElementById('image').click()" 
                                 class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                Upload Image
+                                {{ $event->image ? 'Change Image' : 'Upload Image' }}
                             </button>
                         </div>
                     </div>
@@ -110,11 +118,13 @@
                         <div>
                             <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date *</label>
                             <input type="datetime-local" id="start_date" name="start_date" required
+                                value="{{ $event->start_date ? date('Y-m-d\TH:i', strtotime($event->start_date)) : '' }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                         </div>
                         <div>
                             <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
                             <input type="datetime-local" id="end_date" name="end_date"
+                                value="{{ $event->end_date ? date('Y-m-d\TH:i', strtotime($event->end_date)) : '' }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                         </div>
                     </div>
@@ -124,13 +134,15 @@
                         <div>
                             <label for="registration_closing_date" class="block text-sm font-medium text-gray-700 mb-1">Registration Deadline</label>
                             <input type="datetime-local" id="registration_closing_date" name="registration_closing_date"
+                                value="{{ $event->registration_closing_date ? date('Y-m-d\TH:i', strtotime($event->registration_closing_date)) : '' }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                         </div>
                         <div>
                             <label for="registration_fee" class="block text-sm font-medium text-gray-700 mb-1">Registration Fee</label>
                             <input type="text" id="registration_fee" name="registration_fee"
+                                value="{{ $event->registration_fee ?? '' }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                                placeholder="e.g. ₹500">
+                                placeholder="number only (in BDT)">
                         </div>
                     </div>
 
@@ -139,12 +151,14 @@
                         <div>
                             <label for="min_team_size" class="block text-sm font-medium text-gray-700 mb-1">Min Team Size</label>
                             <input type="number" id="min_team_size" name="min_team_size" min="1"
+                                value="{{ $event->min_team_size ?? '' }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                                 placeholder="e.g. 1">
                         </div>
                         <div>
                             <label for="max_team_size" class="block text-sm font-medium text-gray-700 mb-1">Max Team Size</label>
                             <input type="number" id="max_team_size" name="max_team_size" min="1"
+                                value="{{ $event->max_team_size ?? '' }}"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                                 placeholder="e.g. 5">
                         </div>
@@ -158,6 +172,7 @@
                 <div>
                     <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
                     <input type="text" id="location" name="location"
+                        value="{{ $event->location ?? '' }}"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="Venue or online platform">
                 </div>
@@ -166,6 +181,7 @@
                 <div>
                     <label for="medium" class="block text-sm font-medium text-gray-700 mb-1">Medium</label>
                     <input type="text" id="medium" name="medium"
+                        value="{{ $event->medium ?? '' }}"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="e.g. Online, Offline, Hybrid">
                 </div>
@@ -175,13 +191,16 @@
                     <label for="judges" class="block text-sm font-medium text-gray-700 mb-1">Judges</label>
                     <textarea id="judges" name="judges" rows="2"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                        placeholder="List of judges (if any)"></textarea>
+                        placeholder="List of judges (if any)">
+                        {{ $event->judges ?? '' }}
+                    </textarea>
                 </div>
 
                 <!-- Registration Link -->
                 <div>
                     <label for="registration_link" class="block text-sm font-medium text-gray-700 mb-1">Registration Link (optional)</label>
                     <input type="url" id="registration_link" name="registration_link"
+                        value="{{ $event->registration_link ?? '' }}"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                         placeholder="https://example.com/register">
                 </div>
@@ -191,7 +210,9 @@
                     <label for="contact" class="block text-sm font-medium text-gray-700 mb-1">Contact Information</label>
                     <textarea id="contact" name="contact" rows="2"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                        placeholder="Contact person details or helpline"></textarea>
+                        placeholder="Contact person details or helpline">
+                        {{ $event->contact ?? '' }}
+                    </textarea>
                 </div>
             </div>
 
@@ -201,7 +222,7 @@
                     Cancel
                 </a>
                 <button type="submit" class="px-6 py-2 border border-transparent rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
-                    Create Event
+                    Update {{ $event->title ?? 'Event' }}
                 </button>
             </div>
         </form>

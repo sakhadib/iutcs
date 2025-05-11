@@ -3,7 +3,7 @@
 @section('main')
 <div class="min-h-screen bg-gray-100">
   <!-- Hero Section -->
-  <div class="relative h-96 bg-black">
+  <div class="relative h-[80vh] bg-black">
       <img src="{{ asset($object['event']['image']) }}" alt="Event Cover" class="w-full h-full object-cover opacity-75">
       <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
       <div class="absolute bottom-0 left-0 right-0 text-white p-8">
@@ -17,6 +17,7 @@
                       <i class="bi bi-trophy mr-2"></i>Prize Pool: {{ $object['event']['prizes'] ? 'Available' : 'N/A' }}
                   </span>
                   @if(session('role') == 'admin')
+                        <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/edit" class="btn btn-outline-light btn-sm">Edit Event</a>
                         <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/form" class="btn btn-outline-light btn-sm">Edit Form</a>
                         <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/participants" class="btn btn-outline-light btn-sm">participants</a>
 
@@ -63,7 +64,7 @@
                   <div class="tab-pane fade show active" id="nav-description" role="tabpanel">
                       <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
                           <div class="prose max-w-none">
-                              {{ $object['event']['description'] }}
+                              {!! Str::markdown($object['event']['description']) !!}
                           </div>
                       </div>
                   </div>

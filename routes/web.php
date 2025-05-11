@@ -13,6 +13,7 @@ use App\Http\Controllers\ParticipantRegisterController;
 use App\Http\Controllers\EventReportController;
 
 use App\Http\Controllers\AdminController;
+use App\Models\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,8 @@ Route::post('/admin/fests/create', [AdminController::class, 'createFest']);
 
 Route::get('admin/fest/{fest}/event/create', [AdminController::class, 'showCreateEventPage']);
 Route::post('/admin/fest/{fest}/event/create', [AdminController::class, 'createEvent']);
+Route::get('/admin/fest/{fest}/event/{event}/edit', [EventController::class, 'editEvent']);
+Route::post('/admin/fest/{fest}/event/{event}/edit', [EventController::class, 'updateEvent']);
 
 Route::get('/admin/fest/{fest}/event/{event}/form', [AdminController::class, 'showFormBuilderPage']);
 Route::get('/admin/fest/{fest}/event/{event}/participants', [AdminController::class, 'ShowParticipantsPage']);
