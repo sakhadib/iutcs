@@ -5,6 +5,7 @@
     $team = $objects['team'];
     $team_members = $objects['team_members'];
     $user_emails = $objects['user_emails'];
+    $disable_add_member = $objects['disable_add_member'];
     $isTeamLead = session('user_id') == $team->team_lead;
 @endphp
 
@@ -142,51 +143,84 @@
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm rounded-3 sticky-top" style="top: 2rem">
                         <div class="card-body p-4">
-                            @if ($isTeamLead)
-                            <h3 class="h5 mb-4">Invite Members</h3>
-                            <form action="/team/add/member" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <label class="form-label">Email address</label>
-                                    <input type="email" 
-                                           id="email"
-                                           name="email" 
-                                           class="form-control"
-                                           placeholder="team@member.com"
-                                           autocomplete="off">
-                                    <div id="email-suggestions" class="suggestion-list"></div>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label class="form-label">Role</label>
-                                    <input type="text" 
-                                           name="role" 
-                                           class="form-control" 
-                                           placeholder="Enter role (e.g., member)">
-                                </div>
+                            @if(!$disable_add_member)
+                                @if ($isTeamLead)
+                                <h3 class="h5">Invite Members</h3>
+                                <p class="text-muted mb-3">
+                                    The user you are trying to add must be registered on the platform.
+                                </p>
+                                <hr>
+                                <form action="/team/add/member" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label class="form-label">Email address</label>
+                                        <input type="email" 
+                                            id="email"
+                                            name="email" 
+                                            class="form-control"
+                                            placeholder="team@member.com"
+                                            autocomplete="off">
+                                        <div id="email-suggestions" class="suggestion-list"></div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label class="form-label">Role</label>
+                                        <div class="d-flex gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" 
+                                                       type="radio" 
+                                                       name="role" 
+                                                       id="role-member" 
+                                                       value="member" 
+                                                       checked>
+                                                <label class="form-check-label" for="role-member">
+                                                    Member
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" 
+                                                       type="radio" 
+                                                       name="role" 
+                                                       id="role-co-lead" 
+                                                       value="co-lead">
+                                                <label class="form-check-label" for="role-co-lead">
+                                                    Co-Lead
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <input type="hidden" name="team_id" value="{{ $team->id }}">
-                                
-                                <button type="submit" 
-                                        class="btn w-100 d-flex align-items-center justify-content-center gap-2"
-                                        style="background: {{ $team->color }}; color: white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
-                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-                                        <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
-                                    </svg>
-                                    Add Member
-                                </button>
-                            </form>
-                            @else
-                            <div class="text-center p-4">
-                                <div class="mb-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-people text-muted" viewBox="0 0 16 16">
-                                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
-                                    </svg>
+                                    <input type="hidden" name="team_id" value="{{ $team->id }}">
+                                    
+                                    <button type="submit" 
+                                            class="btn w-100 d-flex align-items-center justify-content-center gap-2"
+                                            style="background: {{ $team->color }}; color: white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
+                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                                            <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+                                        </svg>
+                                        Add Member
+                                    </button>
+                                </form>
+                                @else
+                                <div class="text-center p-4">
+                                    <div class="mb-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-people text-muted" viewBox="0 0 16 16">
+                                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                                        </svg>
+                                    </div>
+                                    <p class="text-muted mb-0">Contact the team lead to add new members:</p>
+                                    <div class="mt-2 fw-bold text-primary">{{ $team_members->firstWhere('role', 'team-lead')->user->name }}</div>
                                 </div>
-                                <p class="text-muted mb-0">Contact the team lead to add new members:</p>
-                                <div class="mt-2 fw-bold text-primary">{{ $team_members->firstWhere('role', 'team-lead')->user->name }}</div>
-                            </div>
+                                @endif
+                            @else
+                                <div class="text-center p-4">
+                                    <p class="text-muted mb-0">You cannot add new members to this team.</p>
+                                    <hr>
+                                    <p class="text-muted-mb-3">
+                                        Your Team is registered for an upcoming event.
+                                    </p>
+                                </div>
                             @endif
                         </div>
                     </div>

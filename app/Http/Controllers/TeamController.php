@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EventRegistrationLog;
 use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Team;
 use App\Models\TeamMember;
+use App\Models\Event;
 
 class TeamController extends Controller
 {
@@ -123,10 +125,25 @@ class TeamController extends Controller
 
         $user_emails = User::all(['id', 'email']);
 
+        $events_where_team_is_participant = EventRegistrationLog::where('team_id', $team_id)
+                                                                ->pluck('event_id')
+                                                                ->toArray();
+        
+        $disable_add_member = false;
+
+        foreach($events_where_team_is_participant as $event_id){
+            $event = Event::find($event_id);
+            if($event && \Carbon\Carbon::parse($event->end_date)->gt(now())){
+                $disable_add_member = true;
+                break;
+            }
+        }       
+
         $obejects = [
             'team' => $team,
             'team_members' => $team_members,
             'user_emails' => $user_emails,
+            'disable_add_member' => $disable_add_member,
         ];
 
         return view('frontend.team_details',[
