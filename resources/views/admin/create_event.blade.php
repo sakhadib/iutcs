@@ -130,7 +130,7 @@
                             <label for="registration_fee" class="block text-sm font-medium text-gray-700 mb-1">Registration Fee</label>
                             <input type="text" id="registration_fee" name="registration_fee"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                                placeholder="e.g. ₹500">
+                                placeholder="number only (in BDT)">
                         </div>
                     </div>
 
