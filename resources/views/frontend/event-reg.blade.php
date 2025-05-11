@@ -1,6 +1,19 @@
 @extends('layouts.main')
 
 @section('main')
+
+@if ($errors->any())
+	<div class="alert alert-danger">
+		<ul class="mb-0">
+			@foreach ($errors->all() as $error)
+				<li>{{ $error }}</li>
+			@endforeach
+		</ul>
+	</div>
+@endif
+
+
+
 <div class="min-h-screen bg-gray-50 py-12">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">

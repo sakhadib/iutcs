@@ -8,6 +8,7 @@ use App\Models\EventRegistrationLog;
 use App\Models\EventRegQuestionAnswer;
 use App\Models\RegistrationQuestionField;
 use App\Models\Team;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
 class ParticipantRegisterController extends Controller
@@ -39,6 +40,18 @@ class ParticipantRegisterController extends Controller
         $team = Team::find($request->team_id);
         if (!$team || $team->team_lead != session('user_id')) {
             return redirect()->back()->withErrors(['team_id' => 'You must select a team you lead.']);
+        }
+
+        $min_members = $event->min_team_size;
+        $max_members = $event->max_team_size;
+
+        // Check if the team has enough members
+        $team_member_count = TeamMember::where('team_id', $request->team_id)->count();
+        if ($team_member_count < $min_members) {
+            return redirect()->back()->withErrors(['team_id' => 'Your team does not have enough members.']);
+        }
+        if ($team_member_count > $max_members) {
+            return redirect()->back()->withErrors(['team_id' => 'Your team has too many members.']);
         }
         
         // Get all questions for this event to validate answers
