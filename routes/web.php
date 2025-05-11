@@ -96,6 +96,11 @@ Route::get('admin/event/{id}/summary', [EventReportController::class, 'generateE
 Route::get('admin/event/{id}/csv', [EventReportController::class, 'exportRegistrationQnAAsCSV']);
 
 
+Route::get('admin/users', [AdminController::class, 'showAllUserPage']);
+Route::post('/admin/user/make/admin/{user}', [AdminController::class, 'AddAdmin']);
+Route::post('/admin/user/remove/admin/{user}', [AdminController::class, 'RemoveAdmin']);
+
+
 
 
 

@@ -60,6 +60,9 @@
       <a href="/home" class="nav-link py-2 hover:text-cyan transition-colors">Home</a>
       <a href="/fests" class="nav-link py-2 hover:text-cyan transition-colors">Fests</a>
       <a href="/teams" class="nav-link py-2 hover:text-cyan transition-colors">Teams</a>
+      @if(session('role') == 'admin')
+      <a href="/admin/users" class="nav-link py-2 hover:text-cyan transition-colors">Users</a>
+      @endif
       <a href="/about" class="nav-link py-2 hover:text-cyan transition-colors">About</a>
       <div class="flex items-center space-x-4 ml-6">
         <a href="/profile/{{ session('user_id') }}" class="nav-link py-2 hover:text-cyan transition-colors">

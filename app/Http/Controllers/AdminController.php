@@ -420,6 +420,65 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Team rejected successfully!');
     }
+
+
+
+    public function showAllUserPage(){
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $users = User::all();
+
+        return view('admin.all_users', ['users' => $users]);
+    }
+
+
+
+    public function AddAdmin($userId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $user = User::find($userId);
+        if (!$user) {
+            return redirect('/404')->with('error', 'User not found.');
+        }
+
+        $user->role = 'admin';
+        $user->save();
+
+        return redirect()->back()->with('success', 'User promoted to admin successfully!');
+    }
+
+
+
+    public function RemoveAdmin($userId)
+    {
+        if (!session()->has('user_id')) {
+            return redirect('/login');
+        }
+        if (session('role') !== 'admin') {
+            return redirect('/home');
+        }
+
+        $user = User::find($userId);
+        if (!$user) {
+            return redirect('/404')->with('error', 'User not found.');
+        }
+
+        $user->role = 'user';
+        $user->save();
+
+        return redirect()->back()->with('success', 'User demoted to user successfully!');
+    }
     
 
 
