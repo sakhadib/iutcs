@@ -93,6 +93,7 @@ Route::get('admin/questions/delete/{questionId}', [AdminController::class, 'dele
 // web.php
 Route::get('admin/event/{id}/report', [EventReportController::class, 'generate']);
 Route::get('admin/event/{id}/summary', [EventReportController::class, 'generateEventSummaryReport']);
+Route::get('admin/event/{event}/participants', [EventReportController::class, 'generateParticipantListReport']);
 Route::get('admin/event/{id}/csv', [EventReportController::class, 'exportRegistrationQnAAsCSV']);
 
 

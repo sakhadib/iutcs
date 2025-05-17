@@ -27,6 +27,11 @@
                 </a>
             </div>
             <div class="col-auto">
+                <a href="/admin/event/{{$event->id}}/participants" class="btn btn-outline-secondary shadow-sm">
+                    <i class="bi bi-people-fill me-2"></i>Participants Report
+                </a>
+            </div>
+            <div class="col-auto">
                 <a href="/admin/event/{{$event->id}}/csv" class="btn btn-outline-success shadow-sm">
                     <i class="bi bi-file-earmark-spreadsheet me-2"></i>Export CSV
                 </a>

@@ -16,6 +16,7 @@ use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
 use App\Models\EventRegQuestionAnswer;
+use Carbon\Carbon;
 
 
 class EventReportController extends Controller
@@ -125,6 +126,54 @@ class EventReportController extends Controller
         $safeFestTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $fest->title);
         $safeEventTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $event->title);
         return $pdf->download('event_summary_' . $safeFestTitle . '_' . $safeEventTitle . '.pdf');
+    }
+
+
+    public function generateParticipantListReport($eventId)
+    {
+        $event = Event::findOrFail($eventId);
+        $fest = Fest::findOrFail($event->fest_id);
+
+        $registrationLogs = EventRegistrationLog::where('event_id', $eventId)->get();
+        $teamsData = [];
+        $totalParticipants = 0;
+
+        foreach ($registrationLogs as $log) {
+            $team = Team::find($log->team_id);
+            $members = TeamMember::where('team_id', $team->id)->get();
+
+            $memberDetails = $members->map(function ($member) {
+                $user = User::find($member->user_id);
+                return [
+                    'name' => $user->name ?? '',
+                    'student_id' => $user->student_id ?? '',
+                    'email' => $user->email ?? '',
+                ];
+            });
+
+            $totalParticipants += $memberDetails->count();
+
+            $teamsData[] = [
+                'team_name' => $team->name,
+                'status' => $log->status,
+                'registration_date' => Carbon::parse($log->created_at)->format('d M, Y'),
+                'members' => $memberDetails
+            ];
+        }
+
+        $pdf = Pdf::loadView('pdf.participant_list_report', [
+            'fest' => $fest,
+            'event' => $event,
+            'teamsData' => $teamsData,
+            'totalTeams' => count($teamsData),
+            'totalParticipants' => $totalParticipants,
+            'generatedAt' => now()->format('d M, Y')
+        ])->setPaper('A4', 'portrait');
+
+        $safeFest = preg_replace('/[^A-Za-z0-9_\-]/', '_', $fest->title);
+        $safeEvent = preg_replace('/[^A-Za-z0-9_\-]/', '_', $event->title);
+
+        return $pdf->download("participant_list_{$safeFest}_{$safeEvent}.pdf");
     }
 
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Participant List</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; font-size: 12px; margin: 0 10px; }
+        .logo { width: 80px; }
+        h2, h3, h4 { margin: 2px 0; }
+        .summary-box { margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #000; padding: 5px; text-align: left; }
+        th { background-color: #f0f0f0; }
+        .page-break { page-break-after: always; }
+        footer { position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 10px; }
+    </style>
+</head>
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <img src="{{ public_path('/rsx/logo.png') }}" class="logo">
+        <div style="text-align: right;">
+            <h2>IUT Computer Society</h2>
+            <h3>Participant List Report</h3>
+            <h4>{{ $fest->title }} - {{ $event->title }}</h4>
+        </div>
+    </div>
+
+    <div class="summary-box">
+        <p><strong>Total Teams:</strong> {{ $totalTeams }}</p>
+        <p><strong>Total Participants:</strong> {{ $totalParticipants }}</p>
+        <p><strong>Report Date:</strong> {{ $generatedAt }}</p>
+        <p><strong>Event Medium:</strong> {{ ucfirst($event->medium) }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>Member Name</th>
+                <th>Student ID</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Registration Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($teamsData as $team)
+                @foreach ($team['members'] as $index => $member)
+                    <tr>
+                        @if ($index === 0)
+                            <td rowspan="{{ count($team['members']) }}">{{ $team['team_name'] }}</td>
+                        @endif
+                        <td>{{ $member['name'] }}</td>
+                        <td>{{ $member['student_id'] }}</td>
+                        <td>{{ $member['email'] }}</td>
+                        @if ($index === 0)
+                            <td rowspan="{{ count($team['members']) }}">{{ ucfirst($team['status']) }}</td>
+                            <td rowspan="{{ count($team['members']) }}">{{ $team['registration_date'] }}</td>
+                        @endif
+                    </tr>
+                @endforeach
+            @endforeach
+        </tbody>
+    </table>
+
+    <footer>
+        Page <script>document.write((this.pageNumber || 1));</script>
+    </footer>
+</body>
+</html>
