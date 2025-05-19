@@ -38,6 +38,16 @@
             </div>
         </div>
 
+        @php
+            $team_count = count($teams);
+            $participant_count = 0;
+            foreach ($teams as $team) {
+                if (is_array($team->members)) {
+                    $participant_count += count($team->members);
+                }
+            }
+        @endphp
+
         <div class="row mt-4">
             <div class="col-12">
             <div class="alert alert-info d-flex align-items-center gap-3 mb-0 shadow-sm">
@@ -45,11 +55,11 @@
                 <div>
                 <strong>{{ count($teams) }}</strong> teams registered,
                 <strong>
-                    {{
-                    collect($teams)->reduce(function($carry, $team) {
-                        return $carry + (is_array($team->members) ? count($team->members) : 0);
-                    }, 0)
-                    }}
+                    @if($participant_count > 0)
+                        {{ $participant_count }}
+                    @else
+                        0
+                    @endif
                 </strong> participants in total.
                 </div>
             </div>
