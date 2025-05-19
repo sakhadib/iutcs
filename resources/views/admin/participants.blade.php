@@ -38,6 +38,24 @@
             </div>
         </div>
 
+        <div class="row mt-4">
+            <div class="col-12">
+            <div class="alert alert-info d-flex align-items-center gap-3 mb-0 shadow-sm">
+                <i class="bi bi-people-fill fs-4"></i>
+                <div>
+                <strong>{{ count($teams) }}</strong> teams registered,
+                <strong>
+                    {{
+                    collect($teams)->reduce(function($carry, $team) {
+                        return $carry + (is_array($team->members) ? count($team->members) : 0);
+                    }, 0)
+                    }}
+                </strong> participants in total.
+                </div>
+            </div>
+            </div>
+        </div>
+
         <div class="row mt-5">
             <div class="col-12">
                 <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
