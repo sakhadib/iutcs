@@ -15,7 +15,60 @@
             </div>
         </div>
 
-        <div class="row mt-4 g-3">
+        @php
+            $team_count = count($teams);
+            $participant_count = 0;
+            $approved_count = 0;
+            $pending_count = 0;
+            $rejected_count = 0;
+            foreach ($teams as $team) {
+                $participant_count += count($team->members);
+                $status = $team->registration_log->status ?? 'pending';
+                if ($status === 'approved') $approved_count++;
+                elseif ($status === 'pending') $pending_count++;
+                elseif ($status === 'rejected') $rejected_count++;
+            }
+        @endphp
+
+        <!-- Info Card -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-sm border-0 rounded-3 bg-light">
+                    <div class="card-body d-flex flex-wrap gap-4 align-items-center justify-content-between">
+                        <div>
+                            <span class="fs-5 fw-semibold text-dark">
+                                <i class="bi bi-people-fill me-2"></i>{{ $team_count }}
+                            </span>
+                            <span class="text-muted">Teams</span>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-semibold text-dark">
+                                <i class="bi bi-person-lines-fill me-2"></i>{{ $participant_count }}
+                            </span>
+                            <span class="text-muted">Participants</span>
+                        </div>
+                        <div>
+                            <span class="badge bg-success fs-6 px-3 py-2">
+                                <i class="bi bi-check-circle me-1"></i>{{ $approved_count }} Approved
+                            </span>
+                        </div>
+                        <div>
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                                <i class="bi bi-hourglass-split me-1"></i>{{ $pending_count }} Pending
+                            </span>
+                        </div>
+                        <div>
+                            <span class="badge bg-danger fs-6 px-3 py-2">
+                                <i class="bi bi-x-circle me-1"></i>{{ $rejected_count }} Rejected
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Info Card -->
+
+        <div class="row mt-2 g-3">
             <div class="col-auto">
                 <a href="/admin/event/{{$event->id}}/report" class="btn btn-outline-dark shadow-sm">
                     <i class="bi bi-printer me-2"></i>Print Report
@@ -38,39 +91,11 @@
             </div>
         </div>
 
-        @php
-            $team_count = count($teams);
-            $participant_count = 0;
-            foreach ($teams as $team) {
-                if (is_array($team->members)) {
-                    $participant_count += count($team->members);
-                }
-            }
-        @endphp
-
-        <div class="row mt-4">
-            <div class="col-12">
-            <div class="alert alert-info d-flex align-items-center gap-3 mb-0 shadow-sm">
-                <i class="bi bi-people-fill fs-4"></i>
-                <div>
-                <strong>{{ count($teams) }}</strong> teams registered,
-                <strong>
-                    @if($participant_count > 0)
-                        {{ $participant_count }}
-                    @else
-                        0
-                    @endif
-                </strong> participants in total.
-                </div>
-            </div>
-            </div>
-        </div>
-
         <div class="row mt-5">
             <div class="col-12">
                 <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
+                        <table id="teams-table" class="table table-hover align-middle mb-0">
                             <thead class="bg-light">
                                 <tr>
                                     <th class="fw-semibold px-4">Team Name</th>
@@ -93,7 +118,6 @@
                                         <a href="/profile/{{ $team->leader->id }}" 
                                            class="text-decoration-none text-primary">
                                             {{ $team->leader->name }}
-                                            
                                         </a>
                                     </td>
                                     <td>
@@ -110,7 +134,7 @@
                                     </td>
                                     <td>
                                         @php
-                                            $status = $team->registration_log->status;
+                                            $status = $team->registration_log->status ?? 'pending';
                                             $badgeStyles = [
                                                 'approved' => 'bg-success',
                                                 'pending' => 'bg-warning',
@@ -160,4 +184,26 @@
         </div>
     </div>
 </div>
+
+<!-- DataTables CDN -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#teams-table').DataTable({
+            "order": [],
+            "language": {
+                "search": "Search teams:",
+                "lengthMenu": "Show _MENU_ entries",
+                "info": "Showing _START_ to _END_ of _TOTAL_ teams",
+                "paginate": {
+                    "previous": "&laquo;",
+                    "next": "&raquo;"
+                }
+            }
+        });
+    });
+</script>
 @endsection
