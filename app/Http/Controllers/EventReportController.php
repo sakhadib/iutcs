@@ -134,7 +134,7 @@ class EventReportController extends Controller
         $event = Event::findOrFail($eventId);
         $fest = Fest::findOrFail($event->fest_id);
 
-        $registrationLogs = EventRegistrationLog::where('event_id', $eventId)->get();
+        $registrationLogs = EventRegistrationLog::where('event_id', $eventId)->where('status', 'Approved')->get();
         $teamsData = [];
         $totalParticipants = 0;
 
