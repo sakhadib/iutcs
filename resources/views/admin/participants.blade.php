@@ -178,6 +178,23 @@
                                 @endforelse
                             </tbody>
                         </table>
+<script>
+    $(document).ready(function() {
+        $('#teams-table').DataTable({
+            "order": [],
+            "pageLength": 50,
+            "language": {
+                "search": "Search teams:",
+                "lengthMenu": "Show _MENU_ entries",
+                "info": "Showing _START_ to _END_ of _TOTAL_ teams",
+                "paginate": {
+                    "previous": "&laquo;",
+                    "next": "&raquo;"
+                }
+            }
+        });
+    });
+</script>
                     </div>
                 </div>
             </div>

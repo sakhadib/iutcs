@@ -12,12 +12,17 @@
           <h1 class="text-3xl font-bold">Welcome Back</h1>
           <p class="mt-2 text-gray-600">Sign in to your IUTCS account</p>
         </div>
-        <div
-          id="error-message"
-          class="bg-red/10 text-red p-3 rounded-md text-sm"
-        >
-          Error Message
-        </div>
+        @if ($errors->any())
+          <div
+            id="error-message"
+            class="bg-red/10 text-red p-3 rounded-md text-sm mb-4"
+            role="alert"
+          >
+            @foreach ($errors->all() as $error)
+              <div>{{ $error }}</div>
+            @endforeach
+          </div>
+        @endif
 
         <form
             id="login-form"
@@ -86,21 +91,6 @@
       </div>
     </div>
   </main>
-
-
-  <script>
-    const loginForm = document.getElementById("login-form");
-const emailField = document.getElementById("email");
-const passwordField = document.getElementById("password");
-const errorBlock = document.getElementById("error-message");
-
-// assign error message and set display to block to show valiation errors
-errorBlock.textContent = "";
-errorBlock.style.display = "none";
-
-
-
-  </script>
 
 
 @endsection
