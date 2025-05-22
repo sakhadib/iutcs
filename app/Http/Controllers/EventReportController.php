@@ -300,4 +300,61 @@ class EventReportController extends Controller
         'Content-Disposition' => "attachment; filename=\"$filename\"",
     ]);
 }
+
+
+// Batch Wise Report
+public function generateBatchCountReport($festId)
+{
+    $fest = Fest::findOrFail($festId);
+    $events = Event::where('fest_id', $festId)->get();
+
+    $batches = collect();
+    $reportData = [];
+    $totals = [];
+
+    foreach ($events as $event) {
+        $logs = EventRegistrationLog::where('event_id', $event->id)->where('status', 'Approved')->get();
+        $teamIds = $logs->pluck('team_id')->unique();
+
+        $members = TeamMember::whereIn('team_id', $teamIds)->get();
+        $userIds = $members->pluck('user_id')->unique();
+
+        $users = User::whereIn('id', $userIds)->get();
+        $batchCount = [];
+
+        foreach ($users as $user) {
+            $batchPrefix = substr($user->student_id, 0, 2);
+            if (!ctype_digit($batchPrefix)) continue;
+
+            $batch = intval($batchPrefix);
+            $batches->push($batch);
+            $batchCount[$batch] = ($batchCount[$batch] ?? 0) + 1;
+            $totals[$batch] = ($totals[$batch] ?? 0) + 1;
+        }
+
+        $reportData[] = [
+            'event' => $event->title,
+            'counts' => $batchCount,
+            'total' => array_sum($batchCount),
+        ];
+    }
+
+    $batches = $batches->unique()->sort()->values();
+    $grandTotal = array_sum($totals);
+
+    $pdf = Pdf::loadView('pdf.batch_count_report', [
+        'fest' => $fest,
+        'reportData' => $reportData,
+        'batches' => $batches,
+        'totals' => $totals,
+        'grandTotal' => $grandTotal,
+    ])->setPaper('A4', 'portrait');
+
+    $safeFest = preg_replace('/[^A-Za-z0-9_\\-]/', '_', $fest->title);
+    return $pdf->download("batch_count_report_{$safeFest}.pdf");
+}
+
+
+
+
 }
