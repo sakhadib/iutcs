@@ -6,16 +6,15 @@
         @page { margin: 40px 30px 60px 30px; }
         body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 12px; color: #222; background: #fff; }
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: block;
             border-bottom: 2px solid #bbb;
             padding-bottom: 10px;
             margin-bottom: 18px;
-        }
-        .logo { width: 70px; }
-        .heading-group {
             text-align: left;
+        }
+        .logo {
+            width: 70px;
+            margin-bottom: 8px;
         }
         .org-title {
             color: #111;
@@ -34,6 +33,7 @@
             color: #444;
         }
         .section-break { page-break-before: always; }
+        .section-break:first-child { page-break-before: auto; }
         table {
             width: 100%;
             border-collapse: separate;
@@ -64,17 +64,19 @@
             border-top: 1px solid #e0e0e0;
             padding-top: 6px;
         }
+        .total-row {
+            background: #ddd;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <div class="section-break">
     <div class="header">
-        <div class="heading-group">
-            <div class="org-title">IUT Computer Society</div>
-            <div class="report-title">Festival Summary Report</div>
-            <div class="event-title">{{ $fest->title }}</div>
-        </div>
         <img src="{{ public_path('/rsx/logo.png') }}" class="logo">
+        <div class="org-title">IUT Computer Society</div>
+        <div class="report-title">Festival Summary Report</div>
+        <div class="event-title">{{ $fest->title }}</div>
     </div>
 
     <h4>Event-wise Team and Participant Count</h4>
@@ -87,25 +89,30 @@
             </tr>
         </thead>
         <tbody>
+            @php $sumTeams = 0; $sumParticipants = 0; @endphp
             @foreach ($reportData as $section)
+                @php $sumTeams += $section['teamCount']; $sumParticipants += $section['participantCount']; @endphp
                 <tr>
                     <td>{{ $section['event']->title }}</td>
                     <td>{{ $section['teamCount'] }}</td>
                     <td>{{ $section['participantCount'] }}</td>
                 </tr>
             @endforeach
+            <tr class="total-row">
+                <td>Total</td>
+                <td>{{ $sumTeams }}</td>
+                <td>{{ $sumParticipants }}</td>
+            </tr>
         </tbody>
     </table>
 </div>
 
 <div class="section-break">
     <div class="header">
-        <div class="heading-group">
-            <div class="org-title">IUT Computer Society</div>
-            <div class="report-title">Event-wise Cash Breakdown</div>
-            <div class="event-title">{{ $fest->title }}</div>
-        </div>
         <img src="{{ public_path('/rsx/logo.png') }}" class="logo">
+        <div class="org-title">IUT Computer Society</div>
+        <div class="report-title">Event-wise Cash Breakdown</div>
+        <div class="event-title">{{ $fest->title }}</div>
     </div>
 
     <table>
@@ -120,7 +127,15 @@
             </tr>
         </thead>
         <tbody>
+            @php $fee = $teams = $credit = $charge = $net = 0; @endphp
             @foreach ($reportData as $section)
+                @php
+                    $fee += $section['registration_fee'];
+                    $teams += $section['teamCount'];
+                    $credit += $section['total_collected'];
+                    $charge += $section['charge'];
+                    $net += $section['net_collected'];
+                @endphp
                 <tr>
                     <td>{{ $section['event']->title }}</td>
                     <td>{{ $section['registration_fee'] }}</td>
@@ -130,18 +145,24 @@
                     <td>{{ number_format($section['net_collected'], 2) }}</td>
                 </tr>
             @endforeach
+            <tr class="total-row">
+                <td>Total</td>
+                <td>-</td>
+                <td>{{ $teams }}</td>
+                <td>{{ number_format($credit, 2) }}</td>
+                <td>{{ number_format($charge, 2) }}</td>
+                <td>{{ number_format($net, 2) }}</td>
+            </tr>
         </tbody>
     </table>
 </div>
 
 <div class="section-break">
     <div class="header">
-        <div class="heading-group">
-            <div class="org-title">IUT Computer Society</div>
-            <div class="report-title">Event-wise Gender Count</div>
-            <div class="event-title">{{ $fest->title }}</div>
-        </div>
         <img src="{{ public_path('/rsx/logo.png') }}" class="logo">
+        <div class="org-title">IUT Computer Society</div>
+        <div class="report-title">Event-wise Gender Count</div>
+        <div class="event-title">{{ $fest->title }}</div>
     </div>
 
     <table>
@@ -153,13 +174,20 @@
             </tr>
         </thead>
         <tbody>
+            @php $sumG = 0; $sumB = 0; @endphp
             @foreach ($genderCounts as $row)
+                @php $sumG += $row['girl']; $sumB += $row['boy']; @endphp
                 <tr>
                     <td>{{ $row['event'] }}</td>
                     <td>{{ $row['girl'] }}</td>
                     <td>{{ $row['boy'] }}</td>
                 </tr>
             @endforeach
+            <tr class="total-row">
+                <td>Total</td>
+                <td>{{ $sumG }}</td>
+                <td>{{ $sumB }}</td>
+            </tr>
         </tbody>
     </table>
 </div>
