@@ -2,180 +2,162 @@
 <html>
 <head>
     <style>
+        @page { margin: 40px; }
         body {
-            font-family: DejaVu Sans, sans-serif;
+            font-family: 'DejaVu Sans', sans-serif;
             font-size: 12px;
-            line-height: 1.6;
-            color: #000;
+            color: #1a1a1a;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
             border-bottom: 2px solid #000;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
         }
 
         .logo {
-            width: 80px;
+            width: 70px;
             margin-bottom: 10px;
         }
 
-        .section {
-            margin: 25px 0;
-            padding: 15px;
-            /* border: 1px solid #aaa; */
-            border-radius: 4px;
-        }
-
-        .section-title {
-            border-bottom: 1px solid #000;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
+        .title {
+            font-size: 20px;
             font-weight: bold;
         }
 
-        .team-box {
-            margin-bottom: 20px;
-            /* border: 1px solid #444; */
-            border-radius: 4px;
-            padding: 15px;
-            page-break-inside: avoid;
-            break-inside: avoid;
+        .subtitle {
+            font-size: 14px;
+            color: #333;
         }
 
-        .team-header {
-            font-weight: bold;
-            margin-bottom: 12px;
+        .event-info {
+            margin-bottom: 30px;
         }
 
-        .detail-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .detail-item {
-            padding: 8px;
-            border-radius: 3px;
-            /* border: 1px solid #ccc; */
-        }
-
-        .qa-table {
-            width: 100%;
-            margin: 10px 0;
-            border-collapse: collapse;
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-
-        .qa-table th, .qa-table td {
-            border: 1px solid #333;
-            padding: 8px;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        .qa-table th {
-            background: #eee;
-            font-weight: bold;
-        }
-
-        .member-list {
-            margin: 10px 0;
-            padding-left: 15px;
-        }
-
-        .member-list li {
+        .event-info .row {
             margin-bottom: 6px;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.9em;
-            margin-left: 10px;
-            background: #444;
-            color: #fff;
+        .team-section {
+            page-break-before: always;
         }
 
-        .answer-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #aaa;
+        .team-box {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 20px;
         }
+
+        .team-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .status-badge {
+            background: #444;
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.85em;
+            margin-left: 8px;
+        }
+
+        .info-table, .qa-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .info-table th, .info-table td,
+        .qa-table th, .qa-table td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .info-table th, .qa-table th {
+            background: #efefef;
+        }
+
+        .section-heading {
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
     </style>
 </head>
 <body>
     <div class="header">
         <img src="{{ public_path('rsx/logo.png') }}" class="logo">
-        <h2 style="margin: 5px 0;">IUT Computer Society</h2>
-        <h3 style="margin: 0;">{{ $fest->title ?? 'Fest' }} - {{ $event->title }}</h3>
+        <div class="title">IUT Computer Society</div>
+        <div class="subtitle">{{ $fest->title ?? 'Fest' }} - {{ $event->title }}</div>
     </div>
 
-    <div class="section">
-        <h4 class="section-title">Event Information</h4>
-        <div class="detail-grid">
-            <div class="detail-item">
-                <strong>Medium:</strong><br>
-                {{ $event->medium }}
+    <div class="event-info">
+        <div class="row"><strong>Medium:</strong> {{ ucfirst($event->medium) }}</div>
+        <div class="row"><strong>Location:</strong> {{ $event->location }}</div>
+        <div class="row"><strong>Schedule:</strong> {{ $event->start_date }} to {{ $event->end_date ?? 'N/A' }}</div>
+    </div>
+
+    @foreach ($teamData as $entry)
+    <div class="team-section">
+        <div class="team-box">
+            <div class="team-title">
+                {{ $entry['team']->name }}
+                <span class="status-badge">{{ ucfirst($entry['team']->status) }}</span>
             </div>
-            <div class="detail-item">
-                <strong>Location:</strong><br>
-                {{ $event->location }}
-            </div>
-            <div class="detail-item">
-                <strong>Date:</strong><br>
-                {{ $event->start_date }} - {{ $event->end_date }}
-            </div>
+
+            <div class="section-heading">Team Details</div>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Student ID</th>
+                        <th>University</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($entry['members'] as $member)
+                    <tr>
+                        <td>{{ $member->name }}</td>
+                        <td>{{ $member->email }}</td>
+                        <td>{{ $member->phone }}</td>
+                        <td>{{ $member->student_id }}</td>
+                        <td>{{ $member->university }}</td>
+                        <td>{{ ucfirst($member->role) }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            @if (count($entry['answers']) > 0)
+            <div class="section-heading">Registration Questionnaire Responses</div>
+            <table class="qa-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($entry['answers'] as $ans)
+                    <tr>
+                        <td>{{ $ans->question }}</td>
+                        <td>{{ $ans->answer }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
         </div>
     </div>
-
-    <div class="section">
-        <h4 class="section-title">Participating Teams</h4>
-
-        @foreach ($teamData as $entry)
-            <div class="team-box">
-                <h5 class="team-header">
-                    {{ $entry['team']->name }}
-                    <span class="status-badge">{{ $entry['team']->status }}</span>
-                </h5>
-
-                <div class="member-section">
-                    <strong>Team Members:</strong>
-                    <ul class="member-list">
-                        @foreach ($entry['members'] as $member)
-                            <li>
-                                <strong>{{ $member->name }}</strong> ({{ $member->role }})<br>
-                                <span>{{ $member->university }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <div class="answer-section">
-                    <strong>Questionnaire Responses:</strong>
-                    <table class="qa-table">
-                        <thead>
-                            <tr>
-                                <th>Question</th>
-                                <th>Answer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($entry['answers'] as $ans)
-                                <tr>
-                                    <td>{{ $ans->question }}</td>
-                                    <td>{{ $ans->answer }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        @endforeach
-    </div>
+    @endforeach
 </body>
 </html>
