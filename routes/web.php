@@ -108,6 +108,10 @@ Route::post('/admin/user/remove/admin/{user}', [AdminController::class, 'RemoveA
 
 
 
+//! Route for Registration Close
+Route::get('/registration/close', function () {
+    return view('frontend.reg_close');
+});
 
 
 
