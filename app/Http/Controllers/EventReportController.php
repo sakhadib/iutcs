@@ -15,6 +15,7 @@ use App\Models\RegistrationQuestionField;
 use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
+use App\Models\UserInfo;
 use App\Models\EventRegQuestionAnswer;
 use Carbon\Carbon;
 
@@ -174,6 +175,94 @@ class EventReportController extends Controller
         $safeEvent = preg_replace('/[^A-Za-z0-9_\-]/', '_', $event->title);
 
         return $pdf->download("participant_list_{$safeFest}_{$safeEvent}.pdf");
+    }
+
+
+
+    public function generateFinalReport($festId)
+    {
+        $fest = Fest::findOrFail($festId);
+        $events = Event::where('fest_id', $festId)->get();
+        $reportData = [];
+
+        foreach ($events as $event) {
+            $registrationLogs = EventRegistrationLog::where('event_id', $event->id)
+                ->where('status', 'Approved')
+                ->get();
+
+            $teamsData = [];
+            $totalParticipants = 0;
+            $totalCollected = 0.0;
+
+            foreach ($registrationLogs as $log) {
+                $team = Team::find($log->team_id);
+                $members = TeamMember::where('team_id', $team->id)->get();
+
+                $memberDetails = $members->map(function ($member) {
+                    $user = User::find($member->user_id);
+                    return [
+                        'name' => $user->name ?? '',
+                        'student_id' => $user->student_id ?? '',
+                        'email' => $user->email ?? '',
+                        'university' => $user->university ?? '',
+                        'batch' => $user->batch ?? '',
+                    ];
+                });
+
+                $totalParticipants += $memberDetails->count();
+
+                $teamsData[] = [
+                    'team_name' => $team->name,
+                    'status' => $log->status,
+                    'registration_date' => Carbon::parse($log->created_at)->format('d M, Y'),
+                    'members' => $memberDetails,
+                ];
+            }
+
+            // Registration fee math
+            $regFee = floatval(preg_replace('/[^\d.]/', '', $event->registration_fee ?? '0'));
+            $teamCount = count($registrationLogs);
+            $totalCollected = $regFee * $teamCount;
+            $charge = $totalCollected * 0.018;
+            $netCollected = $totalCollected - $charge;
+
+            // Questions and answers
+            $questions = RegistrationQuestionField::where('event_id', $event->id)->get();
+            $answers = EventRegQuestionAnswer::where('event_id', $event->id)->get();
+
+            $reportData[] = [
+                'event' => $event,
+                'teamsData' => $teamsData,
+                'teamCount' => $teamCount,
+                'participantCount' => $totalParticipants,
+                'registration_fee' => $regFee,
+                'total_collected' => $totalCollected,
+                'charge' => $charge,
+                'net_collected' => $netCollected,
+                'questions' => $questions,
+                'answers' => $answers,
+            ];
+        }
+
+        $users = User::all();
+        $userInfos = UserInfo::all()->keyBy('user_id');
+        $universities = $users->groupBy('university');
+        $batches = $users->groupBy('batch');
+        $genders = $userInfos->groupBy('gender');
+
+        $pdf = Pdf::loadView('pdf.final_festival_report', [
+            'fest' => $fest,
+            'reportData' => $reportData,
+            'totalUsers' => $users->count(),
+            'universities' => $universities,
+            'batches' => $batches,
+            'genders' => $genders,
+            'generatedAt' => now()->format('d M, Y')
+        ])->setPaper('A4', 'landscape');
+
+        $safeFest = preg_replace('/[^A-Za-z0-9_\-]/', '_', $fest->title);
+
+        return $pdf->download("final_report_{$safeFest}.pdf");
     }
 
 

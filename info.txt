@@ -1,0 +1,192 @@
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('phone')->nullable();
+            $table->string('university')->nullable();
+            $table->string('batch')->nullable();
+            $table->string('student_id')->unique();
+            $table->dateTime('last_login')->nullable();
+            $table->string('role')->default('user'); // user, event-head, admin, president
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
+
+
+        public function up(): void
+    {
+        Schema::create('fests', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
+            $table->string('image')->nullable();
+            $table->string('medium')->nullable(); // online, offline
+            $table->string('location')->nullable(); // location of the fest
+            $table->unsignedBigInteger('created_by');
+            $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+        });
+    }
+
+
+    public function up(): void
+    {
+        Schema::create('events', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->text('rules')->nullable();
+            $table->string('rulebook-link')->nullable();
+            $table->text('prizes')->nullable();
+            $table->text('judges')->nullable();
+            $table->string('registration_link')->nullable();
+            $table->text('contact')->nullable();
+            $table->text('medium')->nullable(); // online, offline
+            $table->text('location')->nullable(); // location of the event
+            $table->string('registration_fee')->nullable();
+            $table->string('max_team_size')->nullable();
+            $table->string('min_team_size')->nullable();
+            $table->dateTime('registration_closing_date')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
+            $table->string('image')->nullable();
+            $table->unsignedBigInteger('fest_id')->nullable();
+            $table->timestamps();
+
+            $table->foreign('fest_id')->references('id')->on('fests')->onDelete('cascade');
+        });
+    }
+
+
+    public function up(): void
+    {
+        Schema::create('registration_question_fields', function (Blueprint $table) {
+            $table->id();
+            $table->string('question');
+            $table->string('type'); // text, select
+            $table->string('options')->nullable(); // comma separated values for select type
+            $table->unsignedBigInteger('event_id')->nullable();
+            $table->timestamps();
+
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+        });
+    }
+
+
+        public function up(): void
+    {
+        Schema::create('teams', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('color')->default('#2f5739'); // default color for the team
+            $table->string('description')->nullable();
+            $table->unsignedBigInteger('team_lead');
+            $table->timestamps();
+
+            $table->foreign('team_lead')->references('id')->on('users')->onDelete('cascade');
+        });
+    }
+
+
+        public function up(): void
+    {
+        Schema::create('team_members', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('team_id')->nullable();
+            $table->string('role')->default('member'); // member, team-lead
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
+        });
+    }
+
+
+        public function up(): void
+    {
+        Schema::create('event_registration_logs', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('team_id');
+            $table->string('status')->default('pending'); // pending, accepted, rejected
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
+
+            // Adding a unique constraint to prevent duplicate registrations for the same event
+            $table->unique(['user_id', 'event_id', 'team_id'], 'event_registration_unique');
+        });
+    }
+
+
+        public function up(): void
+    {
+        Schema::create('event_reg_question_answers', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('team_id');
+            $table->string('answer')->nullable();
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('registration_question_fields')->onDelete('cascade');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
+
+            // Adding a unique constraint to prevent duplicate answers for the same question
+            $table->unique(['user_id', 'event_id', 'question_id', 'team_id'], 'event_reg_question_answers_unique');
+        });
+    }
+
+
+        public function up(): void
+    {
+        Schema::create('user_infos', function (Blueprint $table) {
+            $table->id();
+            $table->string('avatar')->nullable();
+            $table->string('bio')->nullable();
+            $table->string('website')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('github')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedBigInteger('user_id')->unique();
+            $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+    }
+
+
+
+Directory: D:\CS_Website\iutcs\app\Models
+
+Name
+----
+Event.php
+EventRegistrationLog.php
+EventRegQuestionAnswer.php
+Fest.php
+RegistrationQuestionField.php
+Team.php
+TeamMember.php
+User.php
+userInfo.php
+
+
+
+
