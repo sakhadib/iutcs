@@ -234,56 +234,104 @@ class EventReportController extends Controller
 
 
 
-    public function exportRegistrationQnAAsCSV($eventId)
+public function exportRegistrationQnAAsCSV($eventId)
 {
-    // Get all unique questions for the event
+    $event = DB::table('events')->where('id', $eventId)->first();
+    if (!$event) {
+        abort(404, 'Event not found');
+    }
+
+    // Determine max team size
+    $maxMembers = is_numeric($event->max_team_size) ? intval($event->max_team_size) : 6;
+
+    // Load registration questions
     $questions = DB::table('registration_question_fields')
         ->where('event_id', $eventId)
         ->orderBy('id')
         ->get();
-
     $questionIds = $questions->pluck('id')->toArray();
 
-    // Prepare headers
-    $csvHeaders = ['team_id', 'team_name'];
+    // CSV headers
+    $csvHeaders = [
+        'team_id', 'team_name', 'team_description',
+        'team_lead_name', 'team_lead_email', 'team_lead_phone', 'team_lead_student_id',
+    ];
+
+    for ($i = 1; $i <= $maxMembers; $i++) {
+        $csvHeaders = array_merge($csvHeaders, [
+            "member_{$i}_name", "member_{$i}_email", "member_{$i}_phone",
+            "member_{$i}_student_id", "member_{$i}_batch", "member_{$i}_university", "member_{$i}_gender"
+        ]);
+    }
+
     foreach ($questions as $q) {
         $csvHeaders[] = $q->question;
     }
 
-    // Get teams registered for the event
     $teams = DB::table('event_registration_logs')
         ->where('event_id', $eventId)
+        ->where('status', 'Approved')
         ->pluck('team_id');
 
     $rows = [];
 
     foreach ($teams as $teamId) {
         $team = DB::table('teams')->where('id', $teamId)->first();
+        $lead = DB::table('users')->where('id', $team->team_lead)->first();
 
-        $row = [
+        $baseRow = [
             $team->id,
-            $team->name
+            $team->name,
+            $team->description,
+            $lead->name,
+            $lead->email,
+            $lead->phone,
+            $lead->student_id,
         ];
 
-        // Get answers for this team
+        $members = DB::table('team_members')
+            ->where('team_id', $team->id)
+            ->join('users', 'team_members.user_id', '=', 'users.id')
+            ->leftJoin('user_infos', 'users.id', '=', 'user_infos.user_id')
+            ->select(
+                'users.name', 'users.email', 'users.phone', 'users.student_id',
+                'users.university', 'user_infos.gender'
+            )
+            ->get();
+
+        $memberFields = [];
+        foreach ($members as $member) {
+            $studentId = $member->student_id ?? '';
+            $batch = ctype_digit(substr($studentId, 0, 2)) ? substr($studentId, 0, 2) : '';
+            $memberFields = array_merge($memberFields, [
+                $member->name ?? '', $member->email ?? '', $member->phone ?? '',
+                $member->student_id ?? '', $batch,
+                $member->university ?? '', $member->gender ?? ''
+            ]);
+        }
+
+        // Pad with blanks if member count < max
+        $missing = $maxMembers - count($members);
+        for ($i = 0; $i < $missing; $i++) {
+            $memberFields = array_merge($memberFields, array_fill(0, 7, ''));
+        }
+
         $answers = DB::table('event_reg_question_answers')
-            ->join('registration_question_fields', 'event_reg_question_answers.question_id', '=', 'registration_question_fields.id')
-            ->where('event_reg_question_answers.team_id', $teamId)
-            ->where('registration_question_fields.event_id', $eventId)
-            ->select('event_reg_question_answers.question_id', 'event_reg_question_answers.answer')
+            ->where('team_id', $teamId)
+            ->where('event_id', $eventId)
             ->get()
             ->keyBy('question_id');
 
-        // Add answers in the correct order
+        $answerRow = [];
         foreach ($questionIds as $qid) {
-            $row[] = isset($answers[$qid]) ? $answers[$qid]->answer : '';
+            $answerRow[] = $answers[$qid]->answer ?? '';
         }
 
-        $rows[] = $row;
+        $rows[] = array_merge($baseRow, $memberFields, $answerRow);
     }
 
-    // Create CSV
-    $filename = 'event_qna_export.csv';
+    // Create CSV in-memory
+    $filename = 'event_registration_detailed.csv';
     $handle = fopen('php://temp', 'r+');
     fputcsv($handle, $csvHeaders);
 
