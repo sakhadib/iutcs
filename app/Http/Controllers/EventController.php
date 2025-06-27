@@ -27,6 +27,7 @@ class EventController extends Controller
         $fullevent = Event::where('id', $event)
                     ->where('fest_id', $fest)
                     ->withCount(['participants'])
+                    ->with('eventImages')
                     ->first();
         if(!$fullevent) {
             return redirect('/404');

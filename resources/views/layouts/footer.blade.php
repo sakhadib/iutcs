@@ -1,4 +1,4 @@
-<div class="mt-5"> </div>
+{{-- <div class="mt-5"> </div> --}}
 
 <footer class="bg-gradient-to-b from-[#0a192f] to-[#020c1b] text-gray-300 py-16 relative overflow-hidden">
   <!-- Animated background elements -->
