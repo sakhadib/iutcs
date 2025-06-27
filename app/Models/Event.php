@@ -28,4 +28,14 @@ class Event extends Model
     {
         return $this->hasMany(RegistrationQuestionField::class);
     }
+
+    public function eventImages()
+    {
+        return $this->hasMany(EventImage::class)->ordered();
+    }
+
+    public function featuredImages()
+    {
+        return $this->hasMany(EventImage::class)->featured()->ordered();
+    }
 }
