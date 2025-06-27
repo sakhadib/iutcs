@@ -35,7 +35,7 @@
                             <div class="text-sm text-gray-300">Active Members</div>
                         </div>
                         <div class="stat-item">
-                            <div class="text-3xl font-bold text-cyan">50+</div>
+                            <div class="text-3xl font-bold text-cyan">30+</div>
                             <div class="text-sm text-gray-300">Events Annually</div>
                         </div>
                     </div>
