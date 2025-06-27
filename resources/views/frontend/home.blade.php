@@ -7,9 +7,9 @@
         <div class="absolute inset-0">
             <div class="absolute inset-0 bg-gradient-to-br from-navy/90 via-navy/80 to-cyan/20"></div>
             <div class="hero-pattern"></div>
-            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-30">
+            {{-- <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-30">
                 <source src="https://videocdn.cdnpk.net/joy/video/free/2024-01/large/240110_01_4k_002.mp4" type="video/mp4">
-            </video>
+            </video> --}}
         </div>
         <div class="container mx-auto px-4 relative z-10 text-center">
             <div class="hero-content">
@@ -72,11 +72,6 @@
                             <p class="text-lg mb-6">
                                 We serve as a platform for young computer engineers and students from <span class="font-bold text-navy">all departments</span> at IUT to develop their technical skills, collaborate on projects, and engage with the wider technology community.
                             </p>
-                            <div class="bg-gradient-to-r from-cyan/10 to-red/10 p-6 rounded-xl border-l-4 border-cyan">
-                                <p class="text-lg font-medium text-navy">
-                                    "Membership is open to all IUT students, regardless of department, fostering interdisciplinary collaboration."
-                                </p>
-                            </div>
                         </div>
                     </div>
                     <div class="order-1 md:order-2">
@@ -245,60 +240,105 @@
         </div>
     </section>
 
-    <!-- Industry Partnerships Section -->
+    <!-- Previous Collaborations Section -->
     <section class="py-20 md:py-28 bg-white relative overflow-hidden">
         <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-red/5 to-transparent rounded-full transform -translate-x-48 -translate-y-48"></div>
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">Industry Partnerships</h2>
+                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">Previous Collaborations</h2>
                 <div class="flex justify-center mb-6">
                     <div class="h-1 w-24 bg-gradient-to-r from-cyan to-red rounded-full"></div>
                 </div>
                 <p class="text-xl text-gray-700 max-w-4xl mx-auto">
-                    Building bridges between academia and industry through strategic collaborations and partnerships.
+                    Our proud history of successful collaborations with leading technology companies and organizations.
                 </p>
+            </div>
+            
+            <!-- Collaboration Partners Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Robi Axiata -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-cyan text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">Robi Axiata</h4>
+                    <p class="text-gray-600 text-sm">Strategic industry collaboration</p>
+                </div>
+                
+                <!-- StreamsTech -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-red text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">StreamsTech</h4>
+                    <p class="text-gray-600 text-sm">Technical webinar collaboration</p>
+                </div>
+                
+                <!-- BDApps -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-cyan text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">BDApps</h4>
+                    <p class="text-gray-600 text-sm">Competition sponsorship platform</p>
+                </div>
+                
+                <!-- Brain Station 23 -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-red text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">Brain Station 23</h4>
+                    <p class="text-gray-600 text-sm">Game development hackathon</p>
+                </div>
+                
+                <!-- NetCom Learning -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-cyan text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">NetCom Learning</h4>
+                    <p class="text-gray-600 text-sm">AI competition collaboration</p>
+                </div>
+                
+                <!-- Bengali.AI -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-red text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">Bengali.AI</h4>
+                    <p class="text-gray-600 text-sm">Research collaboration datathon</p>
+                </div>
+                
+                <!-- Prime Bank -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-cyan text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">Prime Bank</h4>
+                    <p class="text-gray-600 text-sm">First ICT Fest sponsor</p>
+                </div>
+                
+                <!-- First Security Islami Bank -->
+                <div class="partnership-item bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-red text-center">
+                    <h4 class="text-lg font-bold text-navy mb-2">FSIBL</h4>
+                    <p class="text-gray-600 text-sm">Event powering sponsor</p>
+                </div>
             </div>
             
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <div class="space-y-8">
+                    <h3 class="text-2xl font-bold text-navy mb-6">Collaboration Highlights</h3>
+                    <div class="space-y-6">
                         <div class="partnership-item bg-gradient-to-r from-cyan/10 to-red/10 p-6 rounded-xl border-l-4 border-cyan">
-                            <h4 class="text-xl font-bold text-navy mb-2">Bengali.AI Collaboration</h4>
-                            <p class="text-gray-700">Strategic partnership for regional dialect datathon, advancing Bengali speech recognition technology research.</p>
+                            <h4 class="text-lg font-bold text-navy mb-2">First University Game Jam</h4>
+                            <p class="text-gray-700">Partnered with Brain Station 23 for Bangladesh's pioneering university-level game development hackathon.</p>
                         </div>
                         <div class="partnership-item bg-gradient-to-r from-red/10 to-cyan/10 p-6 rounded-xl border-l-4 border-red">
-                            <h4 class="text-xl font-bold text-navy mb-2">NetCom Learning Partnership</h4>
-                            <p class="text-gray-700">Collaborating for Agent X - Bangladesh's largest national AI Prompting Competition with Microsoft certifications.</p>
-                        </div>
-                        <div class="partnership-item bg-gradient-to-r from-cyan/10 to-red/10 p-6 rounded-xl border-l-4 border-cyan">
-                            <h4 class="text-xl font-bold text-navy mb-2">Brain Station 23</h4>
-                            <p class="text-gray-700">Pioneering collaboration for Hack-A-Jam 2021, Bangladesh's first university-level game development hackathon.</p>
+                            <h4 class="text-lg font-bold text-navy mb-2">National AI Competition</h4>
+                            <p class="text-gray-700">Collaborated with NetCom Learning for Agent X, involving 50,000+ students across Bangladesh.</p>
                         </div>
                     </div>
                 </div>
                 <div>
                     <div class="bg-gradient-to-br from-navy to-cyan p-8 rounded-2xl text-white shadow-2xl">
-                        <h3 class="text-2xl font-bold mb-6">Partnership Benefits</h3>
+                        <h3 class="text-2xl font-bold mb-6">Collaboration Impact</h3>
                         <ul class="space-y-4">
+                            
                             <li class="flex items-start">
                                 <div class="w-2 h-2 bg-red rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                                <span>Industry-level project exposure</span>
+                                <span>Industry-standard skill development</span>
                             </li>
                             <li class="flex items-start">
                                 <div class="w-2 h-2 bg-red rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                                <span>Professional certification opportunities</span>
+                                <span>National competition leadership</span>
                             </li>
                             <li class="flex items-start">
                                 <div class="w-2 h-2 bg-red rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                                <span>Direct networking with industry leaders</span>
+                                <span>Research collaboration opportunities</span>
                             </li>
                             <li class="flex items-start">
                                 <div class="w-2 h-2 bg-red rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                                <span>Real-world problem-solving experience</span>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="w-2 h-2 bg-red rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                                <span>Career development and job placement</span>
+                                <span>Professional certification access</span>
                             </li>
                         </ul>
                     </div>
