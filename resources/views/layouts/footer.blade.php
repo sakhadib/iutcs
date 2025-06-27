@@ -1,3 +1,5 @@
+<div class="mt-5"> </div>
+
 <footer class="bg-gradient-to-b from-[#0a192f] to-[#020c1b] text-gray-300 py-16 relative overflow-hidden">
   <!-- Animated background elements -->
   <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgOGgxNk0wIDBoMTZNNCAwaDE2TTQgOGgxNk0wIDRoMTZNNCA0aDE2TTQgMTJoMTZNMCAxMmgxNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+PC9zdmc+');"></div>
@@ -22,19 +24,19 @@
         <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-4">Explore</h3>
         <ul class="space-y-4">
           <li>
-            <a href="./home.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
+            <a href="/home" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
               <span class="h-[2px] w-4 bg-cyan-400 mr-2 transition-all duration-300 group-hover:w-6"></span>
               Home
             </a>
           </li>
           <li>
-            <a href="./fests.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
+            <a href="/fests" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
               <span class="h-[2px] w-4 bg-purple-400 mr-2 transition-all duration-300 group-hover:w-6"></span>
               Fests
             </a>
           </li>
           <li>
-            <a href="./about.html" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
+            <a href="/about" class="flex items-center group text-gray-300 hover:text-white transition-all duration-300 rk">
               <span class="h-[2px] w-4 bg-cyan-400 mr-2 transition-all duration-300 group-hover:w-6"></span>
               About
             </a>
@@ -59,16 +61,16 @@
 
       <!-- Social Media Links -->
       <div class="space-y-6">
-        <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-4">Follow</h3>
+        <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-4">Social Links</h3>
         <div class="flex space-x-4">
-          <a href="#" class="p-2 rounded-lg bg-gray-800/50 hover:bg-cyan-500/20 transition-all duration-300 group">
-            <i class="bi bi-github text-2xl text-gray-400 group-hover:text-cyan-400"></i>
+          <a href="https://www.facebook.com/IUTCS/" class="p-2 rounded-lg bg-gray-800/50 hover:bg-cyan-500/20 transition-all duration-300 group">
+            <i class="bi bi-facebook text-2xl text-gray-400 group-hover:text-cyan-400"></i>
           </a>
-          <a href="#" class="p-2 rounded-lg bg-gray-800/50 hover:bg-purple-500/20 transition-all duration-300 group">
+          <a href="https://bd.linkedin.com/company/iutcs" class="p-2 rounded-lg bg-gray-800/50 hover:bg-purple-500/20 transition-all duration-300 group">
             <i class="bi bi-linkedin text-2xl text-gray-400 group-hover:text-purple-400"></i>
           </a>
-          <a href="#" class="p-2 rounded-lg bg-gray-800/50 hover:bg-cyan-500/20 transition-all duration-300 group">
-            <i class="bi bi-discord text-2xl text-gray-400 group-hover:text-cyan-400"></i>
+          <a href="https://www.youtube.com/channel/UCPVwRaP-wK6lSUEqTK7iLng" class="p-2 rounded-lg bg-gray-800/50 hover:bg-red-500/20 transition-all duration-300 group">
+            <i class="bi bi-youtube text-2xl text-gray-400 group-hover:text-cyan-400"></i>
           </a>
         </div>
       </div>
@@ -79,7 +81,7 @@
       <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
       <p class="text-sm text-gray-500/80">&copy; {{ date('Y') }} IUTCS. All rights reserved.</p>
       <p class="text-sm mt-2 text-gray-500/80">
-        Crafted with <span class="text-red-400">❤️</span> by 
+        Coded and Crafted by 
         <a href="https://portfolio.sakhawatadib.com" class="hover:text-cyan-400 transition-colors rk">Adib Sakhawat</a>
       </p>
     </div>

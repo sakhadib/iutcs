@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('main')
-<div class="container mt-5 vh-100">
+<div class="container mt-5 mb-5">
     <h1 class="text-center mb-4">All Users</h1>
     <div class="table-responsive">
         <table id="usersTable" class="table table-striped table-bordered">
@@ -25,12 +25,12 @@
                     <td>{{ ucfirst($user->role) }}</td>
                     <td>
                         @if ($user->role === 'admin')
-                        <form action="{{ url('/admin/user/remove/admin/' . $user->id) }}" method="POST" style="display:inline;">
+                        <form action="/admin/user/remove/admin/{{$user->id}}" method="GET" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-danger btn-sm">Remove Admin</button>
                         </form>
                         @else
-                        <form action="{{ url('/admin/user/make/admin/' . $user->id) }}" method="POST" style="display:inline;">
+                        <form action="/admin/user/make/admin/{{$user->id}}" method="GET" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-success btn-sm">Make Admin</button>
                         </form>

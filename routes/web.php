@@ -41,10 +41,10 @@ Route::get('/home', [HomeController::class, 'showHomePage']);
 Route::get('/fests', [FestsController::class, 'showFestsPage']);
 Route::get('/fest/{fest}', [FestsController::class, 'festDetails']);
 
-Route::get('fest/{fest}/event/{event}', [EventController::class, 'showEventPage']);
+Route::get('/fest/{fest}/event/{event}', [EventController::class, 'showEventPage']);
 
-Route::get('fest/{fest}/event/{event}/register', [EventController::class, 'eventRegistration']);
-Route::post('fest/{fest}/event/{event}/register', [ParticipantRegisterController::class, 'registerParticipant']);
+Route::get('/fest/{fest}/event/{event}/register', [EventController::class, 'eventRegistration']);
+Route::post('/fest/{fest}/event/{event}/register', [ParticipantRegisterController::class, 'registerParticipant']);
 
 
 Route::get('/profile/{user_id}', [ProfileController::class, 'viewProfile']);
@@ -53,7 +53,7 @@ Route::get('/profile/{user_id}', [ProfileController::class, 'viewProfile']);
 Route::get('/teams', [TeamController::class, 'showTeamPage']);
 Route::get('/team/create', [TeamController::class, 'showCreateTeamPage']);
 Route::post('/teams/store', [TeamController::class, 'storeTeam']);
-Route::post('team/edit', [TeamController::class, 'editTeam']);
+Route::post('/team/edit', [TeamController::class, 'editTeam']);
 Route::get('/team/show/{team_id}', [TeamController::class, 'showTeamDetails']);
 Route::post('team/add/member', [TeamController::class, 'addMember']);
 Route::post('team/remove/member', [TeamController::class, 'removeMember']);
@@ -74,7 +74,7 @@ Route::get('/admin/fests/create', [AdminController::class, 'showCreateFestPage']
 Route::post('/admin/fests/create', [AdminController::class, 'createFest']);
 
 
-Route::get('admin/fest/{fest}/event/create', [AdminController::class, 'showCreateEventPage']);
+Route::get('/admin/fest/{fest}/event/create', [AdminController::class, 'showCreateEventPage']);
 Route::post('/admin/fest/{fest}/event/create', [AdminController::class, 'createEvent']);
 Route::get('/admin/fest/{fest}/event/{event}/edit', [EventController::class, 'editEvent']);
 Route::post('/admin/fest/{fest}/event/{event}/edit', [EventController::class, 'updateEvent']);
@@ -87,19 +87,22 @@ Route::post('/admin/fest/{fest}/event/{event}/team/{team}/approve', [AdminContro
 Route::post('/admin/fest/{fest}/event/{event}/team/{team}/reject', [AdminController::class, 'rejectTeam']);
 
 
-Route::post('admin/questions/add', [AdminController::class, 'addQuestion']);
-Route::get('admin/questions/delete/{questionId}', [AdminController::class, 'deleteQuestion']);
+Route::post('/admin/questions/add', [AdminController::class, 'addQuestion']);
+Route::get('/admin/questions/delete/{questionId}', [AdminController::class, 'deleteQuestion']);
 
 // web.php
-Route::get('admin/event/{id}/report', [EventReportController::class, 'generate']);
-Route::get('admin/event/{id}/summary', [EventReportController::class, 'generateEventSummaryReport']);
-Route::get('admin/event/{event}/participants', [EventReportController::class, 'generateParticipantListReport']);
-Route::get('admin/event/{id}/csv', [EventReportController::class, 'exportRegistrationQnAAsCSV']);
+Route::get('/admin/fest/{id}/report', [EventReportController::class, 'generateSummaryReport']);
+Route::get('/admin/fest/{id}/report/batch', [EventReportController::class, 'generateBatchCountReport']);
+Route::get('/admin/event/{id}/report', [EventReportController::class, 'generate']);
+Route::get('/admin/event/{id}/summary', [EventReportController::class, 'generateEventSummaryReport']);
+Route::get('/admin/event/{event}/participants', [EventReportController::class, 'generateParticipantListReport']);
+Route::get('/admin/event/{id}/csv', [EventReportController::class, 'exportRegistrationQnAAsCSV']);
 
 
-Route::get('admin/users', [AdminController::class, 'showAllUserPage']);
-Route::post('/admin/user/make/admin/{user}', [AdminController::class, 'AddAdmin']);
-Route::post('/admin/user/remove/admin/{user}', [AdminController::class, 'RemoveAdmin']);
+Route::get('/admin/users', [AdminController::class, 'showAllUserPage']);
+Route::get('/admin/user/make/admin/{user}', [AdminController::class, 'AddAdmin']);
+Route::get('/admin/user/remove/admin/{user}', [AdminController::class, 'RemoveAdmin']);
+
 
 
 
@@ -112,7 +115,6 @@ Route::post('/admin/user/remove/admin/{user}', [AdminController::class, 'RemoveA
 Route::get('/registration/close', function () {
     return view('frontend.reg_close');
 });
-
 
 
 //! Fallback route

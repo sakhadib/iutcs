@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('rules')->nullable();
-            $table->string('rulebook-link')->nullable();
+            $table->string('rulebook_link')->nullable();
             $table->text('prizes')->nullable();
             $table->text('judges')->nullable();
             $table->string('registration_link')->nullable();

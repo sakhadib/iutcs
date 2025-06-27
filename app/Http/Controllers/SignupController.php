@@ -32,6 +32,12 @@ class SignupController extends Controller
             'address' => 'required|string|max:255',
         ]);
 
+        $existingUser = User::where('student_id', $validated['studentID'])->first();
+
+        if ($existingUser) {
+            return redirect('/login')->withErrors(['error' => 'Already Registered']);
+        }
+
         // Create and save User
         $user = new User();
         $user->name = $validated['name'];

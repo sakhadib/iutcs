@@ -24,15 +24,15 @@ class LoginController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if (!$user) {
-            return redirect()->back()->withErrors(['email' => 'Email not found.']);
+            return redirect()->back()->withErrors(['error' => 'Email not found.']);
         }
         if (md5($request->password) !== $user->password) {
-            return redirect()->back()->withErrors(['password' => 'Incorrect password.']);
+            return redirect()->back()->withErrors(['error' => 'Incorrect password.']);
         }
 
         // Check if the user is already logged in
         if (session()->has('user_id')) {
-            return redirect('/home')->with('success', 'You are already logged in.');
+            return redirect('/')->with('success', 'You are already logged in.');
         }
 
         // Store user ID in session
@@ -46,7 +46,7 @@ class LoginController extends Controller
         $user->save();
 
         // Redirect to the home page
-        return redirect('/home')->with('success', 'Login successful.');
+        return redirect('/')->with('success', 'Login successful.');
         
     }
 

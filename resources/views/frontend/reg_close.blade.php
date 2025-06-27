@@ -1,12 +1,14 @@
 @extends('layouts.main')
 @section('main')
 
-    <div class="overlay-text text-center">Presented by <span>IUT Computer Society</span></div>
-    <div class="text-center">
-        <h1 class="glow">🚫 Registration Closed</h1>
-        <p class="subtitle">Thank you for your interest. We'll see you in the next adventure!</p>
-        <a href="/" class="btn btn-tech">Go Home</a>
-    </div>
+    <div class="vh-70 df dfc jcc aic">
+        <div class="overlay-text text-center">Presented by <span>IUT Computer Society</span></div>
+        <div class="text-center">
+            <h1 class="glow mt-3 mb-3">🚫 Registration Closed</h1>
+            <p class="subtitle mb-3">Thank you for your interest. We'll see you in the next adventure!</p>
+            <a href="/" class="btn btn-tech">Go Home</a>
+        </div>
+    </div>   
 
 
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -18,11 +20,12 @@
             background: linear-gradient(145deg, #0f2027, #203a43, #2c5364);
             color: #fff;
             font-family: 'Share Tech Mono', monospace;
-            display: flex;
+            /* display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; */
         }
 
         .glow {

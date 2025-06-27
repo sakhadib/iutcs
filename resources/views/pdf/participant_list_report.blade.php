@@ -30,7 +30,7 @@
             margin-bottom: 2px;
         }
         .event-title {
-            font-size: 13px;
+            font-size: 16px;
             color: #444;
         }
         .stats-bar {
@@ -72,11 +72,11 @@
             border-top-right-radius: 4px;
         }
         tr:last-child td {
-            border-bottom: none;
+            border-bottom: 1px solid gray;
         }
-        tr:nth-child(even) td {
+        /* tr:nth-child(even) td {
             background: #f5f5f5;
-        }
+        } */
         td {
             vertical-align: top;
         }
@@ -99,12 +99,13 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ public_path('/rsx/logo.png') }}" class="logo">
         <div class="heading-group">
             <div class="org-title">IUT Computer Society</div>
             <div class="report-title">Participant List Report</div>
             <div class="event-title">{{ $fest->title }} &mdash; {{ $event->title }}</div>
         </div>
-        <img src="{{ public_path('/rsx/logo.png') }}" class="logo">
+        
     </div>
 
     <div class="stats-bar">
@@ -120,12 +121,11 @@
                 <th style="width: 18%;">Team Name</th>
                 <th style="width: 20%;">Member Name</th>
                 <th style="width: 13%;">Student ID</th>
-                <th style="width: 22%;">Email</th>
-                <th style="width: 12%;">Status</th>
+                <th style="width: 22%;">Phone</th>
                 <th style="width: 15%;">Registration Date</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="page-break-inside: avoid;">
             @foreach ($teamsData as $team)
                 @foreach ($team['members'] as $index => $member)
                     <tr>
@@ -134,9 +134,8 @@
                         @endif
                         <td>{{ $member['name'] }}</td>
                         <td>{{ $member['student_id'] }}</td>
-                        <td>{{ $member['email'] }}</td>
+                        <td>{{ $member['phone'] }}</td>
                         @if ($index === 0)
-                            <td rowspan="{{ count($team['members']) }}" class="status">{{ ucfirst($team['status']) }}</td>
                             <td rowspan="{{ count($team['members']) }}">{{ $team['registration_date'] }}</td>
                         @endif
                     </tr>
@@ -145,15 +144,6 @@
         </tbody>
     </table>
 
-    <div class="footer">
-        Page <span class="pagenum"></span>
-    </div>
-    <script>
-        // For PDF generators that support JS page numbers (like dompdf)
-        var pageSpans = document.getElementsByClassName('pagenum');
-        for (var i = 0; i < pageSpans.length; i++) {
-            pageSpans[i].textContent = (typeof this.pageNumber !== 'undefined') ? this.pageNumber : '';
-        }
-    </script>
+    
 </body>
 </html>

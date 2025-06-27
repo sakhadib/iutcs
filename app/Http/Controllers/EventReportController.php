@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 
 use App\Models\Fest;
 use App\Models\Event;
@@ -15,9 +16,8 @@ use App\Models\RegistrationQuestionField;
 use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
-use App\Models\UserInfo;
 use App\Models\EventRegQuestionAnswer;
-use Carbon\Carbon;
+use App\Models\UserInfo;
 
 
 class EventReportController extends Controller
@@ -71,6 +71,8 @@ class EventReportController extends Controller
         $safeEventTitle = preg_replace('/[^A-Za-z0-9_\-]/', '_', $event->title);
         return $pdf->download('full_report_' . $safeFestTitle . '_' . $safeEventTitle . '.pdf');
     }
+
+
 
 
     public function generateEventSummaryReport($eventId)
@@ -130,6 +132,8 @@ class EventReportController extends Controller
     }
 
 
+
+
     public function generateParticipantListReport($eventId)
     {
         $event = Event::findOrFail($eventId);
@@ -148,7 +152,7 @@ class EventReportController extends Controller
                 return [
                     'name' => $user->name ?? '',
                     'student_id' => $user->student_id ?? '',
-                    'email' => $user->email ?? '',
+                    'phone' => $user->phone ?? '',
                 ];
             });
 
@@ -233,176 +237,171 @@ class EventReportController extends Controller
 
 
 
+    // Batch Wise Report
+    public function generateBatchCountReport($festId)
+    {
+        $fest = Fest::findOrFail($festId);
+        $events = Event::where('fest_id', $festId)->get();
 
-public function exportRegistrationQnAAsCSV($eventId)
-{
-    $event = DB::table('events')->where('id', $eventId)->first();
-    if (!$event) {
-        abort(404, 'Event not found');
+        $batches = collect();
+        $reportData = [];
+        $totals = [];
+
+        foreach ($events as $event) {
+            $logs = EventRegistrationLog::where('event_id', $event->id)->where('status', 'Approved')->get();
+            $teamIds = $logs->pluck('team_id')->unique();
+
+            $members = TeamMember::whereIn('team_id', $teamIds)->get();
+            $userIds = $members->pluck('user_id')->unique();
+
+            $users = User::whereIn('id', $userIds)->get();
+            $batchCount = [];
+
+            foreach ($users as $user) {
+                $batchPrefix = substr($user->student_id, 0, 2);
+                if (!ctype_digit($batchPrefix)) continue;
+
+                $batch = intval($batchPrefix);
+                $batches->push($batch);
+                $batchCount[$batch] = ($batchCount[$batch] ?? 0) + 1;
+                $totals[$batch] = ($totals[$batch] ?? 0) + 1;
+            }
+
+            $reportData[] = [
+                'event' => $event->title,
+                'counts' => $batchCount,
+                'total' => array_sum($batchCount),
+            ];
+        }
+
+        $batches = $batches->unique()->sort()->values();
+        $grandTotal = array_sum($totals);
+
+        $pdf = Pdf::loadView('pdf.batch_count_report', [
+            'fest' => $fest,
+            'reportData' => $reportData,
+            'batches' => $batches,
+            'totals' => $totals,
+            'grandTotal' => $grandTotal,
+        ])->setPaper('A4', 'portrait');
+
+        $safeFest = preg_replace('/[^A-Za-z0-9_\\-]/', '_', $fest->title);
+        return $pdf->download("batch_count_report_{$safeFest}.pdf");
     }
 
-    // Determine max team size
-    $maxMembers = is_numeric($event->max_team_size) ? intval($event->max_team_size) : 6;
 
-    // Load registration questions
-    $questions = DB::table('registration_question_fields')
-        ->where('event_id', $eventId)
-        ->orderBy('id')
-        ->get();
-    $questionIds = $questions->pluck('id')->toArray();
 
-    // CSV headers
-    $csvHeaders = [
-        'team_id', 'team_name', 'team_description',
-        'team_lead_name', 'team_lead_email', 'team_lead_phone', 'team_lead_student_id',
-    ];
-
-    for ($i = 1; $i <= $maxMembers; $i++) {
-        $csvHeaders = array_merge($csvHeaders, [
-            "member_{$i}_name", "member_{$i}_email", "member_{$i}_phone",
-            "member_{$i}_student_id", "member_{$i}_batch", "member_{$i}_university", "member_{$i}_gender"
-        ]);
-    }
-
-    foreach ($questions as $q) {
-        $csvHeaders[] = $q->question;
-    }
-
-    $teams = DB::table('event_registration_logs')
-        ->where('event_id', $eventId)
-        ->where('status', 'Approved')
-        ->pluck('team_id');
-
-    $rows = [];
-
-    foreach ($teams as $teamId) {
-        $team = DB::table('teams')->where('id', $teamId)->first();
-        $lead = DB::table('users')->where('id', $team->team_lead)->first();
-
-        $baseRow = [
-            $team->id,
-            $team->name,
-            $team->description,
-            $lead->name,
-            $lead->email,
-            $lead->phone,
-            $lead->student_id,
-        ];
-
-        $members = DB::table('team_members')
-            ->where('team_id', $team->id)
-            ->join('users', 'team_members.user_id', '=', 'users.id')
-            ->leftJoin('user_infos', 'users.id', '=', 'user_infos.user_id')
-            ->select(
-                'users.name', 'users.email', 'users.phone', 'users.student_id',
-                'users.university', 'user_infos.gender'
-            )
+    public function exportRegistrationQnAAsCSV($eventId)
+    {
+        $event = DB::table('events')->where('id', $eventId)->first();
+        if (!$event) {
+            abort(404, 'Event not found');
+        }
+    
+        // Determine max team size
+        $maxMembers = is_numeric($event->max_team_size) ? intval($event->max_team_size) : 6;
+    
+        // Load registration questions
+        $questions = DB::table('registration_question_fields')
+            ->where('event_id', $eventId)
+            ->orderBy('id')
             ->get();
-
-        $memberFields = [];
-        foreach ($members as $member) {
-            $studentId = $member->student_id ?? '';
-            $batch = ctype_digit(substr($studentId, 0, 2)) ? substr($studentId, 0, 2) : '';
-            $memberFields = array_merge($memberFields, [
-                $member->name ?? '', $member->email ?? '', $member->phone ?? '',
-                $member->student_id ?? '', $batch,
-                $member->university ?? '', $member->gender ?? ''
+        $questionIds = $questions->pluck('id')->toArray();
+    
+        // CSV headers
+        $csvHeaders = [
+            'team_id', 'team_name',
+            'team_lead_name', 'team_lead_email', 'team_lead_phone', 'team_lead_student_id',
+        ];
+    
+        for ($i = 1; $i <= $maxMembers; $i++) {
+            $csvHeaders = array_merge($csvHeaders, [
+                "member_{$i}_name", "member_{$i}_email", "member_{$i}_phone",
+                "member_{$i}_student_id", "member_{$i}_batch", "member_{$i}_university", "member_{$i}_gender"
             ]);
         }
-
-        // Pad with blanks if member count < max
-        $missing = $maxMembers - count($members);
-        for ($i = 0; $i < $missing; $i++) {
-            $memberFields = array_merge($memberFields, array_fill(0, 7, ''));
+    
+        foreach ($questions as $q) {
+            $csvHeaders[] = $q->question;
         }
-
-        $answers = DB::table('event_reg_question_answers')
-            ->where('team_id', $teamId)
+    
+        $teams = DB::table('event_registration_logs')
             ->where('event_id', $eventId)
-            ->get()
-            ->keyBy('question_id');
-
-        $answerRow = [];
-        foreach ($questionIds as $qid) {
-            $answerRow[] = $answers[$qid]->answer ?? '';
+            ->where('status', 'Approved')
+            ->pluck('team_id');
+    
+        $rows = [];
+    
+        foreach ($teams as $teamId) {
+            $team = DB::table('teams')->where('id', $teamId)->first();
+            $lead = DB::table('users')->where('id', $team->team_lead)->first();
+    
+            $baseRow = [
+                $team->id,
+                $team->name,
+                $lead->name,
+                $lead->email,
+                $lead->phone,
+                $lead->student_id,
+            ];
+    
+            $members = DB::table('team_members')
+                ->where('team_id', $team->id)
+                ->join('users', 'team_members.user_id', '=', 'users.id')
+                ->leftJoin('user_infos', 'users.id', '=', 'user_infos.user_id')
+                ->select(
+                    'users.name', 'users.email', 'users.phone', 'users.student_id',
+                    'users.university', 'user_infos.gender'
+                )
+                ->get();
+    
+            $memberFields = [];
+            foreach ($members as $member) {
+                $studentId = $member->student_id ?? '';
+                $batch = ctype_digit(substr($studentId, 0, 2)) ? substr($studentId, 0, 2) : '';
+                $memberFields = array_merge($memberFields, [
+                    $member->name ?? '', $member->email ?? '', $member->phone ?? '',
+                    $member->student_id ?? '', $batch,
+                    $member->university ?? '', $member->gender ?? ''
+                ]);
+            }
+    
+            // Pad with blanks if member count < max
+            $missing = $maxMembers - count($members);
+            for ($i = 0; $i < $missing; $i++) {
+                $memberFields = array_merge($memberFields, array_fill(0, 7, ''));
+            }
+    
+            $answers = DB::table('event_reg_question_answers')
+                ->where('team_id', $teamId)
+                ->where('event_id', $eventId)
+                ->get()
+                ->keyBy('question_id');
+    
+            $answerRow = [];
+            foreach ($questionIds as $qid) {
+                $answerRow[] = $answers[$qid]->answer ?? '';
+            }
+    
+            $rows[] = array_merge($baseRow, $memberFields, $answerRow);
         }
-
-        $rows[] = array_merge($baseRow, $memberFields, $answerRow);
-    }
-
-    // Create CSV in-memory
-    $filename = 'event_registration_detailed.csv';
-    $handle = fopen('php://temp', 'r+');
-    fputcsv($handle, $csvHeaders);
-
-    foreach ($rows as $row) {
-        fputcsv($handle, $row);
-    }
-
-    rewind($handle);
-    $csvContent = stream_get_contents($handle);
-    fclose($handle);
-
-    return Response::make($csvContent, 200, [
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"$filename\"",
-    ]);
-}
-
-
-// Batch Wise Report
-public function generateBatchCountReport($festId)
-{
-    $fest = Fest::findOrFail($festId);
-    $events = Event::where('fest_id', $festId)->get();
-
-    $batches = collect();
-    $reportData = [];
-    $totals = [];
-
-    foreach ($events as $event) {
-        $logs = EventRegistrationLog::where('event_id', $event->id)->where('status', 'Approved')->get();
-        $teamIds = $logs->pluck('team_id')->unique();
-
-        $members = TeamMember::whereIn('team_id', $teamIds)->get();
-        $userIds = $members->pluck('user_id')->unique();
-
-        $users = User::whereIn('id', $userIds)->get();
-        $batchCount = [];
-
-        foreach ($users as $user) {
-            $batchPrefix = substr($user->student_id, 0, 2);
-            if (!ctype_digit($batchPrefix)) continue;
-
-            $batch = intval($batchPrefix);
-            $batches->push($batch);
-            $batchCount[$batch] = ($batchCount[$batch] ?? 0) + 1;
-            $totals[$batch] = ($totals[$batch] ?? 0) + 1;
+    
+        // Create CSV in-memory
+        $filename = 'event_registration_detailed.csv';
+        $handle = fopen('php://temp', 'r+');
+        fputcsv($handle, $csvHeaders);
+    
+        foreach ($rows as $row) {
+            fputcsv($handle, $row);
         }
-
-        $reportData[] = [
-            'event' => $event->title,
-            'counts' => $batchCount,
-            'total' => array_sum($batchCount),
-        ];
+    
+        rewind($handle);
+        $csvContent = stream_get_contents($handle);
+        fclose($handle);
+    
+        return Response::make($csvContent, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ]);
     }
-
-    $batches = $batches->unique()->sort()->values();
-    $grandTotal = array_sum($totals);
-
-    $pdf = Pdf::loadView('pdf.batch_count_report', [
-        'fest' => $fest,
-        'reportData' => $reportData,
-        'batches' => $batches,
-        'totals' => $totals,
-        'grandTotal' => $grandTotal,
-    ])->setPaper('A4', 'portrait');
-
-    $safeFest = preg_replace('/[^A-Za-z0-9_\\-]/', '_', $fest->title);
-    return $pdf->download("batch_count_report_{$safeFest}.pdf");
-}
-
-
-
-
 }

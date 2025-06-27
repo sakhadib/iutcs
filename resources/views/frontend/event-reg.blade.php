@@ -144,7 +144,7 @@
                                 <input type="text" 
                                        name="question_{{$question->id}}" 
                                        placeholder="Type your answer here"
-                                       class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" required>
                             
                             @elseif ($question->type == 'radio')
                                 <div class="space-y-3">
@@ -153,7 +153,7 @@
                                         <input type="radio" 
                                                name="question_{{$question->id}}" 
                                                value="{{$option}}"
-                                               class="h-5 w-5 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                               class="h-5 w-5 text-indigo-600 border-gray-300 focus:ring-indigo-500" required>
                                         <span class="text-gray-700">{{$option}}</span>
                                     </label>
                                     @endforeach

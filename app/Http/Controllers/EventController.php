@@ -74,6 +74,10 @@ class EventController extends Controller
 
     public function eventRegistration($fest, $event)
     {
+        // return redirect('/404');
+
+        return redirect('/registration/close');
+
         $festival = Fest::where('id', $fest)->first();
         if(!$festival) {
             return redirect('/404');

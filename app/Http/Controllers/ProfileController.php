@@ -17,6 +17,10 @@ class ProfileController extends Controller
                     ->with(['userInfo'])
                     ->first();
 
+        if(session('user_id') != $user->id && session('role') != 'admin'){
+            return redirect('/404');
+        }
+
         if (!$user) {
             return redirect('/home')->with('error', 'User not found.');
         }

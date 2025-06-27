@@ -11,11 +11,12 @@
               <h1 class="text-4xl md:text-6xl font-bold mb-4">{{ $object['event']['title'] }}</h1>
               <div class="flex items-center space-x-4">
                   <span class="bg-purple-600 text-sm px-3 py-1 rounded-full">
-                      <i class="bi bi-people-fill mr-2"></i>{{ $object['event']['participants_count'] }} Registered
+                      <!-- <i class="bi bi-people-fill mr-2"></i>{{ $object['event']['participants_count'] }} Registered -->
+                      <i class="bi bi-people-fill mr-2"></i>Registration Open
                   </span>
-                  <span class="bg-green-600 text-sm px-3 py-1 rounded-full">
+                  <!-- <span class="bg-green-600 text-sm px-3 py-1 rounded-full">
                       <i class="bi bi-trophy mr-2"></i>Prize Pool: {{ $object['event']['prizes'] ? 'Available' : 'N/A' }}
-                  </span>
+                  </span> -->
                   @if(session('role') == 'admin')
                         <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/edit" class="btn btn-outline-light btn-sm">Edit Event</a>
                         <a href="/admin/fest/{{$object['fest']['id']}}/event/{{$object['event']['id']}}/form" class="btn btn-outline-light btn-sm">Edit Form</a>
@@ -144,9 +145,15 @@
                               <i class="bi bi-people me-3 text-blue-600"></i>
                               <div>
                                   <p class="text-sm text-muted mb-0">Team Size</p>
-                                  <p class="mb-0 fw-semibold">
-                                      {{ $object['event']['min_team_size'] }} - {{ $object['event']['max_team_size'] }} Members
-                                  </p>
+                                  @if($object['event']['min_team_size'] == 1 && $object['event']['max_team_size'] == 1)
+                                        <p class="mb-0 fw-semibold">
+                                            1 Member
+                                        </p>
+                                  @else
+                                        <p class="mb-0 fw-semibold">
+                                            {{ $object['event']['min_team_size'] }} - {{ $object['event']['max_team_size'] }} Members
+                                        </p>
+                                  @endif
                               </div>
                           </div>
                           
@@ -167,6 +174,9 @@
                       <h3 class="text-xl font-bold mb-4">
                           <i class="bi bi-rocket-takeoff me-2"></i>Registration
                       </h3>
+                            <!-- <div class="alert alert-dark text-center">
+                                Registration Not Started Yet!
+                            </div> -->
                       
                         @if(now()->lessThan(\Carbon\Carbon::parse($object['event']['registration_closing_date'])) && $object['status'] == null)
                           <a href="/fest/{{ $object['fest']['id'] }}/event/{{ $object['event']['id'] }}/register" 
@@ -198,6 +208,11 @@
                                   <i class="bi bi-file-pdf me-2"></i>Download Rulebook
                               </a>
                           @endif
+                          <br>
+                          <a href="https://youtu.be/UFjIhtqs254?si=JOI0f0ehT5LGZnyI" 
+                                 class="text-purple-600 hover:text-purple-700 mt-3">
+                                  <i class="bi bi-youtube me-2"></i>Watch How To Register
+                            </a>
                       </div>
                   </div>
               </div>

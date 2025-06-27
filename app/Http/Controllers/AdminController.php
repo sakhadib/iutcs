@@ -455,7 +455,7 @@ class AdminController extends Controller
         $user->role = 'admin';
         $user->save();
 
-        return redirect()->back()->with('success', 'User promoted to admin successfully!');
+        return redirect('/admin/users');
     }
 
 
@@ -477,7 +477,7 @@ class AdminController extends Controller
         $user->role = 'user';
         $user->save();
 
-        return redirect()->back()->with('success', 'User demoted to user successfully!');
+        return redirect('/admin/users');
     }
     
 
