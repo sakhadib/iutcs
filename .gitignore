@@ -16,3 +16,13 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+
+
+#Image Files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg

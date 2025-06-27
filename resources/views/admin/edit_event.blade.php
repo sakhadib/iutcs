@@ -227,5 +227,95 @@
             </div>
         </form>
     </div>
+
+    <!-- Event Gallery Management (Post-Event Images) -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden mt-6">
+        <div class="bg-gradient-to-r from-green-600 to-emerald-700 px-6 py-4">
+            <h2 class="text-xl font-bold text-white">Event Gallery</h2>
+            <p class="text-green-100">Manage photos taken during/after the event</p>
+        </div>
+
+        <div class="p-6">
+            <!-- Success/Error Messages -->
+            @if(session('success'))
+                <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    <ul class="list-disc list-inside">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <!-- Current Images -->
+            @if($event->eventImages && $event->eventImages->count() > 0)
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Current Images ({{ $event->eventImages->count() }})</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        @foreach($event->eventImages as $image)
+                            <div class="relative border rounded-lg overflow-hidden">
+                                <img src="{{ asset($image->image_path) }}" alt="{{ $image->alt_text }}" 
+                                     class="w-full h-32 object-cover">
+                                
+                                <div class="p-2 bg-gray-50">
+                                    @if($image->caption)
+                                        <p class="text-xs text-gray-600 mb-2">{{ $image->caption }}</p>
+                                    @endif
+                                    <form action="/admin/event-image/{{ $image->id }}" method="POST" class="inline" 
+                                          onsubmit="return confirm('Are you sure you want to delete this image?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="w-full px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @else
+                <div class="mb-6 text-center py-8 text-gray-500">
+                    <p>No gallery images uploaded yet</p>
+                </div>
+            @endif
+
+            <!-- Upload New Image -->
+            <div class="border-t pt-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Add New Image</h3>
+                <form action="/admin/fest/{{ $fest->id }}/event/{{ $event->id }}/images/upload" method="POST" enctype="multipart/form-data" class="bg-gray-50 p-4 rounded-lg">
+                    @csrf
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Select Image</label>
+                            <input type="file" name="image" accept="image/*" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Caption (optional)</label>
+                            <input type="text" name="caption" placeholder="Image caption"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    <button type="submit" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        Upload Image
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
 @endsection

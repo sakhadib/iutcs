@@ -79,6 +79,13 @@ Route::post('/admin/fest/{fest}/event/create', [AdminController::class, 'createE
 Route::get('/admin/fest/{fest}/event/{event}/edit', [EventController::class, 'editEvent']);
 Route::post('/admin/fest/{fest}/event/{event}/edit', [EventController::class, 'updateEvent']);
 
+// Event Images Management Routes
+Route::get('/admin/fest/{fest}/event/{event}/images', [EventController::class, 'manageEventImages']);
+Route::post('/admin/fest/{fest}/event/{event}/images/upload', [EventController::class, 'uploadEventImages']);
+Route::delete('/admin/event-image/{imageId}', [EventController::class, 'deleteEventImage']);
+Route::put('/admin/event-image/{imageId}/featured', [EventController::class, 'toggleFeaturedImage']);
+Route::put('/admin/event-image/{imageId}/order', [EventController::class, 'updateImageOrder']);
+
 Route::get('/admin/fest/{fest}/event/{event}/form', [AdminController::class, 'showFormBuilderPage']);
 Route::get('/admin/fest/{fest}/event/{event}/participants', [AdminController::class, 'ShowParticipantsPage']);
 Route::get('/admin/fest/{fest}/event/{event}/team/{team}', [AdminController::class, 'individualTeamDetails']);

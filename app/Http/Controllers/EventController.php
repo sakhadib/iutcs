@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Fest;
 use App\Models\Event;
+use App\Models\EventImage;
 use App\Models\EventRegistrationLog;
 use App\Models\RegistrationQuestionField;
 use App\Models\Team;
@@ -76,7 +78,7 @@ class EventController extends Controller
     {
         // return redirect('/404');
 
-        return redirect('/registration/close');
+        // return redirect('/registration/close');
 
         $festival = Fest::where('id', $fest)->first();
         if(!$festival) {
@@ -129,6 +131,7 @@ class EventController extends Controller
 
         $fullevent = Event::where('id', $event)
                     ->where('fest_id', $fest)
+                    ->with('eventImages')
                     ->first();
         if(!$fullevent) {
             return redirect('/404');
@@ -229,5 +232,175 @@ class EventController extends Controller
         return redirect('/fest/'.$fest.'/event/'.$event)
             ->with('success', 'Event updated successfully.');
 
+    }
+
+    public function manageEventImages($fest, $event)
+    {
+        $me = User::where('id', session('user_id'))->first();
+        if(!$me || !$me->role == 'admin') {
+            return redirect('/404');
+        }
+
+        $festival = Fest::where('id', $fest)->first();
+        if(!$festival) {
+            return redirect('/404');
+        }
+
+        $fullevent = Event::where('id', $event)
+                    ->where('fest_id', $fest)
+                    ->with('eventImages')
+                    ->first();
+        if(!$fullevent) {
+            return redirect('/404');
+        }
+
+        return view('admin.manage_event_images',[
+            'fest' => $festival,
+            'event' => $fullevent,
+            'festId' => $fest,
+            'eventId' => $event,
+        ]);
+    }
+
+    public function uploadEventImages(Request $request, $fest, $event)
+    {
+        // Debug: Check if request is coming through
+        Log::info('Upload request received', [
+            'fest' => $fest,
+            'event' => $event,
+            'has_file' => $request->hasFile('image'),
+            'user_id' => session('user_id')
+        ]);
+
+        $me = User::where('id', session('user_id'))->first();
+        if(!$me || $me->role != 'admin') {
+            Log::info('Access denied', ['user' => $me ? $me->role : 'no user']);
+            return redirect('/404');
+        }
+
+        $festival = Fest::where('id', $fest)->first();
+        if(!$festival) {
+            return redirect('/404');
+        }
+
+        $fullevent = Event::where('id', $event)
+                    ->where('fest_id', $fest)
+                    ->first();
+        if(!$fullevent) {
+            return redirect('/404');
+        }
+
+        try {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'caption' => 'nullable|string|max:255',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Validation failed', ['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['image' => 'Image validation failed: ' . $e->getMessage()]);
+        }
+
+        $maxSortOrder = EventImage::where('event_id', $event)->max('sort_order') ?? 0;
+
+        if ($request->hasFile('image')) {
+            try {
+                $image = $request->file('image');
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $imagePath = 'eventimage/' . $imageName;
+                
+                // Create directory if it doesn't exist
+                $fullPath = public_path('eventimage');
+                if (!file_exists($fullPath)) {
+                    mkdir($fullPath, 0755, true);
+                }
+                
+                // Move the uploaded file
+                $image->move($fullPath, $imageName);
+
+                // Create database record
+                $eventImage = EventImage::create([
+                    'event_id' => $event,
+                    'image_path' => $imagePath,
+                    'original_name' => $image->getClientOriginalName(),
+                    'alt_text' => $request->caption ?? null,
+                    'caption' => $request->caption ?? null,
+                    'sort_order' => $maxSortOrder + 1,
+                    'is_featured' => false,
+                ]);
+
+                Log::info('Image uploaded successfully', ['image_id' => $eventImage->id]);
+                return redirect()->back()->with('success', 'Image uploaded successfully to the gallery!');
+                
+            } catch (\Exception $e) {
+                Log::error('Image upload failed', ['error' => $e->getMessage()]);
+                return redirect()->back()->with('error', 'Image upload failed: ' . $e->getMessage());
+            }
+        }
+
+        return redirect()->back()->with('error', 'No image file was uploaded.');
+    }
+
+    public function deleteEventImage($imageId)
+    {
+        $me = User::where('id', session('user_id'))->first();
+        if(!$me || !$me->role == 'admin') {
+            return redirect('/404');
+        }
+
+        $eventImage = EventImage::find($imageId);
+        if(!$eventImage) {
+            return redirect()->back()->with('error', 'Image not found');
+        }
+
+        // Delete the physical file
+        $imagePath = public_path($eventImage->image_path);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        $eventImage->delete();
+
+        return redirect()->back()->with('success', 'Gallery image deleted successfully');
+    }
+
+    public function toggleFeaturedImage($imageId)
+    {
+        $me = User::where('id', session('user_id'))->first();
+        if(!$me || !$me->role == 'admin') {
+            return redirect('/404');
+        }
+
+        $eventImage = EventImage::find($imageId);
+        if(!$eventImage) {
+            return redirect()->back()->with('error', 'Image not found');
+        }
+
+        $eventImage->is_featured = !$eventImage->is_featured;
+        $eventImage->save();
+
+        $status = $eventImage->is_featured ? 'featured' : 'unfeatured';
+        return redirect()->back()->with('success', "Image marked as $status successfully");
+    }
+
+    public function updateImageOrder(Request $request, $imageId)
+    {
+        $me = User::where('id', session('user_id'))->first();
+        if(!$me || !$me->role == 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $eventImage = EventImage::find($imageId);
+        if(!$eventImage) {
+            return response()->json(['error' => 'Image not found'], 404);
+        }
+
+        $request->validate([
+            'sort_order' => 'required|integer|min:0'
+        ]);
+
+        $eventImage->sort_order = $request->sort_order;
+        $eventImage->save();
+
+        return response()->json(['success' => true, 'message' => 'Image order updated']);
     }
 }
