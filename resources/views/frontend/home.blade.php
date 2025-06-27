@@ -485,77 +485,6 @@
                 </div>
             </div>
             
-            <!-- Featured Alumni -->
-            <div class="relative">
-                <div class="alumni-grid grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-auto">
-                    <!-- Featured Alumni Card - Spans 2 columns and 2 rows -->
-                    <div class="alumni-card-featured md:col-span-2 md:row-span-2">
-                        <div class="h-full bg-gradient-to-br from-navy to-cyan text-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="flex items-center mb-4">
-                                <div class="w-16 h-16 bg-red rounded-full flex items-center justify-center text-2xl font-bold mr-4">
-                                    AR
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold mb-1">Adham Arik Rahman</h3>
-                                    <p class="text-cyan text-sm font-semibold">Former President, IUTCS</p>
-                                </div>
-                            </div>
-                            <p class="text-gray-200 text-sm mb-4">Manager, AI & Data Science at Robi Axiata Limited</p>
-                            <p class="text-xs text-gray-300 mb-4">Specializes in AI for Sales, Location Intelligence, and Computer Vision. Recently received Head of Sales Special Acknowledgment.</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-white/20 text-white px-3 py-1 rounded-full text-xs">AI & Data Science</span>
-                                <span class="bg-white/20 text-white px-3 py-1 rounded-full text-xs">Sales Intelligence</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Alumni Card -->
-                    <div class="alumni-card md:col-span-2">
-                        <div class="h-full bg-gradient-to-br from-red/10 to-cyan/10 p-6 rounded-xl border-l-4 border-red hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                            <h3 class="text-lg font-bold text-navy mb-2">Rasif Ajwad</h3>
-                            <p class="text-red font-semibold mb-2 text-sm">Former President, IUTCS</p>
-                            <p class="text-gray-700 text-sm mb-3">Lecturer at BRAC University, PhD in Medical Genetics</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-navy/10 text-navy px-2 py-1 rounded-full text-xs">Bioinformatics</span>
-                                <span class="bg-navy/10 text-navy px-2 py-1 rounded-full text-xs">Research</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Alumni Card -->
-                    <div class="alumni-card md:col-span-2">
-                        <div class="h-full bg-gradient-to-br from-cyan/10 to-red/10 p-6 rounded-xl border-l-4 border-cyan hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                            <h3 class="text-lg font-bold text-navy mb-2">Nowshin Tabassum</h3>
-                            <p class="text-red font-semibold mb-2 text-sm">Former Executive Secretary</p>
-                            <p class="text-gray-700 text-sm mb-3">Graduate Research Assistant at UT Arlington</p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-navy/10 text-navy px-2 py-1 rounded-full text-xs">PhD Student</span>
-                                <span class="bg-navy/10 text-navy px-2 py-1 rounded-full text-xs">Data Analytics</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Large Alumni Card - Spans 4 columns -->
-                    <div class="alumni-card md:col-span-4">
-                        <div class="h-full bg-gradient-to-br from-navy/15 to-cyan/10 p-8 rounded-xl shadow-lg border-l-4 border-navy hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                            <div class="grid md:grid-cols-2 gap-6 items-center">
-                                <div>
-                                    <h3 class="text-xl font-bold text-navy mb-2">Sabbir Rahman</h3>
-                                    <p class="text-red text-sm font-semibold mb-2">Former Vice President, IUTCS</p>
-                                    <p class="text-gray-700 text-sm mb-4">Associate Software Engineer at Cefalo Bangladesh</p>
-                                    <p class="text-gray-600 text-xs mb-4">Experienced in full-stack development and software engineering best practices. Active contributor to open-source projects.</p>
-                                </div>
-                                <div class="flex flex-wrap gap-2 justify-end">
-                                    <span class="bg-navy/20 text-navy px-4 py-2 rounded-full text-sm font-medium">Software Development</span>
-                                    <span class="bg-cyan/20 text-cyan px-3 py-1 rounded-full text-xs">Full-Stack</span>
-                                    <span class="bg-red/20 text-red px-3 py-1 rounded-full text-xs">Leadership</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             <!-- Professional Domains -->
             <div class="mt-16 grid md:grid-cols-2 gap-12">
                 <div>
@@ -598,123 +527,15 @@
                             <div class="text-2xl mb-2">🔬</div>
                             <div class="text-sm font-semibold text-navy">Research & Academia</div>
                         </div>
+                        <div class="text-center p-4 bg-gradient-to-br from-cyan/10 to-navy/10 rounded-lg">
+                            <div class="text-2xl mb-2">🌐</div>
+                            <div class="text-sm font-semibold text-navy">Network Technology</div>
+                        </div>
+                        <div class="text-center p-4 bg-gradient-to-br from-red/10 to-cyan/10 rounded-lg">
+                            <div class="text-2xl mb-2">📊</div>
+                            <div class="text-sm font-semibold text-navy">Data Analysis</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Organizational Structure Section -->
-    <section class="py-20 md:py-28 bg-gradient-to-br from-gray-50 to-navy/5">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-navy mb-6">Organizational Structure</h2>
-                <div class="flex justify-center mb-6">
-                    <div class="h-1 w-24 bg-gradient-to-r from-cyan to-red rounded-full"></div>
-                </div>
-                <p class="text-xl text-gray-700 max-w-4xl mx-auto">
-                    IUTCS operates through multiple specialized teams, each contributing to our mission of technical excellence and innovation.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-cyan">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Administration</h4>
-                    <p class="text-gray-600 leading-relaxed">Managing organizational operations, strategic planning, and coordination of all society activities.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-red">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Event Management</h4>
-                    <p class="text-gray-600 leading-relaxed">Planning and executing programming contests, hackathons, and our flagship ICT Fest.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-cyan">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Operations</h4>
-                    <p class="text-gray-600 leading-relaxed">Ensuring smooth day-to-day operations and resource management for all activities.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-red">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Publications & Content Writing</h4>
-                    <p class="text-gray-600 leading-relaxed">Creating engaging content, managing publications, and maintaining our digital presence.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-cyan">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Logistics & Design</h4>
-                    <p class="text-gray-600 leading-relaxed">Handling event logistics, venue management, and creating compelling visual designs.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-red">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Public Relations</h4>
-                    <p class="text-gray-600 leading-relaxed">Building relationships with stakeholders, media management, and community outreach.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-cyan">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Sponsorship & Liaison</h4>
-                    <p class="text-gray-600 leading-relaxed">Securing partnerships, managing sponsorships, and fostering industry connections.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-red">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Photography/Video/Graphics</h4>
-                    <p class="text-gray-600 leading-relaxed">Capturing memories, creating promotional content, and designing visual materials.</p>
-                </div>
-                
-                <!-- Team Card -->
-                <div class="team-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-cyan">
-                    <div class="text-navy mb-6">
-                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-navy">Web Development</h4>
-                    <p class="text-gray-600 leading-relaxed">Maintaining digital platforms, developing web applications, and ensuring online presence.</p>
                 </div>
             </div>
         </div>
