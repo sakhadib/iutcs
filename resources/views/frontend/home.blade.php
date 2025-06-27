@@ -407,7 +407,7 @@
                 <!-- Chief Patron -->
                 <div class="leadership-card text-center bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-cyan">
                     <div class="relative mb-6">
-                        <img src="https://www.iutoic-dhaka.edu/uploads/img/1605521291_1068.jpg" alt="Chief Patron" class="w-32 h-32 rounded-full mx-auto border-4 border-cyan/30 shadow-lg">
+                        <img src="https://www.iutoic-dhaka.edu/uploads/img/1605521291_1068.jpg" alt="Chief Patron" class="w-32 h-32 rounded-full mx-auto border-4 border-cyan/30 shadow-lg object-cover">
                         <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-cyan text-white px-3 py-1 rounded-full text-xs font-bold">
                             Chief Patron
                         </div>
@@ -437,7 +437,7 @@
                         </div>
                     </div>
                     <h3 class="text-lg font-bold text-navy mb-2">Dr. Hasan Mahmud</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Faculty Member, CSE Department, IUT</p>
+                    <p class="text-gray-600 text-sm leading-relaxed">Professor, CSE Department, IUT</p>
                 </div>
                 
                 <!-- President -->
@@ -449,7 +449,7 @@
                         </div>
                     </div>
                     <h3 class="text-lg font-bold text-navy mb-2">Kazi Samin Yasar Alam</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">Student Leader, IUT Computer Society</p>
+                    <p class="text-gray-600 text-sm leading-relaxed">President, IUT Computer Society</p>
                 </div>
             </div>
         </div>
