@@ -65,7 +65,7 @@ class AdminController extends Controller
         $fest->created_by = session('user_id');
         $fest->save();
 
-        return redirect('/admin/fests/create')->with('success', 'Fest created successfully!');
+        return redirect('/fests')->with('success', 'Fest created successfully!');
     }
 
     public function showEditFestPage($festId)
