@@ -1,402 +1,618 @@
 @extends('layouts.main')
 
 @section('main')
-{{-- <div class="container py-5">
-  <!-- Hero Section -->
-  <div class="row mb-5">
-      <div class="col-lg-8 mx-auto text-center">
-          <h1 class="display-4 fw-bold mb-3">{{ $fest->title }}</h1>
-          
-          @if($fest->image)
-          <div class="hero-image mb-4 rounded-3 overflow-hidden shadow-lg">
-              <img src="{{$fest->image}}" alt="{{ $fest->title }}" class="img-fluid w-100">
-          </div>
-          @endif
-      </div>
-  </div>
-
-  <!-- Main Content -->
-  <div class="row">
-      <!-- Event Details -->
-      <div class="col-lg-8">
-          <div class="card shadow-sm mb-4">
-              <div class="card-body">
-                  <h2 class="h4 card-title text-primary">Fest Details</h2>
-                  <div class="mb-4">
-                      {!! nl2br(e($fest->description)) !!}
-                  </div>
-
-                  <div class="row g-3">
-                      <div class="col-md-6">
-                          <div class="d-flex align-items-start">
-                              <i class="bi bi-calendar-event fs-5 me-3 text-muted"></i>
-                              <div>
-                                  <h3 class="h6 mb-1">Start Date</h3>
-                                    <p class="mb-0">{{ \Carbon\Carbon::parse($fest->start_date)->format('F j, Y \a\t g:i A') }}</p>
-                              </div>
-                          </div>
-                      </div>
-
-                      @if($fest->end_date)
-                      <div class="col-md-6">
-                          <div class="d-flex align-items-start">
-                              <i class="bi bi-calendar-x fs-5 me-3 text-muted"></i>
-                              <div>
-                                  <h3 class="h6 mb-1">End Date</h3>
-                                    <p class="mb-0">{{ \Carbon\Carbon::parse($fest->end_date)->format('F j, Y \a\t g:i A') }}</p>
-                              </div>
-                          </div>
-                      </div>
-                      @endif
-
-                      @if($fest->location)
-                      <div class="col-md-6">
-                          <div class="d-flex align-items-start">
-                              <i class="bi bi-geo-alt fs-5 me-3 text-muted"></i>
-                              <div>
-                                  <h3 class="h6 mb-1">Location</h3>
-                                  <p class="mb-0">{{ $fest->location }}</p>
-                              </div>
-                          </div>
-                      </div>
-                      @endif
-
-                      @if($fest->medium)
-                      <div class="col-md-6">
-                          <div class="d-flex align-items-start">
-                              <i class="bi bi-collection fs-5 me-3 text-muted"></i>
-                              <div>
-                                  <h3 class="h6 mb-1">Medium</h3>
-                                  <p class="mb-0">{{ $fest->medium }}</p>
-                              </div>
-                          </div>
-                      </div>
-                      @endif
-                  </div>
-              </div>
-          </div>
-
-          <!-- Additional Info Section -->
-          @if($fest->additional_info)
-          <div class="card shadow-sm mb-4">
-              <div class="card-body">
-                  <h2 class="h4 card-title text-primary">Additional Information</h2>
-                  <div class="content">
-                      {!! nl2br(e($fest->additional_info)) !!}
-                  </div>
-              </div>
-          </div>
-          @endif
-      </div>
-
-      <!-- Sidebar -->
-      <div class="col-lg-4">
-          <!-- Organizer Info -->
-          <div class="card shadow-sm mb-4">
-              <div class="card-body">
-                  <h2 class="h4 card-title text-primary">Organizer</h2>
-                  <div class="d-flex align-items-center mb-3">
-                      <div class="flex-shrink-0">
-                            <i class="bi bi-people fs-1 text-muted"></i>
-                      </div>
-                      <div class="flex-grow-1 ms-3">
-                          <p class="mb-0">IUT Computer Society (IUTCS)</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Event Meta -->
-          <div class="card shadow-sm">
-              <div class="card-body">
-                  <h2 class="h4 card-title text-primary">Event Details</h2>
-                  <ul class="list-unstyled">
-                      <li class="mb-2">
-                          <i class="bi bi-clock-history me-2 text-muted"></i>
-                          Created: {{ $fest->created_at->diffForHumans() }}
-                      </li>
-                      <li class="mb-2">
-                          <i class="bi bi-arrow-repeat me-2 text-muted"></i>
-                          Updated: {{ $fest->updated_at->diffForHumans() }}
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-
-
-<!-- Events Section -->
-<div class="container py-5">
-  <div class="row mb-4">
-      <div class="col-lg-8 mx-auto text-center">
-          <h1 class="display-4 fw-bold mb-3">Upcoming Events</h1>
-          <p class="lead">Explore the exciting events happening during this festival.</p>
-
-          @if(session('role') == 'admin')
-          <div class="d-flex justify-content-center mb-3">
-              <a href="/admin/fest/{{$fest->id}}/event/create" class="btn btn-dark">Create New Event</a>
-          </div>
-          @endif
-      </div>
-  </div>
-
-  <!-- Events List -->
-<div class="card shadow-sm mb-4">
-  <div class="card-body">
-      
-      @if(count($events) > 0)
-          <div class="row g-4">
-              @foreach($events as $event)
-              <div class="col-md-4">
-                  <div class="card h-100 border-0 shadow-sm event-card">
-                      @if($event->image)
-                      <div class="event-image">
-                          <img src="{{$event->image}}" class="card-img-top" alt="{{ $event->title }}">
-                      </div>
-                      @endif
-                      <div class="card-body">
-                          <h3 class="h4 card-title mb-3">{{ $event->title }}</h3>
-                          
-                          <div class="d-flex align-items-center mb-2">
-                              <i class="bi bi-calendar-event me-2 text-muted"></i>
-                                <small>Starts : {{ \Carbon\Carbon::parse($event->start_date)->format('M j, Y g:i A') }}</small>
-                          </div>
-                          
-                          @if($event->end_date)
-                          <div class="d-flex align-items-center mb-2">
-                              <i class="bi bi-calendar-x me-2 text-muted"></i>
-                                <small>Ends: {{ \Carbon\Carbon::parse($event->end_date)->format('M j, Y g:i A') }}</small>
-                          </div>
-                          @endif
-                          
-                          @if($event->location)
-                          <div class="d-flex align-items-center mb-2">
-                              <i class="bi bi-geo-alt me-2 text-muted"></i>
-                              <small>{{ $event->location }}</small>
-                          </div>
-                          @endif
-                          
-                          <div class="d-flex justify-content-between mb-3">
-                              @if($event->min_team_size || $event->max_team_size)
-                              <div class="team-size">
-                                  <i class="bi bi-people me-1 text-muted"></i>
-                                  <small>
-                                      @if($event->min_team_size && $event->max_team_size)
-                                          Team: {{ $event->min_team_size }}-{{ $event->max_team_size }}
-                                      @elseif($event->min_team_size)
-                                          Min: {{ $event->min_team_size }}
-                                      @else
-                                          Max: {{ $event->max_team_size }}
-                                      @endif
-                                  </small>
-                              </div>
-                              @endif
-                              
-                              @if($event->registration_fee)
-                              <div class="registration-fee">
-                                  <small>BDT {{ $event->registration_fee }}</small>
-                              </div>
-                              @endif
-                          </div>
-                          
-                          <div class="d-grid gap-2">
-                              <a href="/fest/{{$fest->id}}/event/{{$event->id}}" class="btn btn-lg btn-outline-dark">
-                                  View Details
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              @endforeach
-          </div>
-      @else
-          <div class="alert alert-info">
-              No events found for this festival.
-          </div>
-      @endif
-  </div>
-</div>
-</div>
- --}}
-
-
- <div class="festival-page">
+<div class="min-h-screen bg-gray-50">
     <!-- Hero Section -->
-    <div class="relative h-[80vh] bg-black">
-      <img src="{{$fest->image}}" alt="Event Cover" class="w-full h-full object-cover opacity-75 bg-fixed">
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-      <div class="absolute bottom-0 left-0 right-0 text-white p-8">
-      <div class="container mx-auto">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4">{{$fest->title}}</h1>
-        <div class="flex items-center space-x-4">
-        <span class="bg-purple-600 text-sm px-3 py-1 rounded-full">
-          <i class="bi bi-geo-alt-fill mr-2"></i>{{$fest->location}}
-        </span>
-        <span class="bg-green-600 text-sm px-3 py-1 rounded-full">
-          <i class="bi bi-calendar-event mr-2"></i> {{ count($events) }} Events
-        </span>
+    <section class="relative h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
+        <div class="absolute inset-0">
+            @if($fest->image)
+                <img src="{{$fest->image}}" alt="{{$fest->title}}" class="w-full h-full object-cover opacity-30">
+            @endif
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30"></div>
+            <div class="absolute inset-0 bg-black/20"></div>
         </div>
-      </div>
-      </div>
-    </div>
-
-
-
-  <!-- Main Content -->
-  <div class="container py-5">
-      <div class="tab-content">
-          <!-- Overview Tab -->
-          <div class="tab-pane fade show active" id="overview">
-              <div class="row g-5">
-                  <div class="col-lg-12">
-                      <div class="content-card">
-                          <h3 class="section-title mb-4">Festival Details</h3>
-                          <div class="prose">
-                              {!! Str::markdown($fest->description) !!}
-                          </div>
-                      </div>
-                  </div>                     
-              </div>
-          </div>
-
-          <!-- Events Tab -->
-          <div>
-              <div class="d-flex justify-content-between align-items-center mb-4 mt-10">
-                  <h3 class="section-title">Featured Events</h3>
-                  @if(session('role') == 'admin')
-                  <a href="/admin/fest/{{$fest->id}}/event/create" class="btn btn-dark">
-                      <i class="bi bi-plus-circle me-2"></i>Add New Event
-                  </a>
-                  @endif
-              </div>
-
-              <div class="row g-4">
-                  @if(count($events) > 0)
-                      @foreach($events as $event)
-                        <div class="col-md-6 col-lg-4">
-                          <div class="event-card shadow-lg hover-lift transform transition-transform duration-300 hover:scale-105">
-                          <div class="event-image relative overflow-hidden rounded-t-lg">
-                            <img src="{{ $event->image }}" alt="{{ $event->title }}" class="w-full h-48 object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-75"></div>
-                            <div class="absolute bottom-2 left-2 text-white text-sm bg-purple-600 px-2 py-1 rounded">
-                            {{ \Carbon\Carbon::parse($event->start_date)->format('M j, Y') }}
-                            </div>
-                            <div class="absolute bottom-2 right-2 text-white text-sm bg-green-600 px-2 py-1 rounded">
-                            {{ Str::limit($event->location, 25) }}
-                            </div>
-                            <div class="absolute top-2 right-2 text-white text-sm bg-indigo-600 px-2 py-1 rounded">
-                            BDT {{ $event->registration_fee }}
-                            </div>
-                          </div>
-                          <div class="event-body p-4 bg-white rounded-b-lg">
-                            <h4 class="event-title text-lg font-semibold text-gray-800 mb-2">
-                            {{ Str::limit($event->title, 40) }}
-                            </h4>
-                            <div class="d-grid">
-                            <a href="/fest/{{$fest->id}}/event/{{$event->id}}" 
-                               class="btn btn-lg btn-dark w-100">
-                              View Event Page
-                            </a>
-                            </div>
-                          </div>
-                          </div>
+        
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div class="relative z-10 h-full flex items-center">
+            <div class="container mx-auto px-4">
+                <div class="text-center text-white">
+                    <div class="mb-12">
+                        <h1 class="text-6xl md:text-8xl lg:text-9xl font-black mb-8 bg-gradient-to-r from-white via-purple-100 to-blue-100 bg-clip-text text-transparent leading-tight tracking-tight">
+                            {{$fest->title}}
+                        </h1>
+                        <div class="w-32 h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full mx-auto mb-8 shadow-lg"></div>
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center gap-6 mb-12">
+                        @if($fest->location)
+                        <div class="bg-white/15 backdrop-blur-lg border border-white/30 px-8 py-4 rounded-full flex items-center shadow-xl">
+                            <i class="bi bi-geo-alt-fill text-purple-300 mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">{{$fest->location}}</span>
                         </div>
-                      @endforeach
-                  @else
-                      <div class="col-12">
-                          <div class="empty-state">
-                              <i class="bi bi-calendar-x"></i>
-                              <p>No events announced yet</p>
-                              @if(session('role') == 'admin')
-                              <a href="/admin/fest/{{$fest->id}}/event/create" class="btn btn-dark mt-3">
-                                  Create First Event
-                              </a>
-                              @endif
-                          </div>
-                      </div>
-                  @endif
-              </div>
-          </div>
-      </div>
-  </div>
+                        @endif
+                        
+                        <div class="bg-white/15 backdrop-blur-lg border border-white/30 px-8 py-4 rounded-full flex items-center shadow-xl">
+                            <i class="bi bi-calendar-event text-blue-300 mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">{{ count($events) }} Events</span>
+                        </div>
+                        
+                        @if($fest->start_date && $fest->end_date)
+                        <div class="bg-white/15 backdrop-blur-lg border border-white/30 px-8 py-4 rounded-full flex items-center shadow-xl">
+                            <i class="bi bi-clock text-green-300 mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">
+                                {{ \Carbon\Carbon::parse($fest->start_date)->format('M j') }} - 
+                                {{ \Carbon\Carbon::parse($fest->end_date)->format('M j, Y') }}
+                            </span>
+                        </div>
+                        @endif
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#events" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25">
+                            <i class="bi bi-calendar-check mr-2"></i>
+                            Explore Events
+                        </a>
+                        @if($fest_images->count() > 0)
+                        <a href="#gallery" class="bg-white/15 backdrop-blur-lg border-2 border-white/40 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg">
+                            <i class="bi bi-images mr-2"></i>
+                            View Gallery
+                        </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Festival Details Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">About {{$fest->title}}</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mx-auto"></div>
+                </div>
+                
+                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    @if($fest->description)
+                        {!! Str::markdown($fest->description) !!}
+                    @else
+                        <p class="text-xl text-center text-gray-500 py-12">
+                            Festival details coming soon...
+                        </p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="bg-white">
+        @if(count($events) > 0)
+            @foreach($events as $index => $event)
+            <div class="min-h-[85vh] flex items-center py-16 {{ $index % 2 == 0 ? 'bg-gradient-to-br from-gray-50 to-purple-50' : 'bg-gradient-to-bl from-blue-50 to-gray-50' }}">
+                <div class="container mx-auto px-4">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center {{ $index % 2 == 1 ? 'lg:grid-flow-col-dense' : '' }}">
+                        <!-- Event Image -->
+                        <div class="relative {{ $index % 2 == 1 ? 'lg:col-start-2' : '' }}">
+                            <div class="relative h-96 lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl group">
+                                @if($event->image)
+                                    <img src="{{ $event->image }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                @else
+                                    <div class="w-full h-full bg-gradient-to-br from-purple-500 via-blue-600 to-indigo-600 flex items-center justify-center">
+                                        <div class="text-center text-white">
+                                            <i class="bi bi-calendar-event text-8xl mb-4 opacity-80"></i>
+                                            <p class="text-2xl font-bold mb-2">Event Poster</p>
+                                            <p class="text-lg opacity-80">Coming Soon</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                
+                                <!-- Image Overlay with Quick Info -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div class="absolute bottom-6 left-6 right-6 text-white">
+                                        <div class="flex flex-wrap gap-3">
+                                            <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+                                                {{ \Carbon\Carbon::parse($event->start_date)->format('M j, Y') }}
+                                            </div>
+                                            @if($event->registration_fee)
+                                            <div class="bg-green-500/80 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+                                                BDT {{ $event->registration_fee }}
+                                            </div>
+                                            @endif
+                                            @if($event->location)
+                                            <div class="bg-purple-500/80 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+                                                <i class="bi bi-geo-alt-fill mr-1"></i>{{ Str::limit($event->location, 15) }}
+                                            </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event Details -->
+                        <div class="{{ $index % 2 == 1 ? 'lg:col-start-1' : '' }}">
+                            <div class="space-y-6">
+                                <!-- Event Number -->
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                        {{ $index + 1 }}
+                                    </div>
+                                    <div class="h-px bg-gradient-to-r from-purple-600 to-blue-600 flex-1"></div>
+                                </div>
+                                
+                                <!-- Event Title -->
+                                <h2 class="text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">
+                                    {{ $event->title }}
+                                </h2>
+                                
+                                <!-- Event Description -->
+                                @if($event->description)
+                                <div class="text-lg text-gray-600 leading-relaxed">
+                                    <p>{{ Str::limit(strip_tags(Str::markdown($event->description)), 180) }}</p>
+                                </div>
+                                @endif
+                                
+                                <!-- Event Meta Information -->
+                                <div class="flex flex-wrap gap-2">
+                                    @if($event->medium)
+                                    <!-- Format Card -->
+                                    <div class="px-3 py-2 bg-blue-50 text-blue-700 rounded-md text-sm font-medium border border-blue-100">
+                                        {{ $event->medium }}
+                                    </div>
+                                    @endif
+                                    
+                                    @if($event->min_team_size || $event->max_team_size)
+                                    <!-- Team Size Card -->
+                                    <div class="px-3 py-2 bg-green-50 text-green-700 rounded-md text-sm font-medium border border-green-100">
+                                        @if($event->min_team_size == 1 && $event->max_team_size == 1)
+                                            Solo
+                                        @elseif($event->min_team_size && $event->max_team_size)
+                                            {{ $event->min_team_size }}-{{ $event->max_team_size }} members
+                                        @elseif($event->max_team_size)
+                                            Up to {{ $event->max_team_size }} members
+                                        @else
+                                            {{ $event->min_team_size }}+ members
+                                        @endif
+                                    </div>
+                                    @endif
+                                    
+                                    @if($event->registration_fee)
+                                    <!-- Fee Card -->
+                                    <div class="px-3 py-2 bg-purple-50 text-purple-700 rounded-md text-sm font-medium border border-purple-100">
+                                        ৳{{ $event->registration_fee }}
+                                    </div>
+                                    @endif
+                                    
+                                    @if($event->registration_closing_date)
+                                    <!-- Deadline Card -->
+                                    <div class="px-3 py-2 bg-red-50 text-red-700 rounded-md text-sm font-medium border border-red-100">
+                                        Deadline: {{ \Carbon\Carbon::parse($event->registration_closing_date)->format('M j') }}
+                                    </div>
+                                    @endif
+                                    
+                                    @if($event->location)
+                                    <!-- Location Card -->
+                                    <div class="px-3 py-2 bg-gray-50 text-gray-700 rounded-md text-sm font-medium border border-gray-100">
+                                        {{ Str::limit($event->location, 25) }}
+                                    </div>
+                                    @endif
+                                </div>
+   
+                                <!-- Action Buttons -->
+                                <div class="flex flex-wrap gap-4 pt-6">
+                                    <a href="/fest/{{$fest->id}}/event/{{$event->id}}" 
+                                       class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25 flex items-center">
+                                        <i class="bi bi-arrow-right-circle mr-2"></i>
+                                        View Details
+                                    </a>
+                                    
+                                    @if($event->registration_link)
+                                    <a href="{{ $event->registration_link }}" target="_blank"
+                                       class="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                                        <i class="bi bi-person-plus mr-2"></i>
+                                        Register Now
+                                    </a>
+                                    @endif
+                                </div>
+                                
+                                @if(session('role') == 'admin')
+                                <div class="pt-4 border-t border-gray-200">
+                                    <a href="/admin/fest/{{$fest->id}}/event/{{$event->id}}/edit" class="text-purple-600 hover:text-purple-800 font-medium">
+                                        <i class="bi bi-pencil mr-1"></i>Edit Event
+                                    </a>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        @else
+            <div class="min-h-[85vh] flex items-center justify-center bg-gradient-to-br from-gray-50 to-purple-50">
+                <div class="text-center max-w-md mx-auto px-4">
+                    <div class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <i class="bi bi-calendar-x text-6xl text-gray-400"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-700 mb-6">No Events Yet</h2>
+                    <p class="text-xl text-gray-500 mb-8 leading-relaxed">Events for this festival haven't been announced yet. Check back soon!</p>
+                    
+                    @if(session('role') == 'admin')
+                    <a href="/admin/fest/{{$fest->id}}/event/create" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="bi bi-plus-circle mr-2"></i>Create First Event
+                    </a>
+                    @endif
+                </div>
+            </div>
+        @endif
+    </section>
+
+    <!-- Gallery Section - Captured Moments -->
+    @if($fest_images->count() > 0)
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Captured Moments</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Relive the excitement and energy through these memorable moments from our events.
+                </p>
+            </div>
+            
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                @foreach($fest_images as $index => $image)
+                <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 {{ $index % 7 == 0 ? 'md:col-span-2 md:row-span-2' : ($index % 5 == 0 ? 'lg:col-span-2' : '') }}">
+                    <div class="relative h-64 {{ $index % 7 == 0 ? 'md:h-full' : ($index % 5 == 0 ? 'h-48' : '') }} overflow-hidden">
+                        <img src="{{ asset($image->image_path) }}" 
+                             alt="{{ $image->alt_text ?? 'Festival moment' }}" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                             loading="lazy">
+                        
+                        <!-- Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        
+                        <!-- Image info overlay -->
+                        <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            @if($image->caption)
+                            <p class="text-sm font-medium mb-1">{{ $image->caption }}</p>
+                            @endif
+                            @if($image->original_name)
+                            <p class="text-xs opacity-75">{{ $image->original_name }}</p>
+                            @endif
+                        </div>
+                        
+                        <!-- Zoom icon -->
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="bg-white/20 backdrop-blur-sm rounded-full p-2">
+                                <i class="bi bi-zoom-in text-white text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            
+            <!-- View more button if there are many images -->
+            @if($fest_images->count() > 12)
+            <div class="text-center mt-12">
+                <button id="loadMoreGallery" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    Load More Images
+                    <i class="bi bi-arrow-down ml-2"></i>
+                </button>
+            </div>
+            @endif
+        </div>
+    </section>
+    @endif
+</div>
+
+<!-- Lightbox Modal for Gallery -->
+<div id="lightboxModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-sm">
+    <div class="relative max-w-7xl max-h-full p-4">
+        <button id="closeLightbox" class="absolute top-4 right-4 text-white hover:text-purple-300 transition-colors z-10">
+            <i class="bi bi-x-lg text-3xl"></i>
+        </button>
+        
+        <img id="lightboxImage" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg">
+        
+        <div id="lightboxCaption" class="absolute bottom-4 left-4 right-4 text-white text-center bg-black/50 backdrop-blur-sm rounded-lg p-4 hidden">
+            <p class="font-medium"></p>
+        </div>
+        
+        <!-- Navigation arrows -->
+        <button id="prevImage" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-purple-300 transition-colors">
+            <i class="bi bi-chevron-left text-4xl"></i>
+        </button>
+        <button id="nextImage" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-purple-300 transition-colors">
+            <i class="bi bi-chevron-right text-4xl"></i>
+        </button>
+    </div>
 </div>
 
 <style>
-.hero-section {
-  height: 70vh;
-  min-height: 600px;
-  background: linear-gradient(45deg, #0f172a, #1e293b);
+/* Custom animations and styles */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
 }
 
-.gradient-overlay {
-  background: linear-gradient(to top, rgba(15, 23, 42, 1) 10%, rgba(15, 23, 42, 0.2) 100%);
-  z-index: 1;
+.animate-float {
+    animation: float 6s ease-in-out infinite;
 }
 
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  position: absolute;
-  z-index: 0;
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 2;
+/* Gallery hover effects */
+.gallery-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.event-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.gallery-item:hover {
+    transform: translateY(-8px) scale(1.02);
 }
 
-.event-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+/* Prose styling for festival description */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #374151;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
-.event-body {
-  padding: 1.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+.prose p {
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
 }
 
-.event-title {
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  min-height: 3rem;
+.prose ul, .prose ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
 }
 
-.event-meta {
-  margin-bottom: auto;
+.prose li {
+    margin-bottom: 0.5rem;
 }
 
-.meta-item {
-  font-size: 0.9rem;
-  color: #64748b;
-  margin-bottom: 0.5rem;
+.prose blockquote {
+    border-left: 4px solid #8b5cf6;
+    padding-left: 1rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #6b7280;
 }
 
-.empty-state {
-  text-align: center;
-  padding: 4rem;
-  color: #64748b;
-  border: 2px dashed #e2e8f0;
-  border-radius: 12px;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem !important;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .gallery-item.md\:col-span-2,
+    .gallery-item.lg\:col-span-2 {
+        grid-column: span 1 !important;
+    }
+    
+    .gallery-item.md\:row-span-2 {
+        grid-row: span 1 !important;
+    }
+}
+
+/* Loading animation for images */
+.image-loading {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Accessibility improvements */
+.focus\:outline-purple:focus {
+    outline: 2px solid #8b5cf6;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .bg-gradient-to-br,
+    .bg-gradient-to-r {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 2px solid #000000 !important;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gallery lightbox functionality
+    const galleryImages = document.querySelectorAll('#gallery img');
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const closeLightbox = document.getElementById('closeLightbox');
+    const prevImage = document.getElementById('prevImage');
+    const nextImage = document.getElementById('nextImage');
+    
+    let currentImageIndex = 0;
+    const images = Array.from(galleryImages);
+    
+    // Open lightbox
+    galleryImages.forEach((img, index) => {
+        img.addEventListener('click', () => {
+            currentImageIndex = index;
+            showImage(currentImageIndex);
+            lightboxModal.classList.remove('hidden');
+            lightboxModal.classList.add('flex');
+        });
+    });
+    
+    // Close lightbox
+    closeLightbox.addEventListener('click', closeLightboxModal);
+    lightboxModal.addEventListener('click', (e) => {
+        if (e.target === lightboxModal) {
+            closeLightboxModal();
+        }
+    });
+    
+    // Navigation
+    prevImage.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        showImage(currentImageIndex);
+    });
+    
+    nextImage.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        showImage(currentImageIndex);
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('hidden')) {
+            if (e.key === 'Escape') {
+                closeLightboxModal();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage.click();
+            } else if (e.key === 'ArrowRight') {
+                nextImage.click();
+            }
+        }
+    });
+    
+    function showImage(index) {
+        const img = images[index];
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+        
+        // Show caption if available
+        const caption = img.closest('.group').querySelector('.absolute.bottom-0 p');
+        if (caption && caption.textContent.trim()) {
+            lightboxCaption.querySelector('p').textContent = caption.textContent.trim();
+            lightboxCaption.classList.remove('hidden');
+        } else {
+            lightboxCaption.classList.add('hidden');
+        }
+    }
+    
+    function closeLightboxModal() {
+        lightboxModal.classList.add('hidden');
+        lightboxModal.classList.remove('flex');
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Image lazy loading with loading animation
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('image-loading');
+                
+                const actualImg = new Image();
+                actualImg.onload = () => {
+                    img.src = actualImg.src;
+                    img.classList.remove('image-loading');
+                };
+                actualImg.src = img.dataset.src || img.src;
+                
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+        imageObserver.observe(img);
+    });
+    
+    // Load more gallery functionality
+    const loadMoreBtn = document.getElementById('loadMoreGallery');
+    if (loadMoreBtn) {
+        let visibleImages = 12;
+        const allGalleryItems = document.querySelectorAll('#gallery .group');
+        
+        // Initially hide images beyond the first 12
+        allGalleryItems.forEach((item, index) => {
+            if (index >= visibleImages) {
+                item.style.display = 'none';
+            }
+        });
+        
+        loadMoreBtn.addEventListener('click', () => {
+            const hiddenImages = Array.from(allGalleryItems).slice(visibleImages, visibleImages + 8);
+            hiddenImages.forEach(item => {
+                item.style.display = 'block';
+                item.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+            
+            visibleImages += 8;
+            
+            if (visibleImages >= allGalleryItems.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        });
+    }
+});
+
+// Intersection Observer for animations
+const animationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.group, .prose').forEach(el => {
+    animationObserver.observe(el);
+});
+</script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 @endsection

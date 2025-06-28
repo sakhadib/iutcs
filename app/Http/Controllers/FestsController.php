@@ -33,10 +33,11 @@ class FestsController extends Controller
         }
 
         $events = Event::where('fest_id', $fest_id)
-                    ->orderBy('created_at', 'desc')
+                    ->orderBy('created_at', 'asc')
                     ->get([
                         'id',
                         'title',
+                        'description',
                         'start_date',
                         'end_date',
                         'location',
