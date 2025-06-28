@@ -26,6 +26,20 @@
                             {{$fest->title}}
                         </h1>
                         <div class="w-32 h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-full mx-auto mb-8 shadow-lg"></div>
+                        
+                        @php
+                            $latestEventEndDate = $events->max('end_date');
+                            $isEventOver = $latestEventEndDate && \Carbon\Carbon::parse($latestEventEndDate)->isPast();
+                        @endphp
+                        
+                        @if($isEventOver && count($events) > 0)
+                        <div class="mb-8">
+                            <div class="bg-red-500/20 backdrop-blur-lg border border-red-400/30 px-6 py-3 rounded-full flex items-center justify-center shadow-xl max-w-md mx-auto">
+                                <i class="bi bi-clock-history text-red-300 mr-3 text-lg"></i>
+                                <span class="text-red-100 font-semibold text-lg">Fest Ended !</span>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                     
                     <div class="flex flex-wrap justify-center gap-6 mb-12">
@@ -292,9 +306,9 @@
                             @if($image->caption)
                             <p class="text-sm font-medium mb-1">{{ $image->caption }}</p>
                             @endif
-                            @if($image->original_name)
+                            {{-- @if($image->original_name)
                             <p class="text-xs opacity-75">{{ $image->original_name }}</p>
-                            @endif
+                            @endif --}}
                         </div>
                         
                         <!-- Zoom icon -->

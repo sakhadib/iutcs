@@ -25,7 +25,6 @@ class FestsController extends Controller
     public function festDetails($fest_id)
     {
         $fest = Fest::where('id', $fest_id)
-                    ->with(['events'])
                     ->first();
 
         if( !$fest) {
