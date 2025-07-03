@@ -19,10 +19,17 @@ yarn-error.log
 
 
 
-#Image Files
+# Image Files
+# Ignore all image files except those in the 'rsx' folder
 *.png
 *.jpg
 *.jpeg
 *.gif
 *.webp
 *.svg
+!public/rsx/*.png
+!public/rsx/*.jpg
+!public/rsx/*.jpeg
+!public/rsx/*.gif
+!public/rsx/*.webp
+!public/rsx/*.svg

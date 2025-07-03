@@ -443,7 +443,7 @@
                 <!-- President -->
                 <div class="leadership-card text-center bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-red">
                     <div class="relative mb-6">
-                        <img src="https://scontent.fdac181-1.fna.fbcdn.net/v/t39.30808-6/488254369_3932276573655036_2019042408675470126_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeErGZJd1BJ3QvBP9db0nniZOMADnMKVn-M4wAOcwpWf4z0hD65kO-V_GqoUFSi8i8EgpJZ4-aaF90Ct5JwInLD3&_nc_ohc=MwhgxzR7A_EQ7kNvwEWvTwx&_nc_oc=AdkCPKjNagR0Fexo_iWWmJqPWmT4UYa8VgzRj__W83uwQNaYXhMkONt3Be5-NSTSEA8&_nc_zt=23&_nc_ht=scontent.fdac181-1.fna&_nc_gid=1A1RGSGGHbObTdEYPEFSJg&oh=00_AfNQhaH_c01EjDGSOUM0NP3pVk6UXN5wQ6aVO5NG6zTlmQ&oe=6864763B" alt="President" class="w-32 h-32 rounded-full mx-auto border-4 border-red/30 shadow-lg object-cover">
+                        <img src="/rsx/samin.jpg" alt="President" class="w-32 h-32 rounded-full mx-auto border-4 border-red/30 shadow-lg object-cover">
                         <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-red text-white px-3 py-1 rounded-full text-xs font-bold">
                             President
                         </div>
