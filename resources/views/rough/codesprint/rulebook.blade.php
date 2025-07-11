@@ -7,8 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
         :root {
             --primary: #6366f1;
@@ -193,7 +194,7 @@
             <div class="mt-10 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="card p-6 flex flex-col items-center text-center">
                     <div class="icon-container mb-4">
-                        <i class="fas fa-users text-xl text-indigo-400"></i>
+                        <i class="bi bi-people text-xl text-indigo-400"></i>
                     </div>
                     <h3 class="font-bold text-lg mb-2">Team Size</h3>
                     <p class="text-2xl font-bold text-indigo-300">1-3 Members</p>
@@ -201,7 +202,7 @@
                 
                 <div class="card p-6 flex flex-col items-center text-center">
                     <div class="icon-container mb-4">
-                        <i class="fas fa-trophy text-xl text-emerald-400"></i>
+                        <i class="bi bi-trophy text-xl text-emerald-400"></i>
                     </div>
                     <h3 class="font-bold text-lg mb-2">Top Teams</h3>
                     <p class="text-2xl font-bold text-emerald-300">Onsite Presentation</p>
@@ -210,7 +211,7 @@
                 
                 <div class="card p-6 flex flex-col items-center text-center">
                     <div class="icon-container mb-4">
-                        <i class="fas fa-laptop-code text-xl text-cyan-400"></i>
+                        <i class="bi bi-laptop text-xl text-cyan-400"></i>
                     </div>
                     <h3 class="font-bold text-lg mb-2">Participation</h3>
                     <p class="text-2xl font-bold text-cyan-300">150 Taka</p>
@@ -234,7 +235,7 @@
                             <div class="card p-6">
                                 <div class="flex items-center mb-3">
                                     <div class="badge bg-indigo-900/30 text-indigo-300">
-                                        <i class="fas fa-calendar-day mr-2"></i>Registration Opens
+                                        <i class="bi bi-calendar-date me-2"></i>Registration Opens
                                     </div>
                                 </div>
                                 <h3 class="text-xl font-bold text-white mb-2">July 13, 2025 (6:00 PM)</h3>
@@ -246,7 +247,7 @@
                             <div class="card p-6">
                                 <div class="flex items-center mb-3">
                                     <div class="badge bg-emerald-900/30 text-emerald-300">
-                                        <i class="fas fa-laptop-code mr-2"></i>Competition Starts
+                                        <i class="bi bi-laptop me-2"></i>Competition Starts
                                     </div>
                                 </div>
                                 <h3 class="text-xl font-bold text-white mb-2">July 16, 2025 (6:00 PM)</h3>
@@ -259,7 +260,7 @@
                             <div class="card p-6">
                                 <div class="flex items-center mb-3">
                                     <div class="badge bg-amber-900/30 text-amber-300">
-                                        <i class="fas fa-hourglass-half mr-2"></i>Registration Closes
+                                        <i class="bi bi-hourglass-split me-2"></i>Registration Closes
                                     </div>
                                 </div>
                                 <h3 class="text-xl font-bold text-white mb-2">July 22, 2025 (6:00 PM)</h3>
@@ -271,7 +272,7 @@
                             <div class="card p-6">
                                 <div class="flex items-center mb-3">
                                     <div class="badge bg-rose-900/30 text-rose-300">
-                                        <i class="fas fa-flag-checkered mr-2"></i>Competition Ends
+                                        <i class="bi bi-flag me-2"></i>Competition Ends
                                     </div>
                                 </div>
                                 <h3 class="text-xl font-bold text-white mb-2">July 30, 2025 (11:59 PM)</h3>
@@ -296,11 +297,15 @@
                     <div class="card p-6">
                         <div class="flex items-start">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-user-graduate text-indigo-400"></i>
+                                <i class="bi bi-mortarboard text-indigo-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Who can participate?</h3>
                                 <p>Exclusively open to current 1st and 2nd-year students of IUT.</p>
+                                <div class="mt-3 flex space-x-2">
+                                    <span class="badge bg-emerald-900/30 text-emerald-300">1st Years</span>
+                                    <span class="badge bg-blue-900/30 text-blue-300">2nd Years</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -308,7 +313,7 @@
                     <div class="card p-6">
                         <div class="flex items-start">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-users text-cyan-400"></i>
+                                <i class="bi bi-people text-cyan-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Team Size</h3>
@@ -336,7 +341,7 @@
                     <div class="card p-6">
                         <div class="flex items-start mb-4">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-lightbulb text-amber-400"></i>
+                                <i class="bi bi-lightbulb text-amber-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Creative Freedom</h3>
@@ -348,7 +353,7 @@
                     <div class="card p-6">
                         <div class="flex items-start mb-4">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-feather text-violet-400"></i>
+                                <i class="bi bi-feather text-violet-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Project Originality</h3>
@@ -360,7 +365,7 @@
                     <div class="card p-6">
                         <div class="flex items-start mb-4">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-robot text-green-400"></i>
+                                <i class="bi bi-robot text-green-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">AI/ML Integration</h3>
@@ -372,7 +377,7 @@
                     <div class="card p-6">
                         <div class="flex items-start mb-4">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-cloud-upload-alt text-sky-400"></i>
+                                <i class="bi bi-cloud-upload text-sky-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Deployment</h3>
@@ -396,14 +401,14 @@
                     <div class="card p-6">
                         <div class="flex items-start mb-4">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fab fa-github text-purple-400"></i>
+                                <i class="bi bi-github text-purple-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Repository Link</h3>
                                 <p>Submit your GitHub repository link by <span class="font-bold text-indigo-300">July 22, 2025, 6:00 PM</span>.</p>
                                 <div class="mt-3">
                                     <span class="badge bg-purple-900/30 text-purple-300">
-                                        <i class="fas fa-code-branch mr-1"></i> Commit Monitoring
+                                        <i class="bi bi-git me-1"></i> Commit Monitoring
                                     </span>
                                     <p class="text-sm text-gray-400 mt-2">We'll monitor your commit history. Regular commits with descriptive messages are encouraged.</p>
                                 </div>
@@ -414,14 +419,14 @@
                     <div class="card p-6">
                         <div class="flex items-start mb-4">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-file-archive text-amber-400"></i>
+                                <i class="bi bi-file-zip text-amber-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Final Project</h3>
                                 <p>Submit a zip of your complete project by <span class="font-bold text-indigo-300">July 30, 2025, 6:00 PM</span>.</p>
                                 <div class="mt-3">
                                     <span class="badge bg-rose-900/30 text-rose-300">
-                                        <i class="fas fa-clock mr-1"></i> Post-Deadline Commits
+                                        <i class="bi bi-clock me-1"></i> Post-Deadline Commits
                                     </span>
                                     <p class="text-sm text-gray-400 mt-2">Commits pushed after the final deadline will not be considered.</p>
                                 </div>
@@ -432,26 +437,26 @@
                     <div class="card p-6 md:col-span-2">
                         <div class="flex items-start">
                             <div class="icon-container flex-shrink-0">
-                                <i class="fas fa-video text-sky-400"></i>
+                                <i class="bi bi-camera-video text-sky-400"></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Video Submission</h3>
                                 <p class="mb-3">Your video (max 15 minutes) must include:</p>
                                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
                                     <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-emerald-400 mr-2"></i>
+                                        <i class="bi bi-check-circle text-emerald-400 me-2"></i>
                                         Basic idea of the project
                                     </li>
                                     <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-emerald-400 mr-2"></i>
+                                        <i class="bi bi-check-circle text-emerald-400 me-2"></i>
                                         The problem it solves
                                     </li>
                                     <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-emerald-400 mr-2"></i>
+                                        <i class="bi bi-check-circle text-emerald-400 me-2"></i>
                                         Comparison with existing tools
                                     </li>
                                     <li class="flex items-center">
-                                        <i class="fas fa-check-circle text-emerald-400 mr-2"></i>
+                                        <i class="bi bi-check-circle text-emerald-400 me-2"></i>
                                         Full demonstration of your project
                                     </li>
                                 </ul>
@@ -473,7 +478,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div class="card p-5 text-center">
                         <div class="w-12 h-12 rounded-lg bg-indigo-900/30 flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-brain text-indigo-400 text-xl"></i>
+                            <i class="bi bi-lightbulb text-indigo-400 text-xl"></i>
                         </div>
                         <h3 class="font-bold text-white mb-2">Innovation & Creativity</h3>
                         <p class="text-sm text-gray-300">How novel and unique is your idea?</p>
@@ -481,7 +486,7 @@
                     
                     <div class="card p-5 text-center">
                         <div class="w-12 h-12 rounded-lg bg-emerald-900/30 flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-code text-emerald-400 text-xl"></i>
+                            <i class="bi bi-code-slash text-emerald-400 text-xl"></i>
                         </div>
                         <h3 class="font-bold text-white mb-2">Technical Implementation</h3>
                         <p class="text-sm text-gray-300">Is the code clean, functional, and robust?</p>
@@ -489,7 +494,7 @@
                     
                     <div class="card p-5 text-center">
                         <div class="w-12 h-12 rounded-lg bg-cyan-900/30 flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-puzzle-piece text-cyan-400 text-xl"></i>
+                            <i class="bi bi-puzzle text-cyan-400 text-xl"></i>
                         </div>
                         <h3 class="font-bold text-white mb-2">Problem-Solving</h3>
                         <p class="text-sm text-gray-300">How effectively does it address the problem?</p>
@@ -497,7 +502,7 @@
                     
                     <div class="card p-5 text-center">
                         <div class="w-12 h-12 rounded-lg bg-amber-900/30 flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-paint-brush text-amber-400 text-xl"></i>
+                            <i class="bi bi-palette text-amber-400 text-xl"></i>
                         </div>
                         <h3 class="font-bold text-white mb-2">User Experience</h3>
                         <p class="text-sm text-gray-300">Is it user-friendly and aesthetically pleasing?</p>
@@ -505,7 +510,7 @@
                     
                     <div class="card p-5 text-center">
                         <div class="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-chalkboard-teacher text-purple-400 text-xl"></i>
+                            <i class="bi bi-easel text-purple-400 text-xl"></i>
                         </div>
                         <h3 class="font-bold text-white mb-2">Presentation</h3>
                         <p class="text-sm text-gray-300">Clarity and impact of your presentation</p>
@@ -529,15 +534,15 @@
                         <h3 class="text-xl font-bold text-white mb-3">Champion</h3>
                         <ul class="space-y-2 text-gray-300">
                             <li class="flex items-center justify-center">
-                                <i class="fas fa-award text-amber-400 mr-2"></i>
+                                <i class="bi bi-award text-amber-400 me-2"></i>
                                 Award Certificate
                             </li>
                             <li class="flex items-center justify-center">
-                                <i class="fas fa-medal text-amber-400 mr-2"></i>
+                                <i class="bi bi-medal text-amber-400 me-2"></i>
                                 Championship Crest
                             </li>
                             <li class="flex items-center justify-center">
-                                <i class="fas fa-trophy text-amber-400 mr-2"></i>
+                                <i class="bi bi-trophy text-amber-400 me-2"></i>
                                 Special Recognition
                             </li>
                         </ul>
@@ -549,11 +554,11 @@
                         <h3 class="text-xl font-bold text-white mb-3">First Runner-up</h3>
                         <ul class="space-y-2 text-gray-300">
                             <li class="flex items-center justify-center">
-                                <i class="fas fa-award text-gray-400 mr-2"></i>
+                                <i class="bi bi-award text-gray-400 me-2"></i>
                                 Award Certificate
                             </li>
                             <li class="flex items-center justify-center">
-                                <i class="fas fa-medal text-gray-400 mr-2"></i>
+                                <i class="bi bi-medal text-gray-400 me-2"></i>
                                 Crest
                             </li>
                         </ul>
@@ -565,11 +570,11 @@
                         <h3 class="text-xl font-bold text-white mb-3">Second Runner-up</h3>
                         <ul class="space-y-2 text-gray-300">
                             <li class="flex items-center justify-center">
-                                <i class="fas fa-award text-amber-700 mr-2"></i>
+                                <i class="bi bi-award text-amber-700 me-2"></i>
                                 Award Certificate
                             </li>
                             <li class="flex items-center justify-center">
-                                <i class="fas fa-medal text-amber-700 mr-2"></i>
+                                <i class="bi bi-medal text-amber-700 me-2"></i>
                                 Crest
                             </li>
                         </ul>
@@ -579,7 +584,7 @@
                 <div class="mt-8 card p-6">
                     <div class="flex items-start">
                         <div class="icon-container flex-shrink-0">
-                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="bi bi-star text-yellow-400"></i>
                         </div>
                         <div>
                             <h3 class="font-bold text-lg mb-2 text-white">Top 10 Teams</h3>
