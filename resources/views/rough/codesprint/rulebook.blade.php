@@ -17,6 +17,11 @@
             --card-bg: rgba(30, 41, 59, 0.7);
         }
         
+        /* Apply text-gray-200 globally to the main content */
+        .codesprint-rulebook-root, .codesprint-rulebook-root * {
+            color: #e5e7eb;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, var(--darker), var(--dark));
@@ -166,18 +171,12 @@
             z-index: -1;
         }
 
-        body{
-            font-family: 'Inter', sans-serif;
-            background-color: #0a1929;
-            color: #e0e7ee;
-            margin: 0;
-            padding: 0;
-        }
+        
     </style>
 
 
 
-    <div class="container mx-auto px-4 py-12 max-w-6xl">
+    <div class="codesprint-rulebook-root container mx-auto px-4 py-12 max-w-6xl">
         <!-- Hero Section -->
         <header class="text-center mb-16 pt-8">
             <div class="inline-block mb-4 px-4 py-1 bg-indigo-900/30 text-indigo-300 rounded-full text-sm font-medium border border-indigo-700/50">
