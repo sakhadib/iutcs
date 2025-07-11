@@ -1,6 +1,10 @@
-@extends('layouts.main')
-
-@section('main')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUTCS CodeSprint 2025 - Modern Rulebook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -15,11 +19,6 @@
             --darker: #0b1120;
             --light: #f1f5f9;
             --card-bg: rgba(30, 41, 59, 0.7);
-        }
-        
-        /* Apply text-gray-200 globally to the main content */
-        .codesprint-rulebook-root, .codesprint-rulebook-root * {
-            color: #e5e7eb;
         }
         
         body {
@@ -171,14 +170,28 @@
             z-index: -1;
         }
 
-        
+        body{
+            color: var(--light);
+            background-color: var(--darker);
+        }
     </style>
-
-
-
-    <div class="codesprint-rulebook-root container mx-auto px-4 py-12 max-w-6xl">
+</head>
+<body class="text-gray-200">
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        <!-- Back Navigation -->
+        <div class="mb-8 pt-4">
+            <a href="{{ url()->previous() ?: route('home') }}" 
+               class="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/30 rounded-lg text-gray-300 hover:text-white transition-all duration-200 group">
+                <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span class="font-medium">Go Back</span>
+            </a>
+        </div>
+        
         <!-- Hero Section -->
         <header class="text-center mb-16 pt-8">
+
             <div class="inline-block mb-4 px-4 py-1 bg-indigo-900/30 text-indigo-300 rounded-full text-sm font-medium border border-indigo-700/50">
                 July 13 - July 30, 2025
             </div>
@@ -624,5 +637,5 @@
             });
         });
     </script>
-
-@endsection
+</body>
+</html>
