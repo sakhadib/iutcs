@@ -12,6 +12,8 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ParticipantRegisterController;
 use App\Http\Controllers\EventReportController;
 
+use App\Http\Controllers\RoughEventController;
+
 use App\Http\Controllers\AdminController;
 use App\Models\Event;
 
@@ -60,6 +62,9 @@ Route::post('team/remove/member', [TeamController::class, 'removeMember']);
 
 
 Route::get('/about', [HomeController::class, 'showAboutPage']);
+
+
+Route::get('/codesprint/rulebook', [RoughEventController::class, 'codeSprint2025Rulebook']);
 
 
 
