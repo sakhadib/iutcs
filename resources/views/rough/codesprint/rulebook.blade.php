@@ -165,6 +165,14 @@
             border-radius: inherit;
             z-index: -1;
         }
+
+        body{
+            font-family: 'Inter', sans-serif;
+            background-color: #0a1929;
+            color: #e0e7ee;
+            margin: 0;
+            padding: 0;
+        }
     </style>
 
 
