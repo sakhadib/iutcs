@@ -178,17 +178,7 @@
 </head>
 <body class="text-gray-200">
     <div class="container mx-auto px-4 py-12 max-w-6xl">
-        <!-- Back Navigation -->
-        <div class="mb-8 pt-4">
-            <a href="{{ url()->previous() ?: route('home') }}" 
-               class="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/30 rounded-lg text-gray-300 hover:text-white transition-all duration-200 group">
-                <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-                <span class="font-medium">Go Back</span>
-            </a>
-        </div>
-        
+               
         <!-- Hero Section -->
         <header class="text-center mb-16 pt-8">
 
@@ -600,6 +590,8 @@
             </section>
         </main>
     </div>
+
+    @include('layouts.footer')
 
     <script>
         // Simple smooth scrolling for anchor links
