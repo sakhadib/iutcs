@@ -177,8 +177,8 @@
     </style>
 </head>
 <body class="text-gray-200">
+    @include('layouts.dangling_header')
     <div class="container mx-auto px-4 py-12 max-w-6xl">
-               
         <!-- Hero Section -->
         <header class="text-center mb-16 pt-8">
 
