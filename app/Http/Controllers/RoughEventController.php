@@ -214,6 +214,10 @@ class RoughEventController extends Controller
 
     public function AdminViewCodeSprint2025Registrations()
     {
+        if(session('role') !== 'admin') {
+            return redirect()->route('home')->with('error', 'Unauthorized access.');
+        }
+        
         $registrations = CodeSprint25Registration::orderBy('created_at', 'desc')->paginate(20);
         
         // Statistics
@@ -232,6 +236,10 @@ class RoughEventController extends Controller
 
     public function AdminViewCodeSprint2025RegistrationDetails($id)
     {
+        if(session('role') !== 'admin') {
+            return redirect()->route('home')->with('error', 'Unauthorized access.');
+        }
+
         try {
             $registration = CodeSprint25Registration::findOrFail($id);
             
@@ -245,6 +253,10 @@ class RoughEventController extends Controller
 
     public function AdminUpdateCodeSprint2025RegistrationStatus(Request $request, $id)
     {
+        if(session('role') !== 'admin') {
+            return redirect()->route('home')->with('error', 'Unauthorized access.');
+        }
+
         $validator = Validator::make($request->all(), [
             'payment_status' => 'nullable|in:pending,verified,rejected',
             'registration_status' => 'nullable|in:active,disqualified,withdrawn',
@@ -290,6 +302,10 @@ class RoughEventController extends Controller
 
     public function AdminDeleteCodeSprint2025Registration($id)
     {
+        if(session('role') !== 'admin') {
+            return redirect()->route('home')->with('error', 'Unauthorized access.');
+        }
+
         try {
             $registration = CodeSprint25Registration::findOrFail($id);
             
@@ -313,6 +329,10 @@ class RoughEventController extends Controller
      */
     public function AdminExportCodeSprint2025Registrations()
     {
+        if(session('role') !== 'admin') {
+            return redirect()->route('home')->with('error', 'Unauthorized access.');
+        }
+        
         $registrations = CodeSprint25Registration::all();
         
         $csvData = [];
