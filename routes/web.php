@@ -74,6 +74,7 @@ Route::get('/codesprint/rulebook', [RoughEventController::class, 'codeSprint2025
 // CodeSprint Registration Routes (Public)
 Route::get('/codesprint/register', [CodeSprintRegistrationController::class, 'showRegistrationForm'])->name('codesprint.register');
 Route::post('/codesprint/register', [CodeSprintRegistrationController::class, 'submitRegistration'])->name('codesprint.register.submit');
+Route::get('/codesprint/registration-success/{token}', [CodeSprintRegistrationController::class, 'showRegistrationSuccess'])->name('codesprint.registration.success');
 Route::get('/codesprint/status/{token}', [CodeSprintRegistrationController::class, 'showStatus'])->name('codesprint.status');
 Route::get('/codesprint/check-status', [CodeSprintRegistrationController::class, 'showStatusLookup'])->name('codesprint.status.lookup');
 Route::post('/codesprint/check-status', [CodeSprintRegistrationController::class, 'lookupStatus'])->name('codesprint.status.lookup');

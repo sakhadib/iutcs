@@ -91,8 +91,7 @@ class RoughEventController extends Controller
                 'payment_date' => now(),
             ]);
 
-            return redirect()->route('codesprint.status', $registration->registration_token)
-                ->with('success', 'Registration submitted successfully! Your registration token is: ' . $registration->registration_token . '. Please save this token to check your status.');
+            return redirect()->route('codesprint.registration.success', $registration->registration_token);
                 
         } catch (\Exception $e) {
             return back()->with('error', 'Registration failed. Please try again.')->withInput();

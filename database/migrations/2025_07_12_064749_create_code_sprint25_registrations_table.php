@@ -84,7 +84,6 @@ return new class extends Migration
             $table->index('payment_status');
             $table->index('registration_status');
             $table->index('selected_for_presentation');
-            $table->index(['member1_email', 'member1_student_id']);
             $table->index('github_submitted_at');
             $table->index('project_submitted_at');
             $table->index('uses_ai_ml');

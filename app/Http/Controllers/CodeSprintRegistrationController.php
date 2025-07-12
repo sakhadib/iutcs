@@ -127,11 +127,26 @@ class CodeSprintRegistrationController extends Controller
                 'payment_date' => now(),
             ]);
 
-            return redirect()->route('codesprint.status', $registration->registration_token)
-                ->with('success', 'Registration submitted successfully! Your registration token is: ' . $registration->registration_token . '. Please save this token to check your status and submit your project.');
+            return redirect()->route('codesprint.registration.success', $registration->registration_token);
                 
         } catch (\Exception $e) {
             return back()->with('error', 'Registration failed. Please try again.')->withInput();
+        }
+    }
+
+    /**
+     * Show registration success page with token
+     */
+    public function showRegistrationSuccess($token)
+    {
+        try {
+            $registration = CodeSprint25Registration::where('registration_token', $token)->firstOrFail();
+            
+            return view('rough.codesprint.registration-success', compact('registration'));
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('codesprint.rulebook')
+                ->with('error', 'Invalid registration token.');
         }
     }
 
@@ -176,7 +191,7 @@ class CodeSprintRegistrationController extends Controller
     }
 
     /**
-     * Get public statistics for the competition
+     * Show public statistics page for the competition
      */
     public function getPublicStats()
     {
@@ -187,7 +202,7 @@ class CodeSprintRegistrationController extends Controller
             'project_submitted' => CodeSprint25Registration::whereNotNull('project_submitted_at')->count(),
         ];
 
-        return response()->json($stats);
+        return view('rough.codesprint.stats', compact('stats'));
     }
 
     /**
