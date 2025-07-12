@@ -79,7 +79,7 @@
               About
             </a>
             <!-- CodeSprint CTA Desktop -->
-            <a href="/codesprint/rulebook" class="ml-4 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
+            <a href="/codesprint" class="ml-4 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/></svg>
               CodeSprint 2025
             </a>
@@ -105,7 +105,7 @@
           <a href="/fests" class="block nav-link py-2 hover:text-cyan transition-colors">Fests</a>
           <a href="/about" class="block nav-link py-2 hover:text-cyan transition-colors">About</a>
           <!-- CodeSprint CTA Mobile -->
-          <a href="/codesprint/rulebook" class="my-2 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
+          <a href="/codesprint" class="my-2 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/></svg>
             CodeSprint 2025
           </a>
