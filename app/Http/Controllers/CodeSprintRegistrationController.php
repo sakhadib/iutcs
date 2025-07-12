@@ -5,20 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CodeSprint25Registration;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 
-class RoughEventController extends Controller
+class CodeSprintRegistrationController extends Controller
 {
-    public function codeSprint2025Rulebook()
+    /**
+     * Show the registration form
+     */
+    public function showRegistrationForm()
     {
-        return view('rough.codesprint.rulebook');
+        // Check if registration is still open
+        $registrationDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        if (now() > $registrationDeadline) {
+            return redirect()->route('codesprint.rulebook')
+                ->with('error', 'Registration deadline has passed.');
+        }
+
+        return view('rough.codesprint.register');
     }
 
-
-    public function codeSprint2025RegistrationSubmission(Request $request)
+    /**
+     * Handle registration submission
+     */
+    public function submitRegistration(Request $request)
     {
-        // Check if registration is still open (until July 22, 2025 6:00 PM)
+        // Check if registration is still open
         $registrationDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
         if (now() > $registrationDeadline) {
             return back()->with('error', 'Registration deadline has passed.');
@@ -53,6 +64,31 @@ class RoughEventController extends Controller
             // Payment Information
             'transaction_id' => 'required|string|max:255|unique:code_sprint25_registrations,transaction_id',
         ]);
+
+        // Custom validation for team members based on team size
+        $validator->after(function ($validator) use ($request) {
+            $teamSize = $request->team_size;
+            
+            // Validate member 2 if team size is 2 or more
+            if ($teamSize >= 2) {
+                $member2Fields = ['member2_name', 'member2_email', 'member2_student_id', 'member2_department', 'member2_year'];
+                foreach ($member2Fields as $field) {
+                    if (empty($request->$field)) {
+                        $validator->errors()->add($field, 'This field is required for team size of ' . $teamSize);
+                    }
+                }
+            }
+            
+            // Validate member 3 if team size is 3
+            if ($teamSize >= 3) {
+                $member3Fields = ['member3_name', 'member3_email', 'member3_student_id', 'member3_department', 'member3_year'];
+                foreach ($member3Fields as $field) {
+                    if (empty($request->$field)) {
+                        $validator->errors()->add($field, 'This field is required for team size of ' . $teamSize);
+                    }
+                }
+            }
+        });
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -92,16 +128,74 @@ class RoughEventController extends Controller
             ]);
 
             return redirect()->route('codesprint.status', $registration->registration_token)
-                ->with('success', 'Registration submitted successfully! Your registration token is: ' . $registration->registration_token . '. Please save this token to check your status.');
+                ->with('success', 'Registration submitted successfully! Your registration token is: ' . $registration->registration_token . '. Please save this token to check your status and submit your project.');
                 
         } catch (\Exception $e) {
             return back()->with('error', 'Registration failed. Please try again.')->withInput();
         }
     }
 
-    public function codeSprint2025GitHubSubmission(Request $request)
+    /**
+     * Show registration status
+     */
+    public function showStatus($token)
     {
-        // Check if GitHub submission is still open (until July 22, 2025 6:00 PM)
+        try {
+            $registration = CodeSprint25Registration::where('registration_token', $token)->firstOrFail();
+            
+            return view('rough.codesprint.status', compact('registration'));
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('codesprint.status.lookup')
+                ->with('error', 'Invalid registration token.');
+        }
+    }
+
+    /**
+     * Show status lookup form
+     */
+    public function showStatusLookup()
+    {
+        return view('rough.codesprint.status-lookup');
+    }
+
+    /**
+     * Lookup registration status by token
+     */
+    public function lookupStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'registration_token' => 'required|string|size:6|exists:code_sprint25_registrations,registration_token',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        return redirect()->route('codesprint.status', $request->registration_token);
+    }
+
+    /**
+     * Get public statistics for the competition
+     */
+    public function getPublicStats()
+    {
+        $stats = [
+            'total' => CodeSprint25Registration::count(),
+            'verified' => CodeSprint25Registration::where('payment_status', 'verified')->count(),
+            'github_submitted' => CodeSprint25Registration::whereNotNull('github_submitted_at')->count(),
+            'project_submitted' => CodeSprint25Registration::whereNotNull('project_submitted_at')->count(),
+        ];
+
+        return response()->json($stats);
+    }
+
+    /**
+     * Submit GitHub repository
+     */
+    public function submitGitHub(Request $request)
+    {
+        // Check if GitHub submission is still open
         $githubDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
         if (now() > $githubDeadline) {
             return back()->with('error', 'GitHub submission deadline has passed.');
@@ -141,9 +235,12 @@ class RoughEventController extends Controller
         }
     }
 
-    public function codeSprint2025ProjectSubmission(Request $request)
+    /**
+     * Submit final project
+     */
+    public function submitProject(Request $request)
     {
-        // Check if project submission is still open (until July 30, 2025 11:59 PM)
+        // Check if project submission is still open
         $projectDeadline = Carbon::create(2025, 7, 30, 23, 59, 0);
         if (now() > $projectDeadline) {
             return back()->with('error', 'Project submission deadline has passed.');
@@ -151,8 +248,8 @@ class RoughEventController extends Controller
 
         $validator = Validator::make($request->all(), [
             'registration_token' => 'required|string|exists:code_sprint25_registrations,registration_token',
-            'project_zip_url' => 'required|url', // Google Drive link for project zip
-            'video_submission_url' => 'required|url', // Google Drive link for video
+            'project_zip_url' => 'required|url',
+            'video_submission_url' => 'required|url',
             'project_description' => 'required|string|max:2000',
             'uses_ai_ml' => 'boolean',
             'technologies_used' => 'required|string|max:1000',
@@ -183,7 +280,7 @@ class RoughEventController extends Controller
             }
 
             $registration->update([
-                'project_zip_path' => $request->project_zip_url, // Using as URL since it's Google Drive
+                'project_zip_path' => $request->project_zip_url,
                 'video_submission_url' => $request->video_submission_url,
                 'project_description' => $request->project_description,
                 'uses_ai_ml' => $request->boolean('uses_ai_ml'),
@@ -199,175 +296,4 @@ class RoughEventController extends Controller
             return back()->with('error', 'Project submission failed. Please try again.');
         }
     }
-
-    public function codeSprint2025RegistrationStatus($token)
-    {
-        try {
-            $registration = CodeSprint25Registration::where('registration_token', $token)->firstOrFail();
-            
-            return view('rough.codesprint.status', compact('registration'));
-            
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->route('codesprint.rulebook')
-                ->with('error', 'Invalid registration token.');
-        }
-    }
-
-    public function AdminViewCodeSprint2025Registrations()
-    {
-        $registrations = CodeSprint25Registration::orderBy('created_at', 'desc')->paginate(20);
-        
-        // Statistics
-        $stats = [
-            'total' => CodeSprint25Registration::count(),
-            'verified' => CodeSprint25Registration::where('payment_status', 'verified')->count(),
-            'pending' => CodeSprint25Registration::where('payment_status', 'pending')->count(),
-            'rejected' => CodeSprint25Registration::where('payment_status', 'rejected')->count(),
-            'github_submitted' => CodeSprint25Registration::whereNotNull('github_submitted_at')->count(),
-            'project_submitted' => CodeSprint25Registration::whereNotNull('project_submitted_at')->count(),
-            'selected_for_presentation' => CodeSprint25Registration::where('selected_for_presentation', true)->count(),
-        ];
-        
-        return view('admin.codesprint.registrations', compact('registrations', 'stats'));
-    }
-
-    public function AdminViewCodeSprint2025RegistrationDetails($id)
-    {
-        try {
-            $registration = CodeSprint25Registration::findOrFail($id);
-            
-            return view('admin.codesprint.registration-details', compact('registration'));
-            
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->route('admin.codesprint.registrations')
-                ->with('error', 'Registration not found.');
-        }
-    }
-
-    public function AdminUpdateCodeSprint2025RegistrationStatus(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'payment_status' => 'nullable|in:pending,verified,rejected',
-            'registration_status' => 'nullable|in:active,disqualified,withdrawn',
-            'selected_for_presentation' => 'boolean',
-            'admin_notes' => 'nullable|string|max:2000',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        try {
-            $registration = CodeSprint25Registration::findOrFail($id);
-            
-            $updateData = [];
-            
-            if ($request->has('payment_status')) {
-                $updateData['payment_status'] = $request->payment_status;
-            }
-            
-            if ($request->has('registration_status')) {
-                $updateData['registration_status'] = $request->registration_status;
-            }
-            
-            if ($request->has('selected_for_presentation')) {
-                $updateData['selected_for_presentation'] = $request->boolean('selected_for_presentation');
-            }
-            
-            if ($request->has('admin_notes')) {
-                $updateData['admin_notes'] = $request->admin_notes;
-            }
-
-            $registration->update($updateData);
-
-            return back()->with('success', 'Registration status updated successfully!');
-            
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return back()->with('error', 'Registration not found.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Update failed. Please try again.');
-        }
-    }
-
-    public function AdminDeleteCodeSprint2025Registration($id)
-    {
-        try {
-            $registration = CodeSprint25Registration::findOrFail($id);
-            
-            // Store team name for confirmation message
-            $teamName = $registration->team_name;
-            
-            $registration->delete();
-
-            return redirect()->route('admin.codesprint.registrations')
-                ->with('success', "Registration for team '{$teamName}' deleted successfully!");
-                
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return back()->with('error', 'Registration not found.');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Delete failed. Please try again.');
-        }
-    }
-
-    /**
-     * Additional helper methods for admin
-     */
-    public function AdminExportCodeSprint2025Registrations()
-    {
-        $registrations = CodeSprint25Registration::all();
-        
-        $csvData = [];
-        $csvData[] = [
-            'ID', 'Team Name', 'Team Size', 'Leader Name', 'Leader Email', 'Leader Student ID', 
-            'Leader Department', 'Leader Year', 'Contact Phone', 'Transaction ID', 
-            'Payment Status', 'Registration Status', 'GitHub URL', 'Project Description',
-            'Uses AI/ML', 'Technologies Used', 'Deployment URL', 'Selected for Presentation',
-            'Created At'
-        ];
-
-        foreach ($registrations as $reg) {
-            $csvData[] = [
-                $reg->id,
-                $reg->team_name,
-                $reg->team_size,
-                $reg->member1_name,
-                $reg->member1_email,
-                $reg->member1_student_id,
-                $reg->member1_department,
-                $reg->member1_year,
-                $reg->contact_phone,
-                $reg->transaction_id,
-                $reg->payment_status,
-                $reg->registration_status,
-                $reg->github_repo_url,
-                $reg->project_description,
-                $reg->uses_ai_ml ? 'Yes' : 'No',
-                $reg->technologies_used,
-                $reg->deployment_url,
-                $reg->selected_for_presentation ? 'Yes' : 'No',
-                $reg->created_at->format('Y-m-d H:i:s'),
-            ];
-        }
-
-        $filename = 'codesprint2025_registrations_' . now()->format('Y-m-d_H-i-s') . '.csv';
-        
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
-        ];
-
-        $callback = function() use ($csvData) {
-            $file = fopen('php://output', 'w');
-            foreach ($csvData as $row) {
-                fputcsv($file, $row);
-            }
-            fclose($file);
-        };
-
-        return response()->stream($callback, 200, $headers);
-    }
-
-    
-
-    
 }

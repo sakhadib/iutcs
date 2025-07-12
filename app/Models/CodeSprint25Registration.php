@@ -106,9 +106,28 @@ class CodeSprint25Registration extends Model
 
         static::creating(function ($model) {
             if (empty($model->registration_token)) {
-                $model->registration_token = Str::random(64);
+                $model->registration_token = self::generateRegistrationToken();
             }
         });
+    }
+
+    /**
+     * Generate a 6-character alphanumeric registration token.
+     * Excludes confusing characters: 0, O, 1, l, I
+     */
+    public static function generateRegistrationToken()
+    {
+        $characters = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+        $token = '';
+        
+        do {
+            $token = '';
+            for ($i = 0; $i < 6; $i++) {
+                $token .= $characters[random_int(0, strlen($characters) - 1)];
+            }
+        } while (self::where('registration_token', $token)->exists());
+        
+        return $token;
     }
 
     /**
@@ -236,6 +255,14 @@ class CodeSprint25Registration extends Model
             'withdrawn' => 'warning',
             default => 'secondary'
         };
+    }
+
+    /**
+     * Get formatted registration token for display.
+     */
+    public function getFormattedTokenAttribute()
+    {
+        return strtoupper($this->registration_token);
     }
 
     /**

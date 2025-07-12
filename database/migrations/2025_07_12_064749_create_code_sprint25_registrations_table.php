@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             
             // Unique Registration Token (for status checking without auth)
-            $table->string('registration_token', 64)->unique(); // Long random string for secure access
+            $table->string('registration_token', 6)->unique(); // 6-character alphanumeric string for easy access
             
             // Team Information
             $table->string('team_name');

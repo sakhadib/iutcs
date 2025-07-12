@@ -13,6 +13,7 @@ use App\Http\Controllers\ParticipantRegisterController;
 use App\Http\Controllers\EventReportController;
 
 use App\Http\Controllers\RoughEventController;
+use App\Http\Controllers\CodeSprintRegistrationController;
 
 use App\Http\Controllers\AdminController;
 use App\Models\Event;
@@ -64,7 +65,28 @@ Route::post('team/remove/member', [TeamController::class, 'removeMember']);
 Route::get('/about', [HomeController::class, 'showAboutPage']);
 
 
-Route::get('/codesprint/rulebook', [RoughEventController::class, 'codeSprint2025Rulebook']);
+// CodeSprint Routes
+Route::get('/codesprint', function () {
+    return view('rough.codesprint.home');
+})->name('codesprint.home');
+Route::get('/codesprint/rulebook', [RoughEventController::class, 'codeSprint2025Rulebook'])->name('codesprint.rulebook');
+
+// CodeSprint Registration Routes (Public)
+Route::get('/codesprint/register', [CodeSprintRegistrationController::class, 'showRegistrationForm'])->name('codesprint.register');
+Route::post('/codesprint/register', [CodeSprintRegistrationController::class, 'submitRegistration'])->name('codesprint.register.submit');
+Route::get('/codesprint/status/{token}', [CodeSprintRegistrationController::class, 'showStatus'])->name('codesprint.status');
+Route::get('/codesprint/check-status', [CodeSprintRegistrationController::class, 'showStatusLookup'])->name('codesprint.status.lookup');
+Route::post('/codesprint/check-status', [CodeSprintRegistrationController::class, 'lookupStatus'])->name('codesprint.status.lookup');
+Route::get('/codesprint/stats', [CodeSprintRegistrationController::class, 'getPublicStats'])->name('codesprint.stats');
+
+// CodeSprint Submission Routes
+Route::post('/codesprint/github/submit', [CodeSprintRegistrationController::class, 'submitGitHub'])->name('codesprint.github.submit');
+Route::post('/codesprint/project/submit', [CodeSprintRegistrationController::class, 'submitProject'])->name('codesprint.project.submit');
+
+// Legacy routes from RoughEventController (keeping for backward compatibility)
+Route::post('/codesprint/registration/submit', [RoughEventController::class, 'codeSprint2025RegistrationSubmission'])->name('codesprint.legacy.register');
+Route::post('/codesprint/github/legacy/submit', [RoughEventController::class, 'codeSprint2025GitHubSubmission'])->name('codesprint.legacy.github');
+Route::post('/codesprint/project/legacy/submit', [RoughEventController::class, 'codeSprint2025ProjectSubmission'])->name('codesprint.legacy.project');
 
 
 
@@ -74,6 +96,13 @@ Route::get('/codesprint/rulebook', [RoughEventController::class, 'codeSprint2025
 
 
 //! Admin
+
+// CodeSprint Admin Routes
+Route::get('/admin/codesprint/registrations', [RoughEventController::class, 'AdminViewCodeSprint2025Registrations'])->name('admin.codesprint.registrations');
+Route::get('/admin/codesprint/registrations/{id}', [RoughEventController::class, 'AdminViewCodeSprint2025RegistrationDetails'])->name('admin.codesprint.registration.details');
+Route::put('/admin/codesprint/registrations/{id}/status', [RoughEventController::class, 'AdminUpdateCodeSprint2025RegistrationStatus'])->name('admin.codesprint.registration.status');
+Route::delete('/admin/codesprint/registrations/{id}', [RoughEventController::class, 'AdminDeleteCodeSprint2025Registration'])->name('admin.codesprint.registration.delete');
+Route::get('/admin/codesprint/export', [RoughEventController::class, 'AdminExportCodeSprint2025Registrations'])->name('admin.codesprint.export');
 
 Route::get('/admin/fests/create', [AdminController::class, 'showCreateFestPage']);
 Route::post('/admin/fests/create', [AdminController::class, 'createFest']);
