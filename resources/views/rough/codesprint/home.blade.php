@@ -63,6 +63,31 @@
                         <i class="bi bi-clock me-2"></i>
                         Registration Not Started
                     </button>
+                @elseif($now >= $registrationEnd && $now < $competitionStart)
+                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-primary text-xl px-8 py-4">
+                        <i class="bi bi-search me-2"></i>
+                        Check Your Status
+                    </a>
+                @elseif($now >= $competitionStart && $now <= \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0))
+                    <!-- GitHub submission phase -->
+                    <a href="{{ route('codesprint.github.form') }}" class="btn btn-primary text-xl px-8 py-4">
+                        <i class="bi bi-github me-2"></i>
+                        Submit GitHub Repository
+                    </a>
+                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-outline text-xl px-8 py-4">
+                        <i class="bi bi-search me-2"></i>
+                        Check Status
+                    </a>
+                @elseif($now > \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0))
+                    <!-- Project submission phase -->
+                    <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary text-xl px-8 py-4">
+                        <i class="bi bi-upload me-2"></i>
+                        Submit Final Project
+                    </a>
+                    <a href="{{ route('codesprint.github.form') }}" class="btn btn-outline text-xl px-8 py-4">
+                        <i class="bi bi-github me-2"></i>
+                        Submit GitHub Repository
+                    </a>
                 @else
                     <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-primary text-xl px-8 py-4">
                         <i class="bi bi-search me-2"></i>
@@ -170,18 +195,46 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <a href="{{ route('codesprint.register') }}" class="card p-8 hover:scale-105 transition-transform group">
-                    <div class="flex items-center mb-4">
-                        <div class="icon-container">
-                            <i class="bi bi-person-plus text-indigo-400"></i>
+                @if($now >= $registrationStart && $now < $registrationEnd)
+                    <a href="{{ route('codesprint.register') }}" class="card p-8 hover:scale-105 transition-transform group">
+                        <div class="flex items-center mb-4">
+                            <div class="icon-container">
+                                <i class="bi bi-person-plus text-indigo-400"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-white">Register Team</h3>
                         </div>
-                        <h3 class="font-bold text-xl text-white">Register Team</h3>
+                        <p class="text-gray-300">Start your CodeSprint journey by registering your team</p>
+                        <div class="mt-4 text-indigo-400 group-hover:text-indigo-300">
+                            Get Started <i class="bi bi-arrow-right ml-2"></i>
+                        </div>
+                    </a>
+                @elseif($now < $registrationStart)
+                    <div class="card p-8 opacity-50 cursor-not-allowed">
+                        <div class="flex items-center mb-4">
+                            <div class="icon-container">
+                                <i class="bi bi-clock text-amber-400"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-white">Registration Opens Soon</h3>
+                        </div>
+                        <p class="text-gray-300">Registration starts {{ $registrationStart->format('M d, Y g:i A') }}</p>
+                        <div class="mt-4 text-amber-400">
+                            Coming Soon <i class="bi bi-clock ml-2"></i>
+                        </div>
                     </div>
-                    <p class="text-gray-300">Start your CodeSprint journey by registering your team</p>
-                    <div class="mt-4 text-indigo-400 group-hover:text-indigo-300">
-                        Get Started <i class="bi bi-arrow-right ml-2"></i>
+                @else
+                    <div class="card p-8 opacity-75">
+                        <div class="flex items-center mb-4">
+                            <div class="icon-container">
+                                <i class="bi bi-x-circle text-gray-400"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-white">Registration Closed</h3>
+                        </div>
+                        <p class="text-gray-300">Registration period has ended</p>
+                        <div class="mt-4 text-gray-400">
+                            Closed <i class="bi bi-x-circle ml-2"></i>
+                        </div>
                     </div>
-                </a>
+                @endif
                 
                 <a href="{{ route('codesprint.status.lookup') }}" class="card p-8 hover:scale-105 transition-transform group">
                     <div class="flex items-center mb-4">
@@ -249,10 +302,40 @@
                     Showcase your skills, learn new technologies
                 </p>
                 <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                    <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-10 py-4">
-                        <i class="bi bi-rocket me-2"></i>
-                        Register Now
-                    </a>
+                    @if($now >= $registrationStart && $now < $registrationEnd)
+                        <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-10 py-4">
+                            <i class="bi bi-rocket me-2"></i>
+                            Register Now
+                        </a>
+                    @elseif($now < $registrationStart)
+                        <button class="btn btn-secondary text-xl px-10 py-4 opacity-50 cursor-not-allowed" disabled>
+                            <i class="bi bi-clock me-2"></i>
+                            Registration Opens {{ $registrationStart->format('M d') }}
+                        </button>
+                    @elseif($now >= $registrationEnd && $now < $competitionStart)
+                        <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-primary text-xl px-10 py-4">
+                            <i class="bi bi-search me-2"></i>
+                            Check Your Status
+                        </a>
+                    @elseif($now >= $competitionStart && $now <= \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0))
+                        <!-- GitHub submission phase -->
+                        <a href="{{ route('codesprint.github.form') }}" class="btn btn-primary text-xl px-10 py-4">
+                            <i class="bi bi-github me-2"></i>
+                            Submit GitHub Repository
+                        </a>
+                    @elseif($now > \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0))
+                        <!-- Project submission phase -->
+                        <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary text-xl px-10 py-4">
+                            <i class="bi bi-upload me-2"></i>
+                            Submit Final Project
+                        </a>
+                    @else
+                        <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-primary text-xl px-10 py-4">
+                            <i class="bi bi-search me-2"></i>
+                            Check Your Status
+                        </a>
+                    @endif
+                    
                     <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-secondary text-xl px-10 py-4">
                         <i class="bi bi-search me-2"></i>
                         Check Status

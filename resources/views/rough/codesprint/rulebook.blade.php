@@ -423,7 +423,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Final Project</h3>
-                                <p>Submit a zip of your complete project by <span class="font-bold text-indigo-300">July 30, 2025, 6:00 PM</span>.</p>
+                                <p>Submit a zip of your complete project by <span class="font-bold text-indigo-300">July 30, 2025, 11:59 PM</span>.</p>
                                 <div class="mt-3">
                                     <span class="badge bg-rose-900/30 text-rose-300">
                                         <i class="bi bi-clock me-1"></i> Post-Deadline Commits

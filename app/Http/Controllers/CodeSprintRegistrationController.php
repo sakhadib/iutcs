@@ -169,9 +169,39 @@ class CodeSprintRegistrationController extends Controller
     /**
      * Show status lookup form
      */
-    public function showStatusLookup()
+    public function showStatusLookup(Request $request)
     {
         return view('rough.codesprint.status-lookup');
+    }
+
+    /**
+     * Show GitHub submission form
+     */
+    public function showGitHubSubmissionForm()
+    {
+        // Check if GitHub submission is still open
+        $githubDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        $now = now();
+        
+        return view('rough.codesprint.github-submit', [
+            'githubDeadline' => $githubDeadline,
+            'isDeadlinePassed' => $now > $githubDeadline
+        ]);
+    }
+
+    /**
+     * Show project submission form
+     */
+    public function showProjectSubmissionForm()
+    {
+        // Check if project submission is still open
+        $projectDeadline = Carbon::create(2025, 7, 30, 23, 59, 0);
+        $now = now();
+        
+        return view('rough.codesprint.project-submit', [
+            'projectDeadline' => $projectDeadline,
+            'isDeadlinePassed' => $now > $projectDeadline
+        ]);
     }
 
     /**

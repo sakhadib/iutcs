@@ -17,6 +17,42 @@
     <div class="container mx-auto px-4 py-12 max-w-6xl">
         <!-- Header -->
         <header class="text-center mb-16 pt-8">
+            <!-- Current Phase Indicator -->
+            @php
+                $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0);
+                $registrationEnd = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);
+                $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
+                $now = now();
+            @endphp
+            
+            @if($now < $registrationStart)
+                <div class="inline-block mb-6 px-6 py-2 bg-gray-900/30 text-gray-300 rounded-full text-lg font-medium border border-gray-700/50">
+                    ⏰ Registration Opens {{ $registrationStart->format('M d, Y g:i A') }}
+                </div>
+            @elseif($now >= $registrationStart && $now < $registrationEnd)
+                <div class="inline-block mb-6 px-6 py-2 bg-indigo-900/30 text-indigo-300 rounded-full text-lg font-medium border border-indigo-700/50">
+                    🎯 Registration Open Now! (Closes {{ $registrationEnd->format('M d, g:i A') }})
+                </div>
+            @elseif($now >= $registrationEnd && $now < $competitionStart)
+                <div class="inline-block mb-6 px-6 py-2 bg-emerald-900/30 text-emerald-300 rounded-full text-lg font-medium border border-emerald-700/50">
+                    📋 Registration Closed - Competition Starts {{ $competitionStart->format('M d, g:i A') }}
+                </div>
+            @elseif($now >= $competitionStart && $now <= $githubDeadline)
+                <div class="inline-block mb-6 px-6 py-2 bg-purple-900/30 text-purple-300 rounded-full text-lg font-medium border border-purple-700/50">
+                    💻 Development & GitHub Submission Phase (Until {{ $githubDeadline->format('M d, g:i A') }})
+                </div>
+            @elseif($now > $githubDeadline && $now <= $projectDeadline)
+                <div class="inline-block mb-6 px-6 py-2 bg-amber-900/30 text-amber-300 rounded-full text-lg font-medium border border-amber-700/50">
+                    📦 Final Project Submission Phase (Until {{ $projectDeadline->format('M d, g:i A') }})
+                </div>
+            @else
+                <div class="inline-block mb-6 px-6 py-2 bg-green-900/30 text-green-300 rounded-full text-lg font-medium border border-green-700/50">
+                    🏁 CodeSprint 2025 Completed
+                </div>
+            @endif
+            
             <div class="mb-8">
                 <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-indigo-900/30 flex items-center justify-center">
                     <i class="bi bi-graph-up text-indigo-400 text-5xl"></i>
@@ -245,14 +281,74 @@
         <!-- Quick Actions -->
         <div class="text-center space-y-4">
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-lg px-8 py-4">
-                    <i class="bi bi-person-plus me-2"></i>
-                    Register Your Team
-                </a>
-                <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-secondary text-lg px-8 py-4">
-                    <i class="bi bi-search me-2"></i>
-                    Check Status
-                </a>
+                @php
+                    $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0);
+                    $registrationEnd = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                    $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);
+                    $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                    $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
+                @endphp
+                
+                @if($now >= $registrationStart && $now < $registrationEnd)
+                    <!-- Registration Phase Active -->
+                    <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-lg px-8 py-4">
+                        <i class="bi bi-person-plus me-2"></i>
+                        Register Your Team
+                    </a>
+                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-outline text-lg px-8 py-4">
+                        <i class="bi bi-search me-2"></i>
+                        Check Status
+                    </a>
+                @elseif($now < $registrationStart)
+                    <!-- Registration Not Started -->
+                    <button class="btn btn-secondary text-lg px-8 py-4 opacity-50 cursor-not-allowed" disabled>
+                        <i class="bi bi-clock me-2"></i>
+                        Registration Opens {{ $registrationStart->format('M d, g:i A') }}
+                    </button>
+                    
+                @elseif($now >= $registrationEnd && $now < $competitionStart)
+                    <!-- Registration Closed, Competition Not Started -->
+                    <button class="btn btn-secondary text-lg px-8 py-4 opacity-50 cursor-not-allowed" disabled>
+                        <i class="bi bi-x-circle me-2"></i>
+                        Registration Closed
+                    </button>
+                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-primary text-lg px-8 py-4">
+                        <i class="bi bi-search me-2"></i>
+                        Check Status
+                    </a>
+                @elseif($now >= $competitionStart && $now <= $githubDeadline)
+                    <!-- GitHub Submission Phase -->
+                    <a href="{{ route('codesprint.github.form') }}" class="btn btn-primary text-lg px-8 py-4">
+                        <i class="bi bi-github me-2"></i>
+                        Submit GitHub Repository
+                    </a>
+                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-outline text-lg px-8 py-4">
+                        <i class="bi bi-search me-2"></i>
+                        Check Status
+                    </a>
+                @elseif($now > $githubDeadline && $now <= $projectDeadline)
+                    <!-- Final Project Submission Phase -->
+                    <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary text-lg px-8 py-4">
+                        <i class="bi bi-upload me-2"></i>
+                        Submit Final Project
+                    </a>
+                    <a href="{{ route('codesprint.github.form') }}" class="btn btn-outline text-lg px-8 py-4">
+                        <i class="bi bi-github me-2"></i>
+                        Submit GitHub Repository
+                    </a>
+                @else
+                    <!-- Competition Ended -->
+                    <button class="btn btn-secondary text-lg px-8 py-4 opacity-50 cursor-not-allowed" disabled>
+                        <i class="bi bi-flag-checkered me-2"></i>
+                        Competition Completed
+                    </button>
+                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-primary text-lg px-8 py-4">
+                        <i class="bi bi-search me-2"></i>
+                        Check Results
+                    </a>
+                @endif
+                
+                <!-- Always Available -->
                 <a href="{{ route('codesprint.rulebook') }}" class="btn btn-secondary text-lg px-8 py-4">
                     <i class="bi bi-book me-2"></i>
                     View Rules

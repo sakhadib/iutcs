@@ -15,6 +15,14 @@
     @include('layouts.dangling_header')
     
     <div class="container mx-auto px-4 py-12 max-w-4xl">
+        @php
+            $now = now();
+            $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0); // July 13, 2025 6:00 PM
+            $registrationEnd = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);   // July 22, 2025 6:00 PM
+            $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);  // July 16, 2025 6:00 PM
+            $projectEnd = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);       // July 30, 2025 11:59 PM
+        @endphp
+        
         <!-- Header -->
         <header class="text-center mb-12 pt-8">
             <h1 class="text-4xl sm:text-5xl font-bold mb-4 header-gradient">
@@ -89,10 +97,23 @@
                     <div>
                         <h3 class="font-bold text-lg mb-2 text-white">Can't find your token?</h3>
                         <p class="text-gray-300 mb-4">Your 6-character registration token (like ABC123) was provided after successful registration. Check your browser bookmarks or saved URLs.</p>
-                        <a href="{{ route('codesprint.register') }}" class="btn btn-secondary">
-                            <i class="bi bi-plus-circle me-2"></i>
-                            Register New Team
-                        </a>
+                        
+                        @if($now >= $registrationStart && $now < $registrationEnd)
+                            <a href="{{ route('codesprint.register') }}" class="btn btn-secondary">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Register New Team
+                            </a>
+                        @elseif($now < $registrationStart)
+                            <button class="btn btn-secondary opacity-50 cursor-not-allowed" disabled>
+                                <i class="bi bi-clock me-2"></i>
+                                Registration Opens {{ $registrationStart->format('M d') }}
+                            </button>
+                        @else
+                            <div class="text-gray-400 text-sm">
+                                <i class="bi bi-x-circle me-1"></i>
+                                Registration period has ended
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -103,25 +124,76 @@
                         <i class="bi bi-info-circle text-cyan-400"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-lg mb-2 text-white">What can you do here?</h3>
-                        <ul class="text-gray-300 space-y-2">
-                            <li class="flex items-center">
-                                <i class="bi bi-check text-green-400 me-2"></i>
-                                Check payment verification status
-                            </li>
-                            <li class="flex items-center">
-                                <i class="bi bi-check text-green-400 me-2"></i>
-                                Submit GitHub repository link
-                            </li>
-                            <li class="flex items-center">
-                                <i class="bi bi-check text-green-400 me-2"></i>
-                                Submit final project files
-                            </li>
-                            <li class="flex items-center">
-                                <i class="bi bi-check text-green-400 me-2"></i>
-                                View team member details
-                            </li>
-                        </ul>
+                        @if($now < $registrationStart)
+                            <h3 class="font-bold text-lg mb-2 text-white">Registration Status</h3>
+                            <div class="text-gray-300 space-y-2">
+                                <p class="flex items-center">
+                                    <i class="bi bi-clock text-amber-400 me-2"></i>
+                                    Registration opens {{ $registrationStart->format('M d, Y g:i A') }}
+                                </p>
+                                <p class="text-sm text-gray-400">Come back after registration opens to check your status and submit your project.</p>
+                            </div>
+                        @elseif($now >= $registrationStart && $now < $registrationEnd)
+                            <h3 class="font-bold text-lg mb-2 text-white">What can you do here?</h3>
+                            <ul class="text-gray-300 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    Check payment verification status
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-circle text-gray-500 me-2"></i>
+                                    Submit GitHub repository link (after Jul 16)
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-circle text-gray-500 me-2"></i>
+                                    Submit final project files (after Jul 22)
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    View team member details
+                                </li>
+                            </ul>
+                        @elseif($now >= $competitionStart && $now < $projectEnd)
+                            <h3 class="font-bold text-lg mb-2 text-white">Active Competition Features</h3>
+                            <ul class="text-gray-300 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    Check payment verification status
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    Submit GitHub repository link
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    Submit final project files
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    Track submission deadlines
+                                </li>
+                            </ul>
+                        @else
+                            <h3 class="font-bold text-lg mb-2 text-white">Competition Completed</h3>
+                            <ul class="text-gray-300 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    View final submission status
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    Check presentation selection
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-check text-green-400 me-2"></i>
+                                    View team information
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="bi bi-info-circle text-blue-400 me-2"></i>
+                                    Submission period has ended
+                                </li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -207,10 +279,47 @@
                 <i class="bi bi-book me-2"></i>
                 View Rulebook
             </a>
-            <a href="{{ route('codesprint.register') }}" class="btn btn-primary">
-                <i class="bi bi-plus-circle me-2"></i>
-                Register New Team
-            </a>
+            
+            @if($now >= $registrationStart && $now < $registrationEnd)
+                <a href="{{ route('codesprint.register') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Register New Team
+                </a>
+            @elseif($now < $registrationStart)
+                <button class="btn btn-secondary opacity-50 cursor-not-allowed" disabled>
+                    <i class="bi bi-clock me-2"></i>
+                    Registration Opens {{ $registrationStart->format('M d, g:i A') }}
+                </button>
+            @elseif($now >= $competitionStart && $now <= \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0))
+                <!-- GitHub submission phase -->
+                <a href="{{ route('codesprint.github.form') }}" class="btn btn-primary me-3">
+                    <i class="bi bi-github me-2"></i>
+                    Submit GitHub Repository
+                </a>
+                <a href="{{ route('codesprint.stats') }}" class="btn btn-outline">
+                    <i class="bi bi-bar-chart me-2"></i>
+                    View Statistics
+                </a>
+            @elseif($now > \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0))
+                <!-- Project submission phase -->
+                <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary me-3">
+                    <i class="bi bi-upload me-2"></i>
+                    Submit Final Project
+                </a>
+                <a href="{{ route('codesprint.github.form') }}" class="btn btn-outline me-3">
+                    <i class="bi bi-github me-2"></i>
+                    Submit GitHub Repository
+                </a>
+                <a href="{{ route('codesprint.stats') }}" class="btn btn-outline">
+                    <i class="bi bi-bar-chart me-2"></i>
+                    View Statistics
+                </a>
+            @else
+                <a href="{{ route('codesprint.stats') }}" class="btn btn-primary">
+                    <i class="bi bi-bar-chart me-2"></i>
+                    View Full Statistics
+                </a>
+            @endif
         </div>
     </div>
 
@@ -220,7 +329,7 @@
         // Load statistics
         async function loadStatistics() {
             try {
-                const response = await fetch('{{ route("codesprint.stats") }}');
+                const response = await fetch('{{ route("codesprint.api.stats") }}');
                 const stats = await response.json();
                 
                 document.getElementById('total-teams').textContent = stats.total || 0;
@@ -229,6 +338,11 @@
                 document.getElementById('projects-submitted').textContent = stats.project_submitted || 0;
             } catch (error) {
                 console.log('Could not load statistics');
+                // Set default values if API fails
+                document.getElementById('total-teams').textContent = '0';
+                document.getElementById('verified-teams').textContent = '0';
+                document.getElementById('github-submitted').textContent = '0';
+                document.getElementById('projects-submitted').textContent = '0';
             }
         }
 

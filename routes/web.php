@@ -82,7 +82,9 @@ Route::get('/codesprint/stats', [CodeSprintRegistrationController::class, 'getPu
 Route::get('/codesprint/api/stats', [CodeSprintRegistrationController::class, 'getPublicStatsJson'])->name('codesprint.api.stats');
 
 // CodeSprint Submission Routes
+Route::get('/codesprint/github/submit', [CodeSprintRegistrationController::class, 'showGitHubSubmissionForm'])->name('codesprint.github.form');
 Route::post('/codesprint/github/submit', [CodeSprintRegistrationController::class, 'submitGitHub'])->name('codesprint.github.submit');
+Route::get('/codesprint/project/submit', [CodeSprintRegistrationController::class, 'showProjectSubmissionForm'])->name('codesprint.project.form');
 Route::post('/codesprint/project/submit', [CodeSprintRegistrationController::class, 'submitProject'])->name('codesprint.project.submit');
 
 // Legacy routes from RoughEventController (keeping for backward compatibility)

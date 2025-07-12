@@ -127,10 +127,25 @@
                         <span class="text-gray-400">GitHub Submission:</span>
                         <div class="text-right">
                             <div class="font-semibold">July 22, 2025 6:00 PM</div>
-                            @if($registration->isGitHubDeadlinePassed())
+                            @php
+                                $now = now();
+                                $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                            @endphp
+                            @if($now > $githubDeadline)
                                 <span class="badge badge-danger text-xs">Deadline Passed</span>
                             @else
-                                <span class="badge badge-warning text-xs">{{ $registration->getGitHubTimeRemaining() }}</span>
+                                @php
+                                    $diff = $now->diff($githubDeadline);
+                                    $timeLeft = '';
+                                    if ($diff->days > 0) {
+                                        $timeLeft = $diff->days . ' days';
+                                    } elseif ($diff->h > 0) {
+                                        $timeLeft = $diff->h . ' hours';
+                                    } else {
+                                        $timeLeft = $diff->i . ' minutes';
+                                    }
+                                @endphp
+                                <span class="badge badge-warning text-xs">{{ $timeLeft }} left</span>
                             @endif
                         </div>
                     </div>
@@ -138,10 +153,24 @@
                         <span class="text-gray-400">Final Submission:</span>
                         <div class="text-right">
                             <div class="font-semibold">July 30, 2025 11:59 PM</div>
-                            @if($registration->isProjectDeadlinePassed())
+                            @php
+                                $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
+                            @endphp
+                            @if($now > $projectDeadline)
                                 <span class="badge badge-danger text-xs">Deadline Passed</span>
                             @else
-                                <span class="badge badge-warning text-xs">{{ $registration->getProjectTimeRemaining() }}</span>
+                                @php
+                                    $diff = $now->diff($projectDeadline);
+                                    $timeLeft = '';
+                                    if ($diff->days > 0) {
+                                        $timeLeft = $diff->days . ' days';
+                                    } elseif ($diff->h > 0) {
+                                        $timeLeft = $diff->h . ' hours';
+                                    } else {
+                                        $timeLeft = $diff->i . ' minutes';
+                                    }
+                                @endphp
+                                <span class="badge badge-warning text-xs">{{ $timeLeft }} left</span>
                             @endif
                         </div>
                     </div>
@@ -212,7 +241,12 @@
 
         <!-- Submission Forms -->
         @if($registration->payment_status === 'verified' && $registration->registration_status === 'active')
-            @if(!$registration->isGitHubDeadlinePassed() && !$registration->github_repo_url)
+            @php
+                $now = now();
+                $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
+            @endphp
+            @if($now <= $githubDeadline && !$registration->github_repo_url)
             <!-- GitHub Submission Form -->
             <div class="card p-8 mb-8">
                 <div class="flex items-center mb-6">
@@ -241,7 +275,7 @@
             </div>
             @endif
 
-            @if(!$registration->isProjectDeadlinePassed() && $registration->github_repo_url && !$registration->project_submitted_at)
+            @if($now <= $projectDeadline && $registration->github_repo_url && !$registration->project_submitted_at)
             <!-- Final Project Submission Form -->
             <div class="card p-8 mb-8">
                 <div class="flex items-center mb-6">
