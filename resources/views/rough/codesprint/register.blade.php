@@ -238,21 +238,41 @@
                         <h2 class="text-2xl font-bold section-title">Payment Information</h2>
                     </div>
                     
-                    <div class="card p-6 mb-6">
-                        <h3 class="font-bold text-lg mb-4 text-white">Payment Instructions</h3>
-                        <div class="space-y-2 text-gray-300">
-                            <p><strong>Registration Fee:</strong> 150 Taka</p>
-                            <p><strong>Payment Method:</strong> bKash/Nagad/Rocket</p>
-                            <p><strong>Payment Number:</strong> [To be provided]</p>
-                            <p class="text-sm text-gray-400">Please send money and enter the transaction ID below</p>
+                    <div class="card p-6 mb-6 border border-pink-500/30">
+                        <h3 class="font-bold text-lg mb-4 text-white flex items-center">
+                            <i class="bi bi-phone text-pink-400 me-2"></i>
+                            bKash Payment Instructions
+                        </h3>
+                        <div class="space-y-3 text-gray-300">
+                            <div class="flex justify-between items-center">
+                                <span><strong>Registration Fee:</strong></span>
+                                <span class="font-bold text-pink-400">150 Taka</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span><strong>Payment Method:</strong></span>
+                                <span class="font-bold text-pink-400">bKash Send Money</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span><strong>bKash Number:</strong></span>
+                                <span class="font-mono font-bold text-pink-400 text-lg">01645534121</span>
+                            </div>
+                            <div class="bg-pink-900/20 border border-pink-500/30 rounded-lg p-4 mt-4">
+                                <p class="font-bold text-pink-300 mb-2">Reference Format:</p>
+                                <p class="font-mono text-sm text-gray-300">cs_[YourTeamName]</p>
+                                <p class="text-sm text-gray-400 mt-2">Your reference will be: <span class="reference-example font-mono text-pink-400">cs_YourTeamName</span></p>
+                            </div>
+                            <div class="text-sm text-amber-300 mt-3">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Please use the exact reference format and enter the transaction ID below after payment
+                            </div>
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium mb-2 text-gray-300" for="transaction_id">Transaction ID *</label>
+                        <label class="block text-sm font-medium mb-2 text-gray-300" for="transaction_id">bKash Transaction ID *</label>
                         <input type="text" id="transaction_id" name="transaction_id" value="{{ old('transaction_id') }}" 
-                               class="form-input w-full" placeholder="Enter transaction ID from bKash/Nagad/Rocket" required>
-                        <p class="text-sm text-gray-400 mt-1">This will be verified by our team</p>
+                               class="form-input w-full" placeholder="Enter bKash transaction ID (e.g., BKxxxxxxxxxx)" required>
+                        <p class="text-sm text-gray-400 mt-1">Transaction ID will be verified by our team within 24-48 hours</p>
                     </div>
                 </section>
 
@@ -304,11 +324,30 @@
             }
         });
 
+        // Update reference format preview when team name changes
+        document.getElementById('team_name').addEventListener('input', function() {
+            const teamName = this.value.trim();
+            const referenceExample = document.querySelector('.reference-example');
+            if (referenceExample) {
+                if (teamName) {
+                    referenceExample.innerHTML = `<span class="font-mono text-pink-400">cs_${teamName}</span>`;
+                } else {
+                    referenceExample.innerHTML = `<span class="font-mono text-pink-400">cs_YourTeamName</span>`;
+                }
+            }
+        });
+
         // Initialize on page load if there's an old value
         document.addEventListener('DOMContentLoaded', function() {
             const teamSize = document.getElementById('team_size').value;
             if (teamSize) {
                 document.getElementById('team_size').dispatchEvent(new Event('change'));
+            }
+            
+            // Initialize reference preview
+            const teamName = document.getElementById('team_name').value;
+            if (teamName) {
+                document.getElementById('team_name').dispatchEvent(new Event('input'));
             }
         });
 

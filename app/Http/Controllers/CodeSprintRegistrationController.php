@@ -206,6 +206,21 @@ class CodeSprintRegistrationController extends Controller
     }
 
     /**
+     * Get public statistics as JSON for AJAX requests
+     */
+    public function getPublicStatsJson()
+    {
+        $stats = [
+            'total' => CodeSprint25Registration::count(),
+            'verified' => CodeSprint25Registration::where('payment_status', 'verified')->count(),
+            'github_submitted' => CodeSprint25Registration::whereNotNull('github_submitted_at')->count(),
+            'project_submitted' => CodeSprint25Registration::whereNotNull('project_submitted_at')->count(),
+        ];
+
+        return response()->json($stats);
+    }
+
+    /**
      * Submit GitHub repository
      */
     public function submitGitHub(Request $request)

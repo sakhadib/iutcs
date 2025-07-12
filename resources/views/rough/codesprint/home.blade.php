@@ -17,19 +17,59 @@
     <div class="container mx-auto px-4 py-12 max-w-7xl">
         <!-- Hero Section -->
         <header class="text-center mb-20 pt-8">
-            <div class="inline-block mb-6 px-6 py-2 bg-indigo-900/30 text-indigo-300 rounded-full text-lg font-medium border border-indigo-700/50">
-                🎯 Registration Open Now!
-            </div>
+            @php
+                $now = now();
+                $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0); // July 13, 2025 6:00 PM
+                $registrationEnd = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);   // July 22, 2025 6:00 PM
+                $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);  // July 16, 2025 6:00 PM
+                $projectEnd = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);       // July 30, 2025 11:59 PM
+            @endphp
+            
+            @if($now < $registrationStart)
+                <div class="inline-block mb-6 px-6 py-2 bg-amber-900/30 text-amber-300 rounded-full text-lg font-medium border border-amber-700/50">
+                    ⏰ Registration Opens {{ $registrationStart->format('M d, Y g:i A') }}
+                </div>
+            @elseif($now >= $registrationStart && $now < $registrationEnd)
+                <div class="inline-block mb-6 px-6 py-2 bg-indigo-900/30 text-indigo-300 rounded-full text-lg font-medium border border-indigo-700/50">
+                    🎯 Registration Open Now! (Closes {{ $registrationEnd->format('M d, g:i A') }})
+                </div>
+            @elseif($now >= $registrationEnd && $now < $competitionStart)
+                <div class="inline-block mb-6 px-6 py-2 bg-emerald-900/30 text-emerald-300 rounded-full text-lg font-medium border border-emerald-700/50">
+                    📋 Registration Closed - Competition Starts {{ $competitionStart->format('M d, g:i A') }}
+                </div>
+            @elseif($now >= $competitionStart && $now < $projectEnd)
+                <div class="inline-block mb-6 px-6 py-2 bg-purple-900/30 text-purple-300 rounded-full text-lg font-medium border border-purple-700/50">
+                    🚀 Competition Active! (Ends {{ $projectEnd->format('M d, g:i A') }})
+                </div>
+            @else
+                <div class="inline-block mb-6 px-6 py-2 bg-gray-900/30 text-gray-300 rounded-full text-lg font-medium border border-gray-700/50">
+                    🏁 CodeSprint 2025 Completed
+                </div>
+            @endif
+            
             <h1 class="text-6xl sm:text-7xl font-bold mb-6 header-gradient">
                 IUTCS <span class="font-mono">CodeSprint 2025</span>
             </h1>
             <p class="text-2xl max-w-3xl mx-auto text-gray-300 mb-12">The Premier Coding Competition at IUT - Where Innovation Meets Excellence</p>
             
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-8 py-4">
-                    <i class="bi bi-rocket me-2"></i>
-                    Register Your Team
-                </a>
+                @if($now >= $registrationStart && $now < $registrationEnd)
+                    <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-8 py-4">
+                        <i class="bi bi-rocket me-2"></i>
+                        Register Your Team
+                    </a>
+                @elseif($now < $registrationStart)
+                    <button class="btn btn-secondary text-xl px-8 py-4 opacity-50 cursor-not-allowed" disabled>
+                        <i class="bi bi-clock me-2"></i>
+                        Registration Not Started
+                    </button>
+                @else
+                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-primary text-xl px-8 py-4">
+                        <i class="bi bi-search me-2"></i>
+                        Check Your Status
+                    </a>
+                @endif
+                
                 <a href="{{ route('codesprint.rulebook') }}" class="btn btn-secondary text-xl px-8 py-4">
                     <i class="bi bi-book me-2"></i>
                     View Rulebook
@@ -73,7 +113,7 @@
                     </div>
                     <h3 class="font-bold text-xl mb-3 text-white">Registration Fee</h3>
                     <p class="text-gray-300">Only 150 Taka</p>
-                    <p class="text-sm text-gray-400 mt-2">Affordable for all students</p>
+                    {{-- <p class="text-sm text-gray-400 mt-2">Affordable for all students</p> --}}
                 </div>
             </div>
         </section>
@@ -87,7 +127,7 @@
             
             <div class="max-w-4xl mx-auto">
                 <div class="timeline">
-                    <div class="timeline-item">
+                    <div class="timeline-item mb-10">
                         <div class="card p-8">
                             <h3 class="text-2xl font-bold text-white mb-3">Registration Opens</h3>
                             <div class="text-lg font-semibold text-indigo-300 mb-2">July 13, 2025 - 6:00 PM</div>
@@ -95,7 +135,7 @@
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
+                    <div class="timeline-item mb-10">
                         <div class="card p-8">
                             <h3 class="text-2xl font-bold text-white mb-3">Competition Begins</h3>
                             <div class="text-lg font-semibold text-emerald-300 mb-2">July 16, 2025 - 6:00 PM</div>
@@ -103,7 +143,7 @@
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
+                    <div class="timeline-item mb-10">
                         <div class="card p-8">
                             <h3 class="text-2xl font-bold text-white mb-3">GitHub Submission Deadline</h3>
                             <div class="text-lg font-semibold text-amber-300 mb-2">July 22, 2025 - 6:00 PM</div>
@@ -111,7 +151,7 @@
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
+                    <div class="timeline-item mb-10">
                         <div class="card p-8">
                             <h3 class="text-2xl font-bold text-white mb-3">Final Submission</h3>
                             <div class="text-lg font-semibold text-rose-300 mb-2">July 30, 2025 - 11:59 PM</div>
@@ -205,8 +245,8 @@
             <div class="card p-12 glow">
                 <h2 class="text-4xl font-bold mb-6 header-gradient">Ready to Code the Future?</h2>
                 <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Join hundreds of talented students in the most exciting coding competition at IUT. 
-                    Showcase your skills, learn new technologies, and compete for amazing prizes!
+                    Join hundreds of talented students in an exciting coding competition at IUT. 
+                    Showcase your skills, learn new technologies
                 </p>
                 <div class="flex flex-col sm:flex-row gap-6 justify-center">
                     <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-10 py-4">
@@ -228,7 +268,7 @@
         // Load statistics
         async function loadStatistics() {
             try {
-                const response = await fetch('{{ route("codesprint.stats") }}');
+                const response = await fetch('{{ route("codesprint.api.stats") }}');
                 const stats = await response.json();
                 
                 document.getElementById('total-teams').textContent = stats.total || 0;

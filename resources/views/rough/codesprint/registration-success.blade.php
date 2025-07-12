@@ -167,7 +167,9 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-400">Payment Status:</span>
-                            <span class="badge badge-warning">Pending Verification</span>
+                            <span class="badge badge-{{ $registration->payment_status === 'verified' ? 'success' : ($registration->payment_status === 'rejected' ? 'danger' : 'warning') }}">
+                                {{ ucfirst($registration->payment_status) }}{{ $registration->payment_status === 'pending' ? ' Verification' : '' }}
+                            </span>
                         </div>
                     </div>
                 </div>

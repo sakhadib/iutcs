@@ -79,6 +79,7 @@ Route::get('/codesprint/status/{token}', [CodeSprintRegistrationController::clas
 Route::get('/codesprint/check-status', [CodeSprintRegistrationController::class, 'showStatusLookup'])->name('codesprint.status.lookup');
 Route::post('/codesprint/check-status', [CodeSprintRegistrationController::class, 'lookupStatus'])->name('codesprint.status.lookup');
 Route::get('/codesprint/stats', [CodeSprintRegistrationController::class, 'getPublicStats'])->name('codesprint.stats');
+Route::get('/codesprint/api/stats', [CodeSprintRegistrationController::class, 'getPublicStatsJson'])->name('codesprint.api.stats');
 
 // CodeSprint Submission Routes
 Route::post('/codesprint/github/submit', [CodeSprintRegistrationController::class, 'submitGitHub'])->name('codesprint.github.submit');

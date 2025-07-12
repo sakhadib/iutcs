@@ -68,8 +68,8 @@
                     <label class="block text-sm font-medium mb-2 text-gray-300" for="registration_token">Registration Token *</label>
                     <input type="text" id="registration_token" name="registration_token" value="{{ old('registration_token') }}" 
                            class="form-input w-full text-center text-2xl font-mono tracking-widest" 
-                           placeholder="ABC123" required maxlength="6" style="letter-spacing: 0.3em;">
-                    <p class="text-sm text-gray-400 mt-1">This 6-character token was provided after registration (e.g., ABC123)</p>
+                           placeholder="A1B2C3" required maxlength="6" style="letter-spacing: 0.3em;">
+                    <p class="text-sm text-gray-400 mt-1">Enter your 6-character registration token (e.g., A1B2C3)</p>
                 </div>
                 
                 <button type="submit" class="btn btn-primary w-full">
