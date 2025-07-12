@@ -207,7 +207,7 @@
                     </div>
                     <div class="flex-1">
                         <h3 class="font-bold text-white">Development Phase</h3>
-                        <p class="text-gray-300">July 16, 6:00 PM - July 22, 6:00 PM</p>
+                        <p class="text-gray-300">July 16, 6:00 PM - July 30, 11:59 PM</p>
                     </div>
                     <div class="text-right">
                         @if($now >= $competitionStart && $now < $githubDeadline)
@@ -227,7 +227,7 @@
                     </div>
                     <div class="flex-1">
                         <h3 class="font-bold text-white">Final Submission</h3>
-                        <p class="text-gray-300">July 22, 6:00 PM - July 30, 11:59 PM</p>
+                        <p class="text-gray-300">Before July 30, 11:59 PM</p>
                     </div>
                     <div class="text-right">
                         @if($now >= $githubDeadline && $now < $projectDeadline)
