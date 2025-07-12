@@ -319,7 +319,16 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload();
+                    // Check if payment status was changed to verified
+                    const newPaymentStatus = document.getElementById('modalPaymentStatus').value;
+                    if (newPaymentStatus === 'verified') {
+                        // Redirect to the team's status page
+                        const registrationId = actionUrl.split('/')[4]; // Extract ID from URL
+                        window.location.href = `/admin/codesprint/registrations/${registrationId}`;
+                    } else {
+                        // Just reload the page for other status changes
+                        location.reload();
+                    }
                 } else {
                     alert('Error updating status: ' + (data.message || 'Unknown error'));
                 }

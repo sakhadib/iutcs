@@ -276,7 +276,7 @@
             @endif
 
             @if($now <= $projectDeadline && $registration->github_repo_url && !$registration->project_submitted_at)
-            <!-- Final Project Submission Form -->
+            <!-- Final Project Submission Button -->
             <div class="card p-8 mb-8">
                 <div class="flex items-center mb-6">
                     <div class="icon-container">
@@ -285,60 +285,27 @@
                     <h2 class="text-2xl font-bold section-title">Submit Final Project</h2>
                 </div>
                 
-                <form action="{{ route('codesprint.project.submit') }}" method="POST" class="space-y-6">
-                    @csrf
-                    <input type="hidden" name="registration_token" value="{{ $registration->registration_token }}">
+                <div class="text-center">
+                    <p class="text-gray-300 mb-6">
+                        Your GitHub repository has been submitted successfully. Now it's time to submit your final project with demo video and complete documentation.
+                    </p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium mb-2 text-gray-300" for="project_zip_url">Project ZIP URL *</label>
-                            <input type="url" id="project_zip_url" name="project_zip_url" 
-                                   class="form-input w-full" placeholder="Google Drive/Dropbox link to your project ZIP" required>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2 text-gray-300" for="video_submission_url">Video Submission URL *</label>
-                            <input type="url" id="video_submission_url" name="video_submission_url" 
-                                   class="form-input w-full" placeholder="YouTube/Google Drive link to your demo video" required>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2 text-gray-300" for="technologies_used">Technologies Used *</label>
-                            <input type="text" id="technologies_used" name="technologies_used" 
-                                   class="form-input w-full" placeholder="e.g., React, Node.js, MongoDB, Python" required>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2 text-gray-300" for="deployment_url">Deployment URL</label>
-                            <input type="url" id="deployment_url" name="deployment_url" 
-                                   class="form-input w-full" placeholder="Live demo URL (optional)">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium mb-2 text-gray-300" for="project_description">Project Description *</label>
-                        <textarea id="project_description" name="project_description" rows="4" 
-                                  class="form-textarea w-full" placeholder="Describe your project, its features, and how it solves a problem..." required></textarea>
-                    </div>
-                    
-                    <div>
-                        <label class="flex items-center">
-                            <input type="checkbox" name="uses_ai_ml" value="1" class="me-2">
-                            <span class="text-gray-300">This project uses AI/ML technologies</span>
-                        </label>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium mb-2 text-gray-300" for="team_notes">Additional Notes</label>
-                        <textarea id="team_notes" name="team_notes" rows="3" 
-                                  class="form-textarea w-full" placeholder="Any additional information you'd like to share..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-success">
-                        <i class="bi bi-check-circle me-2"></i>
+                    <a href="{{ route('codesprint.project.form') }}" class="btn btn-success btn-lg">
+                        <i class="bi bi-upload me-2"></i>
                         Submit Final Project
-                    </button>
-                </form>
+                    </a>
+                    
+                    <div class="mt-4 text-sm text-gray-400">
+                        <p>You'll need to provide:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Project ZIP file URL (Google Drive/Dropbox)</li>
+                            <li>Demo video URL (YouTube/Google Drive)</li>
+                            <li>Detailed project description</li>
+                            <li>Technologies used</li>
+                            <li>Optional: Live deployment URL</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             @endif
         @endif
