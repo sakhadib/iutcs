@@ -57,6 +57,14 @@
 
         <!-- Registration Form -->
         <div class="form-card p-8 animate-fade-in">
+            <!-- Security Notice for Mobile Users -->
+            <div class="alert alert-info mb-6">
+                <i class="bi bi-info-circle me-2"></i>
+                <div>
+                    <strong>Mobile Users:</strong> If you see a "form not secure" warning, you can safely click "Send data anyway" to proceed with registration. Your information will be processed securely.
+                </div>
+            </div>
+            
             <form action="{{ route('codesprint.register.submit') }}" method="POST" class="space-y-8">
                 @csrf
 
@@ -348,37 +356,6 @@
             const teamName = document.getElementById('team_name').value;
             if (teamName) {
                 document.getElementById('team_name').dispatchEvent(new Event('input'));
-            }
-        });
-
-        // Form validation
-        document.querySelector('form').addEventListener('submit', function(e) {
-            const teamSize = document.getElementById('team_size').value;
-            
-            if (teamSize >= 2) {
-                const member2Required = ['member2_name', 'member2_email', 'member2_student_id', 'member2_department', 'member2_year'];
-                for (let field of member2Required) {
-                    const input = document.getElementById(field);
-                    if (!input.value.trim()) {
-                        e.preventDefault();
-                        alert('Please fill all required fields for Member 2');
-                        input.focus();
-                        return;
-                    }
-                }
-            }
-            
-            if (teamSize >= 3) {
-                const member3Required = ['member3_name', 'member3_email', 'member3_student_id', 'member3_department', 'member3_year'];
-                for (let field of member3Required) {
-                    const input = document.getElementById(field);
-                    if (!input.value.trim()) {
-                        e.preventDefault();
-                        alert('Please fill all required fields for Member 3');
-                        input.focus();
-                        return;
-                    }
-                }
             }
         });
     </script>
