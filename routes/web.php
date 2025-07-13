@@ -72,8 +72,8 @@ Route::get('/codesprint', function () {
 Route::get('/codesprint/rulebook', [RoughEventController::class, 'codeSprint2025Rulebook'])->name('codesprint.rulebook');
 
 // CodeSprint Registration Routes (Public)
-// Route::get('/codesprint/register', [CodeSprintRegistrationController::class, 'showRegistrationForm'])->name('codesprint.register');
-// Route::post('/codesprint/register', [CodeSprintRegistrationController::class, 'submitRegistration'])->name('codesprint.register.submit');
+Route::get('/codesprint/register', [CodeSprintRegistrationController::class, 'showRegistrationForm'])->name('codesprint.register');
+Route::post('/codesprint/register', [CodeSprintRegistrationController::class, 'submitRegistration'])->name('codesprint.register.submit');
 Route::get('/codesprint/registration-success/{token}', [CodeSprintRegistrationController::class, 'showRegistrationSuccess'])->name('codesprint.registration.success');
 Route::get('/codesprint/status/{token}', [CodeSprintRegistrationController::class, 'showStatus'])->name('codesprint.status');
 Route::get('/codesprint/check-status', [CodeSprintRegistrationController::class, 'showStatusLookup'])->name('codesprint.status.lookup');
@@ -88,7 +88,7 @@ Route::get('/codesprint/api/stats', [CodeSprintRegistrationController::class, 'g
 // Route::post('/codesprint/project/submit', [CodeSprintRegistrationController::class, 'submitProject'])->name('codesprint.project.submit');
 
 // // Legacy routes from RoughEventController (keeping for backward compatibility)
-// Route::post('/codesprint/registration/submit', [RoughEventController::class, 'codeSprint2025RegistrationSubmission'])->name('codesprint.legacy.register');
+Route::post('/codesprint/registration/submit', [RoughEventController::class, 'codeSprint2025RegistrationSubmission'])->name('codesprint.legacy.register');
 // Route::post('/codesprint/github/legacy/submit', [RoughEventController::class, 'codeSprint2025GitHubSubmission'])->name('codesprint.legacy.github');
 // Route::post('/codesprint/project/legacy/submit', [RoughEventController::class, 'codeSprint2025ProjectSubmission'])->name('codesprint.legacy.project');
 
