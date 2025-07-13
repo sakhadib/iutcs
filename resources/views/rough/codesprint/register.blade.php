@@ -60,12 +60,12 @@
         <!-- Registration Form -->
         <div class="form-card p-8 animate-fade-in">
             <!-- Security Notice for Mobile Users -->
-            <div class="alert alert-info mb-6">
+            {{-- <div class="alert alert-info mb-6">
                 <i class="bi bi-info-circle me-2"></i>
                 <div>
                     <strong>Mobile Users:</strong> If you see a "form not secure" warning, you can safely click "Send data anyway" to proceed with registration. Your information will be processed securely.
                 </div>
-            </div>
+            </div> --}}
             
             <form action="{{ secure_url(route('codesprint.register.submit', [], false)) }}" method="POST" class="space-y-8">
                 @csrf
