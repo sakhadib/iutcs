@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Registration Successful - CodeSprint 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,43 +18,43 @@
     
     <div class="container mx-auto px-4 py-12 max-w-4xl">
         <!-- Success Header -->
-        <header class="text-center mb-16 pt-8">
-            <div class="mb-8">
-                <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-green-900/30 flex items-center justify-center">
-                    <i class="bi bi-check-circle text-green-400 text-5xl"></i>
+        <header class="text-center mb-8 sm:mb-16 pt-4 sm:pt-8">
+            <div class="mb-6 sm:mb-8">
+                <div class="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-4 sm:mb-6 rounded-full bg-green-900/30 flex items-center justify-center">
+                    <i class="bi bi-check-circle text-green-400 text-3xl sm:text-5xl"></i>
                 </div>
-                <h1 class="text-4xl sm:text-5xl font-bold mb-4 header-gradient">
+                <h1 class="text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 header-gradient px-4">
                     Registration Successful!
                 </h1>
-                <p class="text-xl max-w-2xl mx-auto text-gray-300">Welcome to CodeSprint 2025! Your team has been registered.</p>
+                <p class="text-lg sm:text-xl max-w-2xl mx-auto text-gray-300 px-4">Welcome to CodeSprint 2025! Your team has been registered.</p>
             </div>
         </header>
 
         <!-- Important Token Information -->
-        <div class="card p-10 mb-12 text-center border-2 border-green-500/30 glow">
-            <div class="mb-6">
-                <i class="bi bi-exclamation-triangle text-amber-400 text-4xl mb-4"></i>
-                <h2 class="text-3xl font-bold text-white mb-4">⚠️ IMPORTANT - Save Your Registration Token!</h2>
+        <div class="card p-4 sm:p-6 lg:p-10 mb-8 sm:mb-12 text-center border-2 border-green-500/30 glow">
+            <div class="mb-4 sm:mb-6">
+                <i class="bi bi-exclamation-triangle text-amber-400 text-2xl sm:text-4xl mb-3 sm:mb-4"></i>
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4 px-2">⚠️ IMPORTANT - Save Your Registration Token!</h2>
             </div>
             
-            <div class="bg-gray-900/50 border border-green-500/50 rounded-2xl p-8 mb-8">
-                <p class="text-lg text-gray-300 mb-4">Your unique registration token is:</p>
-                <div class="text-6xl font-mono font-bold text-green-400 tracking-widest mb-4 select-all" style="letter-spacing: 0.5em;">
+            <div class="bg-gray-900/50 border border-green-500/50 rounded-2xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+                <p class="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4">Your unique registration token is:</p>
+                <div class="text-3xl sm:text-4xl lg:text-6xl font-mono font-bold text-green-400 tracking-wider sm:tracking-widest mb-3 sm:mb-4 select-all break-all" style="letter-spacing: 0.2em;">
                     {{ $registration->registration_token }}
                 </div>
-                <div class="flex justify-center space-x-4 mt-4">
-                    <button onclick="copyToken()" class="btn btn-secondary" id="copyBtn">
+                <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4 mt-3 sm:mt-4">
+                    <button onclick="copyToken()" class="btn btn-secondary text-sm sm:text-base" id="copyBtn">
                         <i class="bi bi-clipboard me-2"></i>
                         Copy Token
                     </button>
-                    <button onclick="window.print()" class="btn btn-secondary">
+                    <button onclick="window.print()" class="btn btn-secondary text-sm sm:text-base">
                         <i class="bi bi-printer me-2"></i>
                         Print This Page
                     </button>
                 </div>
             </div>
             
-            <div class="space-y-4 text-left">
+            <div class="space-y-3 sm:space-y-4 text-left">
                 <div class="alert alert-warning">
                     <i class="bi bi-exclamation-triangle me-2"></i>
                     <div>
@@ -60,60 +62,60 @@
                     </div>
                 </div>
                 
-                <div class="bg-amber-900/20 border border-amber-500/30 rounded-lg p-4">
-                    <h3 class="font-bold text-amber-300 mb-3 flex items-center">
+                <div class="bg-amber-900/20 border border-amber-500/30 rounded-lg p-3 sm:p-4">
+                    <h3 class="font-bold text-amber-300 mb-2 sm:mb-3 flex items-center text-sm sm:text-base">
                         <i class="bi bi-lightbulb me-2"></i>
                         How to save your token:
                     </h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-center">
-                            <i class="bi bi-check text-green-400 me-2"></i>
-                            Write it down on paper and keep it safe
+                    <ul class="space-y-1 sm:space-y-2 text-gray-300 text-sm sm:text-base">
+                        <li class="flex items-start">
+                            <i class="bi bi-check text-green-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>Write it down on paper and keep it safe</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-check text-green-400 me-2"></i>
-                            Save this page as a bookmark in your browser
+                        <li class="flex items-start">
+                            <i class="bi bi-check text-green-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>Save this page as a bookmark in your browser</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-check text-green-400 me-2"></i>
-                            Take a screenshot of this page
+                        <li class="flex items-start">
+                            <i class="bi bi-check text-green-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>Take a screenshot of this page</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-check text-green-400 me-2"></i>
-                            Copy the token and save it in a secure note app
+                        <li class="flex items-start">
+                            <i class="bi bi-check text-green-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>Copy the token and save it in a secure note app</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-check text-green-400 me-2"></i>
-                            Share the token with your team members
+                        <li class="flex items-start">
+                            <i class="bi bi-check text-green-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>Share the token with your team members</span>
                         </li>
                     </ul>
                 </div>
                 
-                <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
-                    <h3 class="font-bold text-red-300 mb-3 flex items-center">
+                <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-3 sm:p-4">
+                    <h3 class="font-bold text-red-300 mb-2 sm:mb-3 flex items-center text-sm sm:text-base">
                         <i class="bi bi-shield-exclamation me-2"></i>
                         Why is this important?
                     </h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="flex items-center">
-                            <i class="bi bi-x text-red-400 me-2"></i>
-                            We cannot recover lost tokens
+                    <ul class="space-y-1 sm:space-y-2 text-gray-300 text-sm sm:text-base">
+                        <li class="flex items-start">
+                            <i class="bi bi-x text-red-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>We cannot recover lost tokens</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-x text-red-400 me-2"></i>
-                            No email confirmation will be sent
+                        <li class="flex items-start">
+                            <i class="bi bi-x text-red-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>No email confirmation will be sent</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-x text-red-400 me-2"></i>
-                            You need this token to submit your GitHub repository
+                        <li class="flex items-start">
+                            <i class="bi bi-x text-red-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>You need this token to submit your GitHub repository</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-x text-red-400 me-2"></i>
-                            You need this token to submit your final project
+                        <li class="flex items-start">
+                            <i class="bi bi-x text-red-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>You need this token to submit your final project</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="bi bi-x text-red-400 me-2"></i>
-                            You need this token to check your payment status
+                        <li class="flex items-start">
+                            <i class="bi bi-x text-red-400 me-2 mt-0.5 flex-shrink-0"></i>
+                            <span>You need this token to check your payment status</span>
                         </li>
                     </ul>
                 </div>
@@ -121,53 +123,53 @@
         </div>
 
         <!-- Team Information Summary -->
-        <div class="card p-8 mb-12">
-            <div class="flex items-center mb-6">
+        <div class="card p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12">
+            <div class="flex items-center mb-4 sm:mb-6">
                 <div class="icon-container">
                     <i class="bi bi-people text-indigo-400"></i>
                 </div>
-                <h2 class="text-2xl font-bold section-title">Registration Summary</h2>
+                <h2 class="text-xl sm:text-2xl font-bold section-title">Registration Summary</h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                    <h3 class="font-bold text-lg mb-3 text-white">Team Details</h3>
+                    <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-white">Team Details</h3>
                     <div class="space-y-2">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Team Name:</span>
-                            <span class="font-semibold">{{ $registration->team_name }}</span>
+                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                            <span class="text-gray-400 text-sm sm:text-base">Team Name:</span>
+                            <span class="font-semibold text-sm sm:text-base break-words">{{ $registration->team_name }}</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Team Size:</span>
-                            <span class="font-semibold">{{ $registration->team_size }} member{{ $registration->team_size > 1 ? 's' : '' }}</span>
+                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                            <span class="text-gray-400 text-sm sm:text-base">Team Size:</span>
+                            <span class="font-semibold text-sm sm:text-base">{{ $registration->team_size }} member{{ $registration->team_size > 1 ? 's' : '' }}</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Registration Date:</span>
-                            <span class="font-semibold">{{ $registration->created_at->format('M d, Y H:i') }}</span>
+                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                            <span class="text-gray-400 text-sm sm:text-base">Registration Date:</span>
+                            <span class="font-semibold text-sm sm:text-base">{{ $registration->created_at->format('M d, Y H:i') }}</span>
                         </div>
                         @if($registration->contact_phone)
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Contact Phone:</span>
-                            <span class="font-semibold">{{ $registration->contact_phone }}</span>
+                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                            <span class="text-gray-400 text-sm sm:text-base">Contact Phone:</span>
+                            <span class="font-semibold text-sm sm:text-base">{{ $registration->contact_phone }}</span>
                         </div>
                         @endif
                     </div>
                 </div>
                 
                 <div>
-                    <h3 class="font-bold text-lg mb-3 text-white">Payment Information</h3>
+                    <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-white">Payment Information</h3>
                     <div class="space-y-2">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Transaction ID:</span>
-                            <span class="font-semibold">{{ $registration->transaction_id }}</span>
+                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                            <span class="text-gray-400 text-sm sm:text-base">Transaction ID:</span>
+                            <span class="font-semibold text-sm sm:text-base break-all">{{ $registration->transaction_id }}</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Amount:</span>
-                            <span class="font-semibold">150 Taka</span>
+                        <div class="flex flex-col sm:flex-row sm:justify-between">
+                            <span class="text-gray-400 text-sm sm:text-base">Amount:</span>
+                            <span class="font-semibold text-sm sm:text-base">150 Taka</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">Payment Status:</span>
-                            <span class="badge badge-{{ $registration->payment_status === 'verified' ? 'success' : ($registration->payment_status === 'rejected' ? 'danger' : 'warning') }}">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                            <span class="text-gray-400 text-sm sm:text-base">Payment Status:</span>
+                            <span class="badge badge-{{ $registration->payment_status === 'verified' ? 'success' : ($registration->payment_status === 'rejected' ? 'danger' : 'warning') }} text-xs sm:text-sm mt-1 sm:mt-0">
                                 {{ ucfirst($registration->payment_status) }}{{ $registration->payment_status === 'pending' ? ' Verification' : '' }}
                             </span>
                         </div>
@@ -177,73 +179,73 @@
         </div>
 
         <!-- Next Steps -->
-        <div class="card p-8 mb-12">
-            <div class="flex items-center mb-6">
+        <div class="card p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12">
+            <div class="flex items-center mb-4 sm:mb-6">
                 <div class="icon-container">
                     <i class="bi bi-list-check text-emerald-400"></i>
                 </div>
-                <h2 class="text-2xl font-bold section-title">What's Next?</h2>
+                <h2 class="text-xl sm:text-2xl font-bold section-title">What's Next?</h2>
             </div>
             
-            <div class="space-y-4">
-                <div class="flex items-start p-4 rounded-lg" style="background: rgba(99, 102, 241, 0.1);">
-                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center mr-4 mt-1">
-                        <span class="text-white font-bold">1</span>
+            <div class="space-y-3 sm:space-y-4">
+                <div class="flex items-start p-3 sm:p-4 rounded-lg" style="background: rgba(99, 102, 241, 0.1);">
+                    <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-indigo-600 flex items-center justify-center mr-3 sm:mr-4 mt-1 flex-shrink-0">
+                        <span class="text-white font-bold text-sm sm:text-base">1</span>
                     </div>
                     <div>
-                        <h3 class="font-bold text-white mb-2">Payment Verification</h3>
-                        <p class="text-gray-300">Our team will verify your payment within 24-48 hours. You'll see the status change when you check your registration.</p>
+                        <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">Payment Verification</h3>
+                        <p class="text-gray-300 text-sm sm:text-base">Our team will verify your payment within 24-48 hours. You'll see the status change when you check your registration.</p>
                     </div>
                 </div>
                 
-                <div class="flex items-start p-4 rounded-lg" style="background: rgba(16, 185, 129, 0.1);">
-                    <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center mr-4 mt-1">
-                        <span class="text-white font-bold">2</span>
+                <div class="flex items-start p-3 sm:p-4 rounded-lg" style="background: rgba(16, 185, 129, 0.1);">
+                    <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-emerald-600 flex items-center justify-center mr-3 sm:mr-4 mt-1 flex-shrink-0">
+                        <span class="text-white font-bold text-sm sm:text-base">2</span>
                     </div>
                     <div>
-                        <h3 class="font-bold text-white mb-2">Competition Begins (July 16, 6:00 PM)</h3>
-                        <p class="text-gray-300">Project requirements will be published and the development phase begins.</p>
+                        <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">Competition Begins (July 16, 6:00 PM)</h3>
+                        <p class="text-gray-300 text-sm sm:text-base">Project requirements will be published and the development phase begins.</p>
                     </div>
                 </div>
                 
-                <div class="flex items-start p-4 rounded-lg" style="background: rgba(168, 85, 247, 0.1);">
-                    <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center mr-4 mt-1">
-                        <span class="text-white font-bold">3</span>
+                <div class="flex items-start p-3 sm:p-4 rounded-lg" style="background: rgba(168, 85, 247, 0.1);">
+                    <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-600 flex items-center justify-center mr-3 sm:mr-4 mt-1 flex-shrink-0">
+                        <span class="text-white font-bold text-sm sm:text-base">3</span>
                     </div>
                     <div>
-                        <h3 class="font-bold text-white mb-2">GitHub Submission (Deadline: July 22, 6:00 PM)</h3>
-                        <p class="text-gray-300">Submit your GitHub repository link using your registration token.</p>
+                        <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">GitHub Submission (Deadline: July 22, 6:00 PM)</h3>
+                        <p class="text-gray-300 text-sm sm:text-base">Submit your GitHub repository link using your registration token.</p>
                     </div>
                 </div>
                 
-                <div class="flex items-start p-4 rounded-lg" style="background: rgba(245, 158, 11, 0.1);">
-                    <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center mr-4 mt-1">
-                        <span class="text-white font-bold">4</span>
+                <div class="flex items-start p-3 sm:p-4 rounded-lg" style="background: rgba(245, 158, 11, 0.1);">
+                    <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-600 flex items-center justify-center mr-3 sm:mr-4 mt-1 flex-shrink-0">
+                        <span class="text-white font-bold text-sm sm:text-base">4</span>
                     </div>
                     <div>
-                        <h3 class="font-bold text-white mb-2">Final Submission (Deadline: July 30, 11:59 PM)</h3>
-                        <p class="text-gray-300">Submit your complete project with demo video using your registration token.</p>
+                        <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">Final Submission (Deadline: July 30, 11:59 PM)</h3>
+                        <p class="text-gray-300 text-sm sm:text-base">Submit your complete project with demo video using your registration token.</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Action Buttons -->
-        <div class="text-center space-y-4">
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('codesprint.status', $registration->registration_token) }}" class="btn btn-primary text-lg px-8 py-4">
+        <div class="text-center space-y-3 sm:space-y-4">
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                <a href="{{ route('codesprint.status', $registration->registration_token) }}" class="btn btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
                     <i class="bi bi-eye me-2"></i>
                     View Registration Status
                 </a>
-                <a href="{{ route('codesprint.rulebook') }}" class="btn btn-secondary text-lg px-8 py-4">
+                <a href="{{ route('codesprint.rulebook') }}" class="btn btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
                     <i class="bi bi-book me-2"></i>
                     Read Competition Rules
                 </a>
             </div>
             
-            <p class="text-gray-400 text-sm">
+            <p class="text-gray-400 text-xs sm:text-sm px-4">
                 Bookmark this page or save the URL: 
-                <span class="font-mono text-indigo-400">{{ url()->current() }}</span>
+                <span class="font-mono text-indigo-400 break-all">{{ url()->current() }}</span>
             </p>
         </div>
     </div>
