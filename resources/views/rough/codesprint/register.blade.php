@@ -81,12 +81,12 @@
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-300" for="team_name">Team Name *</label>
                             <input type="text" id="team_name" name="team_name" value="{{ old('team_name') }}" 
-                                   class="form-input w-full" placeholder="Enter your team name" required>
+                                   class="form-input w-full" placeholder="Enter your team name">
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-300" for="team_size">Team Size *</label>
-                            <select id="team_size" name="team_size" class="form-select w-full" required>
+                            <select id="team_size" name="team_size" class="form-select w-full">
                                 <option value="">Select team size</option>
                                 <option value="1" {{ old('team_size') == '1' ? 'selected' : '' }}>1 Member (Solo)</option>
                                 <option value="2" {{ old('team_size') == '2' ? 'selected' : '' }}>2 Members</option>
@@ -115,30 +115,30 @@
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-300" for="member1_name">Full Name *</label>
                             <input type="text" id="member1_name" name="member1_name" value="{{ old('member1_name') }}" 
-                                   class="form-input w-full" placeholder="Enter full name" required>
+                                   class="form-input w-full" placeholder="Enter full name">
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-300" for="member1_email">Email Address *</label>
                             <input type="email" id="member1_email" name="member1_email" value="{{ old('member1_email') }}" 
-                                   class="form-input w-full" placeholder="Enter email address" required>
+                                   class="form-input w-full" placeholder="Enter email address">
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-300" for="member1_student_id">Student ID *</label>
                             <input type="text" id="member1_student_id" name="member1_student_id" value="{{ old('member1_student_id') }}" 
-                                   class="form-input w-full" placeholder="Enter student ID" required>
+                                   class="form-input w-full" placeholder="Enter student ID">
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-300" for="member1_department">Department *</label>
                             <input type="text" id="member1_department" name="member1_department" value="{{ old('member1_department') }}" 
-                                   class="form-input w-full" placeholder="e.g., Computer Science & Engineering" required>
+                                   class="form-input w-full" placeholder="e.g., Computer Science & Engineering">
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-300" for="member1_year">Academic Year *</label>
-                            <select id="member1_year" name="member1_year" class="form-select w-full" required>
+                            <select id="member1_year" name="member1_year" class="form-select w-full">
                                 <option value="">Select year</option>
                                 <option value="1st" {{ old('member1_year') == '1st' ? 'selected' : '' }}>1st Year</option>
                                 <option value="2nd" {{ old('member1_year') == '2nd' ? 'selected' : '' }}>2nd Year</option>
@@ -279,7 +279,7 @@
                     <div>
                         <label class="block text-sm font-medium mb-2 text-gray-300" for="transaction_id">bKash Transaction ID *</label>
                         <input type="text" id="transaction_id" name="transaction_id" value="{{ old('transaction_id') }}" 
-                               class="form-input w-full" placeholder="Enter bKash transaction ID (e.g., BKxxxxxxxxxx)" required>
+                               class="form-input w-full" placeholder="Enter bKash transaction ID (e.g., BKxxxxxxxxxx)">
                         <p class="text-sm text-gray-400 mt-1">Transaction ID will be verified by our team within 24-48 hours</p>
                     </div>
                 </section>
