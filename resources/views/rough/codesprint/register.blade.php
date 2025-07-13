@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>CodeSprint 2025 - Team Registration</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +67,7 @@
                 </div>
             </div>
             
-            <form action="{{ route('codesprint.register.submit') }}" method="POST" class="space-y-8">
+            <form action="{{ secure_url(route('codesprint.register.submit', [], false)) }}" method="POST" class="space-y-8">
                 @csrf
 
                 <!-- Team Information -->
