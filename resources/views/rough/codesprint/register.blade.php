@@ -57,15 +57,41 @@
             </div>
         @endif
 
+        <!-- Contact Information -->
+        <div class="card p-4 sm:p-6 mb-8 border border-purple-500/30 glow animate-fade-in">
+            <div class="flex items-center mb-4">
+                <div class="icon-container">
+                    <i class="bi bi-headset text-purple-400"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white">Need Help with Registration?</h3>
+            </div>
+            
+            <div class="bg-purple-900/20 border border-purple-500/30 rounded-lg p-4">
+                <div class="text-center sm:text-left">
+                    <h4 class="font-bold text-purple-300 mb-3 text-base sm:text-lg">Contact Event Head</h4>
+                    <div class="space-y-2">
+                        <div class="flex flex-col sm:flex-row sm:items-center">
+                            <span class="font-semibold text-white text-sm sm:text-base">Adib Sakhawat</span>
+                            <span class="text-purple-300 text-xs sm:text-sm sm:ml-2">Event Head, CodeSprint</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-3">
+                            <a href="https://wa.me/8801645534121" target="_blank" class="flex items-center justify-center sm:justify-start text-green-400 hover:text-green-300 transition-colors">
+                                <i class="bi bi-whatsapp me-2"></i>
+                                <span class="text-sm sm:text-base">+880 1645 534 121</span>
+                            </a>
+                            <a href="mailto:adibsakhawat@iut-dhaka.edu" class="flex items-center justify-center sm:justify-start text-blue-400 hover:text-blue-300 transition-colors">
+                                <i class="bi bi-envelope me-2"></i>
+                                <span class="text-sm sm:text-base">adibsakhawat@iut-dhaka.edu</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Registration Form -->
         <div class="form-card p-8 animate-fade-in">
-            <!-- Security Notice for Mobile Users -->
-            {{-- <div class="alert alert-info mb-6">
-                <i class="bi bi-info-circle me-2"></i>
-                <div>
-                    <strong>Mobile Users:</strong> If you see a "form not secure" warning, you can safely click "Send data anyway" to proceed with registration. Your information will be processed securely.
-                </div>
-            </div> --}}
+            
             
             <form action="{{ secure_url(route('codesprint.register.submit', [], false)) }}" method="POST" class="space-y-8">
                 @csrf
