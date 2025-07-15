@@ -54,6 +54,23 @@
             </h1>
             <p class="text-2xl max-w-3xl mx-auto text-gray-300 mb-12">The Premier Coding Competition at IUT - Where Innovation Meets Excellence</p>
             
+            <!-- Requirements CTA - High Priority -->
+            @if($now >= $competitionStart)
+            <div class="mb-8">
+                <div class="card p-6 border-2 border-purple-500/50 glow max-w-2xl mx-auto">
+                    <div class="text-center">
+                        <i class="bi bi-star text-3xl text-purple-400 mb-3"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">📋 Requirements & Marking Criteria Now Available!</h3>
+                        <p class="text-gray-300 mb-4">Essential guidelines for your project evaluation (100 marks breakdown)</p>
+                        <a href="{{ route('codesprint.requirements') }}" class="btn btn-warning text-lg px-6 py-3 inline-flex items-center">
+                            <i class="bi bi-list-check me-2"></i>
+                            View Requirements & Criteria
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
                 @if($now >= $registrationStart && $now < $registrationEnd)
                     <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-8 py-4">
@@ -197,6 +214,21 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @if($now >= $competitionStart)
+                    <a href="{{ route('codesprint.requirements') }}" class="card p-8 hover:scale-105 transition-transform group border-2 border-purple-500/30 glow">
+                        <div class="flex items-center mb-4">
+                            <div class="icon-container">
+                                <i class="bi bi-list-check text-purple-400"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-white">Requirements & Criteria</h3>
+                        </div>
+                        <p class="text-gray-300">Essential project guidelines and marking criteria (100 marks)</p>
+                        <div class="mt-4 text-purple-400 group-hover:text-purple-300">
+                            View Details <i class="bi bi-arrow-right ml-2"></i>
+                        </div>
+                    </a>
+                @endif
+                
                 @if($now >= $registrationStart && $now < $registrationEnd)
                     <a href="{{ route('codesprint.register') }}" class="card p-8 hover:scale-105 transition-transform group">
                         <div class="flex items-center mb-4">
