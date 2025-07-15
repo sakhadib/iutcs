@@ -296,6 +296,34 @@ class CodeSprintRegistrationController extends Controller
     }
 
     /**
+     * Show requirements and marking criteria page
+     */
+    public function showRequirements()
+    {
+        // Set Bangladesh timezone
+        $bangladeshTimezone = 'Asia/Dhaka';
+        
+        // GitHub submission opens at 6 PM Bangladesh time on July 16, 2025
+        $githubOpenTime = Carbon::create(2025, 7, 16, 18, 0, 0, $bangladeshTimezone);
+        $githubDeadline = Carbon::create(2025, 7, 22, 23, 59, 0, $bangladeshTimezone);
+        $projectDeadline = Carbon::create(2025, 7, 30, 23, 59, 0, $bangladeshTimezone);
+        
+        // Current time in Bangladesh timezone
+        $now = Carbon::now($bangladeshTimezone);
+        
+        return view('rough.codesprint.requirements', [
+            'githubOpenTime' => $githubOpenTime,
+            'githubDeadline' => $githubDeadline,
+            'projectDeadline' => $projectDeadline,
+            'isGithubOpen' => $now >= $githubOpenTime,
+            'isGithubDeadlinePassed' => $now > $githubDeadline,
+            'isProjectDeadlinePassed' => $now > $projectDeadline,
+            'currentTime' => $now,
+            'bangladeshTimezone' => $bangladeshTimezone
+        ]);
+    }
+
+    /**
      * Submit final project
      */
     public function submitProject(Request $request)

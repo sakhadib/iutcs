@@ -70,6 +70,7 @@ Route::get('/codesprint', function () {
     return view('rough.codesprint.home');
 })->name('codesprint.home');
 Route::get('/codesprint/rulebook', [RoughEventController::class, 'codeSprint2025Rulebook'])->name('codesprint.rulebook');
+Route::get('/codesprint/requirements', [CodeSprintRegistrationController::class, 'showRequirements'])->name('codesprint.requirements');
 
 // CodeSprint Registration Routes (Public)
 Route::get('/codesprint/register', [CodeSprintRegistrationController::class, 'showRegistrationForm'])->name('codesprint.register');
