@@ -337,34 +337,82 @@ class RoughEventController extends Controller
         
         $csvData = [];
         $csvData[] = [
-            'ID', 'Team Name', 'Team Size', 'Leader Name', 'Leader Email', 'Leader Student ID', 
-            'Leader Department', 'Leader Year', 'Contact Phone', 'Transaction ID', 
-            'Payment Status', 'Registration Status', 'GitHub URL', 'Project Description',
-            'Uses AI/ML', 'Technologies Used', 'Deployment URL', 'Selected for Presentation',
-            'Created At'
+            'ID', 'Registration Token', 'Team Name', 'Team Size', 'Contact Phone',
+            // Member 1 (Leader)
+            'Member1 Name', 'Member1 Email', 'Member1 Student ID', 'Member1 Department', 'Member1 Year',
+            // Member 2
+            'Member2 Name', 'Member2 Email', 'Member2 Student ID', 'Member2 Department', 'Member2 Year',
+            // Member 3
+            'Member3 Name', 'Member3 Email', 'Member3 Student ID', 'Member3 Department', 'Member3 Year',
+            // Payment Information
+            'Transaction ID', 'Payment Amount', 'Payment Status', 'Payment Date',
+            // Registration Status
+            'Registration Status',
+            // GitHub & Project Submission
+            'GitHub URL', 'GitHub Submitted At', 'Project Submitted At',
+            // Project Details
+            'Project Zip Path', 'Video Submission URL', 'Project Description', 'Uses AI/ML',
+            'Technologies Used', 'Deployment URL',
+            // Selection & Presentation
+            'Selected for Presentation', 'Presentation Date',
+            // Notes
+            'Admin Notes', 'Team Notes',
+            // Timestamps
+            'Created At', 'Updated At'
         ];
 
         foreach ($registrations as $reg) {
             $csvData[] = [
                 $reg->id,
+                $reg->registration_token,
                 $reg->team_name,
                 $reg->team_size,
+                $reg->contact_phone,
+                // Member 1 (Leader)
                 $reg->member1_name,
                 $reg->member1_email,
                 $reg->member1_student_id,
                 $reg->member1_department,
                 $reg->member1_year,
-                $reg->contact_phone,
+                // Member 2
+                $reg->member2_name,
+                $reg->member2_email,
+                $reg->member2_student_id,
+                $reg->member2_department,
+                $reg->member2_year,
+                // Member 3
+                $reg->member3_name,
+                $reg->member3_email,
+                $reg->member3_student_id,
+                $reg->member3_department,
+                $reg->member3_year,
+                // Payment Information
                 $reg->transaction_id,
+                $reg->payment_amount,
                 $reg->payment_status,
+                $reg->payment_date ? $reg->payment_date->format('Y-m-d H:i:s') : '',
+                // Registration Status
                 $reg->registration_status,
+                // GitHub & Project Submission
                 $reg->github_repo_url,
+                $reg->github_submitted_at ? $reg->github_submitted_at->format('Y-m-d H:i:s') : '',
+                $reg->project_submitted_at ? $reg->project_submitted_at->format('Y-m-d H:i:s') : '',
+                // Project Details
+                $reg->project_zip_path,
+                $reg->video_submission_url,
                 $reg->project_description,
                 $reg->uses_ai_ml ? 'Yes' : 'No',
                 $reg->technologies_used,
                 $reg->deployment_url,
+                // Selection & Presentation
                 $reg->selected_for_presentation ? 'Yes' : 'No',
+                $reg->presentation_date ? $reg->presentation_date->format('Y-m-d H:i:s') : '',
+                // Notes
+                $reg->admin_notes,
+                $reg->team_notes,
+                // Timestamps
                 $reg->created_at->format('Y-m-d H:i:s'),
+                $reg->updated_at->format('Y-m-d H:i:s'),
             ];
         }
 
