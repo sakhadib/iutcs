@@ -54,6 +54,42 @@
             </div>
         </div>
 
+        <!-- Token Help Card -->
+        <div class="card mb-8 border border-amber-500/30">
+            <div class="p-6 bg-gradient-to-r from-amber-900/20 to-orange-900/20">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-question-circle text-3xl text-amber-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-amber-300 mb-2">
+                            <i class="bi bi-key me-2"></i>Don't Have Your Registration Token?
+                        </h3>
+                        <p class="text-gray-300 mb-4">
+                            If you forgot your 6-character registration token or never received it, don't worry! 
+                            Our team can help you retrieve it quickly.
+                        </p>
+                        <div class="bg-gray-800/50 rounded-lg p-4 border border-amber-500/20">
+                            <div class="flex items-center space-x-3">
+                                <i class="bi bi-envelope text-amber-400 text-xl"></i>
+                                <div>
+                                    <p class="text-sm text-gray-400 mb-1">Contact us at:</p>
+                                    <a href="mailto:adibsakhawat@iut-dhaka.edu" 
+                                       class="text-amber-300 font-semibold hover:text-amber-200 transition-colors">
+                                        adibsakhawat@iut-dhaka.edu
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-3">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Please include your team name and team leader's email in your message for faster assistance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Alerts -->
         @if(session('success'))
             <div class="alert alert-success animate-fade-in">

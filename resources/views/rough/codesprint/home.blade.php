@@ -12,6 +12,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/codesprint-style.css') }}">
+    
+    <!-- Enhanced CTA Styles -->
+    <style>
+        @keyframes glow-intense {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(236, 72, 153, 0.3), 0 0 60px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6), 0 0 60px rgba(236, 72, 153, 0.5), 0 0 80px rgba(239, 68, 68, 0.4); }
+        }
+        
+        .glow-intense {
+            animation: glow-intense 2s ease-in-out infinite alternate;
+        }
+        
+        .btn-mega-primary {
+            @apply relative px-8 py-4 rounded-xl font-bold text-xl text-white overflow-hidden transition-all duration-300 transform hover:scale-105 active:scale-95;
+            background: linear-gradient(45deg, #8b5cf6, #ec4899, #ef4444);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+        
+        .btn-mega-primary:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 40px rgba(168, 85, 247, 0.5);
+        }
+        
+        .btn-secondary-glow {
+            @apply px-6 py-3 rounded-lg font-semibold text-lg text-white border-2 transition-all duration-300 transform hover:scale-105;
+            background: rgba(75, 85, 99, 0.5);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(168, 85, 247, 0.2);
+        }
+        
+        .btn-secondary-glow:hover {
+            background: rgba(168, 85, 247, 0.3);
+            border-color: rgba(168, 85, 247, 0.8);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 30px rgba(168, 85, 247, 0.4);
+        }
+        
+        .border-gradient-to-r {
+            border-image: linear-gradient(45deg, #8b5cf6, #ec4899, #ef4444) 1;
+        }
+    </style>
 </head>
 <body>
     @include('layouts.dangling_header')
@@ -54,18 +93,62 @@
             </h1>
             <p class="text-2xl max-w-3xl mx-auto text-gray-300 mb-12">The Premier Coding Competition at IUT - Where Innovation Meets Excellence</p>
             
-            <!-- Requirements CTA - High Priority -->
+            <!-- AGGRESSIVE REQUIREMENTS CTA - MAXIMUM PRIORITY -->
             @if($now >= $competitionStart)
-            <div class="mb-8">
-                <div class="card p-6 border-2 border-purple-500/50 glow max-w-2xl mx-auto">
-                    <div class="text-center">
-                        <i class="bi bi-star text-3xl text-purple-400 mb-3"></i>
-                        <h3 class="text-xl font-bold text-white mb-3">📋 Requirements & Marking Criteria Now Available!</h3>
-                        <p class="text-gray-300 mb-4">Essential guidelines for your project evaluation (100 marks breakdown)</p>
-                        <a href="{{ route('codesprint.requirements') }}" class="btn btn-warning text-lg px-6 py-3 inline-flex items-center">
-                            <i class="bi bi-list-check me-2"></i>
-                            View Requirements & Criteria
-                        </a>
+            <div class="mb-12 relative">
+                <!-- Animated Background Elements -->
+                <div class="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-red-600/20 blur-xl animate-pulse"></div>
+                <div class="absolute -inset-4 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 rounded-2xl opacity-20 animate-pulse"></div>
+                
+                <!-- Main CTA Card -->
+                <div class="relative max-w-4xl mx-auto transform hover:scale-105 transition-all duration-300">
+                    <div class="card p-8 lg:p-12 border-4 border-gradient-to-r from-purple-500 via-pink-500 to-red-500 glow-intense bg-gradient-to-br from-purple-900/50 via-pink-900/50 to-red-900/50 backdrop-blur-sm">
+                        <!-- Pulsing Alert Icon -->
+                        <div class="text-center mb-6">
+                            <div class="relative inline-block">
+                                <div class="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 rounded-full blur-lg opacity-75 animate-ping"></div>
+                                <i class="bi bi-exclamation-triangle-fill text-6xl text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text relative animate-bounce"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Main Headline -->
+                        <div class="text-center mb-8">
+                            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 bg-clip-text animate-pulse">
+                                🚨 CRITICAL: PROJECT GUIDELINES RELEASED! 🚨
+                            </h2>
+                            <div class="text-xl sm:text-2xl font-bold text-white mb-4 animate-pulse">
+                                ⚡ 100 MARKS BREAKDOWN ⚡ EVALUATION CRITERIA ⚡
+                            </div>
+                            <p class="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
+                                <span class="font-bold text-yellow-300">MANDATORY READ:</span> Complete marking criteria, project requirements, and submission guidelines. 
+                                <span class="font-bold text-red-300">Don't code blindly!</span>
+                            </p>
+                        </div>
+                        
+                        <!-- Dual Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                            <a href="{{ route('codesprint.requirements') }}" class="btn-mega-primary group relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 transform group-hover:scale-110 transition-transform duration-300"></div>
+                                <div class="relative flex items-center px-8 py-4 text-xl font-bold text-white">
+                                    <i class="bi bi-list-check me-3 text-2xl group-hover:animate-bounce"></i>
+                                    VIEW REQUIREMENTS & CRITERIA
+                                    <i class="bi bi-arrow-right ml-3 text-2xl group-hover:translate-x-2 transition-transform"></i>
+                                </div>
+                            </a>
+                            
+                            <a href="{{ route('codesprint.rulebook') }}" class="btn-secondary-glow group">
+                                <i class="bi bi-book me-2 group-hover:animate-pulse"></i>
+                                Complete Rulebook
+                            </a>
+                        </div>
+                        
+                        <!-- Urgency Indicator -->
+                        <div class="mt-8 text-center">
+                            <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-900/50 to-orange-900/50 border border-red-500/50 rounded-full">
+                                <i class="bi bi-clock-fill text-red-400 me-2 animate-pulse"></i>
+                                <span class="text-red-200 font-semibold">Competition Active - Every Mark Counts!</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
