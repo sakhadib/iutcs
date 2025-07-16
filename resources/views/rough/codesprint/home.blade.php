@@ -13,42 +13,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/codesprint-style.css') }}">
     
-    <!-- Enhanced CTA Styles -->
+    <!-- Modern Styles -->
     <style>
-        @keyframes glow-intense {
-            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(236, 72, 153, 0.3), 0 0 60px rgba(239, 68, 68, 0.2); }
-            50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6), 0 0 60px rgba(236, 72, 153, 0.5), 0 0 80px rgba(239, 68, 68, 0.4); }
+        /* Remove any legacy aggressive styles and keep it clean */
+        .card {
+            transition: all 0.2s ease;
         }
         
-        .glow-intense {
-            animation: glow-intense 2s ease-in-out infinite alternate;
+        .card:hover {
+            transform: translateY(-2px);
         }
         
-        .btn-mega-primary {
-            @apply relative px-8 py-4 rounded-xl font-bold text-xl text-white overflow-hidden transition-all duration-300 transform hover:scale-105 active:scale-95;
-            background: linear-gradient(45deg, #8b5cf6, #ec4899, #ef4444);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 30px rgba(168, 85, 247, 0.3);
+        /* Subtle animations only */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .btn-mega-primary:hover {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 40px rgba(168, 85, 247, 0.5);
-        }
-        
-        .btn-secondary-glow {
-            @apply px-6 py-3 rounded-lg font-semibold text-lg text-white border-2 transition-all duration-300 transform hover:scale-105;
-            background: rgba(75, 85, 99, 0.5);
-            border-color: rgba(168, 85, 247, 0.5);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(168, 85, 247, 0.2);
-        }
-        
-        .btn-secondary-glow:hover {
-            background: rgba(168, 85, 247, 0.3);
-            border-color: rgba(168, 85, 247, 0.8);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 30px rgba(168, 85, 247, 0.4);
-        }
-        
-        .border-gradient-to-r {
-            border-image: linear-gradient(45deg, #8b5cf6, #ec4899, #ef4444) 1;
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
         }
     </style>
 </head>
@@ -93,60 +76,94 @@
             </h1>
             <p class="text-2xl max-w-3xl mx-auto text-gray-300 mb-12">The Premier Coding Competition at IUT - Where Innovation Meets Excellence</p>
             
-            <!-- AGGRESSIVE REQUIREMENTS CTA - MAXIMUM PRIORITY -->
+            <!-- MODERN REQUIREMENTS CTA -->
             @if($now >= $competitionStart)
-            <div class="mb-12 relative">
-                <!-- Animated Background Elements -->
-                <div class="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-red-600/20 blur-xl animate-pulse"></div>
-                <div class="absolute -inset-4 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 rounded-2xl opacity-20 animate-pulse"></div>
-                
-                <!-- Main CTA Card -->
-                <div class="relative max-w-4xl mx-auto transform hover:scale-105 transition-all duration-300">
-                    <div class="card p-8 lg:p-12 border-4 border-gradient-to-r from-purple-500 via-pink-500 to-red-500 glow-intense bg-gradient-to-br from-purple-900/50 via-pink-900/50 to-red-900/50 backdrop-blur-sm">
-                        <!-- Pulsing Alert Icon -->
-                        <div class="text-center mb-6">
-                            <div class="relative inline-block">
-                                <div class="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 rounded-full blur-lg opacity-75 animate-ping"></div>
-                                <i class="bi bi-exclamation-triangle-fill text-6xl text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text relative animate-bounce"></i>
-                            </div>
-                        </div>
+            <div class="mb-16">
+                <div class="max-w-5xl mx-auto">
+                    <!-- Modern Card Design -->
+                    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border border-gray-700/50 shadow-2xl">
+                        <!-- Subtle accent border -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-transparent to-purple-500/20 pointer-events-none"></div>
                         
-                        <!-- Main Headline -->
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 bg-clip-text animate-pulse">
-                                🚨 CRITICAL: PROJECT GUIDELINES RELEASED! 🚨
-                            </h2>
-                            <div class="text-xl sm:text-2xl font-bold text-white mb-4 animate-pulse">
-                                ⚡ 100 MARKS BREAKDOWN ⚡ EVALUATION CRITERIA ⚡
-                            </div>
-                            <p class="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
-                                <span class="font-bold text-yellow-300">MANDATORY READ:</span> Complete marking criteria, project requirements, and submission guidelines. 
-                                <span class="font-bold text-red-300">Don't code blindly!</span>
-                            </p>
-                        </div>
-                        
-                        <!-- Dual Action Buttons -->
-                        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-                            <a href="{{ route('codesprint.requirements') }}" class="btn-mega-primary group relative overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 transform group-hover:scale-110 transition-transform duration-300"></div>
-                                <div class="relative flex items-center px-8 py-4 text-xl font-bold text-white">
-                                    <i class="bi bi-list-check me-3 text-2xl group-hover:animate-bounce"></i>
-                                    VIEW REQUIREMENTS & CRITERIA
-                                    <i class="bi bi-arrow-right ml-3 text-2xl group-hover:translate-x-2 transition-transform"></i>
+                        <div class="relative p-8 lg:p-12">
+                            <!-- Status Badge -->
+                            <div class="flex justify-center mb-6">
+                                <div class="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
+                                    <span class="text-sm font-medium text-purple-300">Competition Phase Active</span>
                                 </div>
-                            </a>
+                            </div>
                             
-                            <a href="{{ route('codesprint.rulebook') }}" class="btn-secondary-glow group">
-                                <i class="bi bi-book me-2 group-hover:animate-pulse"></i>
-                                Complete Rulebook
-                            </a>
-                        </div>
-                        
-                        <!-- Urgency Indicator -->
-                        <div class="mt-8 text-center">
-                            <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-900/50 to-orange-900/50 border border-red-500/50 rounded-full">
-                                <i class="bi bi-clock-fill text-red-400 me-2 animate-pulse"></i>
-                                <span class="text-red-200 font-semibold">Competition Active - Every Mark Counts!</span>
+                            <!-- Content Grid -->
+                            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                                <!-- Left: Content -->
+                                <div class="text-center lg:text-left">
+                                    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+                                        Project Requirements & 
+                                        <span class="text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">
+                                            Marking Criteria
+                                        </span>
+                                    </h2>
+                                    
+                                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                                        Essential guidelines now available. Understand the <strong class="text-white">100-mark evaluation system</strong> 
+                                        and project requirements before you start coding.
+                                    </p>
+                                    
+                                    <!-- Key Points -->
+                                    <div class="space-y-3 mb-8">
+                                        <div class="flex items-center text-sm text-gray-300 justify-center lg:justify-start">
+                                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>8 evaluation categories breakdown</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-300 justify-center lg:justify-start">
+                                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Complete project specifications</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-300 justify-center lg:justify-start">
+                                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Submission guidelines & deadlines</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Right: Actions -->
+                                <div class="flex flex-col space-y-4">
+                                    <!-- Primary CTA -->
+                                    <a href="{{ route('codesprint.requirements') }}" 
+                                       class="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-semibold text-white transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/25 hover:-translate-y-0.5">
+                                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        <span>View Requirements & Criteria</span>
+                                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                        </svg>
+                                    </a>
+                                    
+                                    <!-- Secondary CTA -->
+                                    <a href="{{ route('codesprint.rulebook') }}" 
+                                       class="group inline-flex items-center justify-center px-8 py-4 bg-gray-800 border border-gray-600 rounded-xl font-medium text-gray-300 transition-all duration-200 hover:bg-gray-700 hover:text-white hover:border-gray-500">
+                                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                        </svg>
+                                        <span>Complete Rulebook</span>
+                                    </a>
+                                    
+                                    <!-- Info Note -->
+                                    <div class="flex items-center justify-center lg:justify-start text-xs text-gray-400 mt-4">
+                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Updated: Today at 6:00 PM</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
