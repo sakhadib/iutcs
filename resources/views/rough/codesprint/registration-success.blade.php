@@ -213,7 +213,7 @@
                         <span class="text-white font-bold text-sm sm:text-base">3</span>
                     </div>
                     <div>
-                        <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">GitHub Submission (Deadline: July 22, 6:00 PM)</h3>
+                        <h3 class="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base">GitHub Submission (Deadline: July 23, 6:00 PM)</h3>
                         <p class="text-gray-300 text-sm sm:text-base">Submit your GitHub repository link using your registration token.</p>
                     </div>
                 </div>

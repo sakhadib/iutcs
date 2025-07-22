@@ -22,9 +22,9 @@
             <!-- Current Phase Indicator -->
             @php
                 $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0);
-                $registrationEnd = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                $registrationEnd = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                 $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);
-                $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                $githubDeadline = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                 $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
                 $now = now();
             @endphp
@@ -214,9 +214,9 @@
             <div class="space-y-6">
                 @php
                     $now = now();
-                    $registrationDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                    $registrationDeadline = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                     $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);
-                    $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                    $githubDeadline = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                     $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
                 @endphp
 
@@ -227,7 +227,7 @@
                     </div>
                     <div class="flex-1">
                         <h3 class="font-bold text-white">Registration Phase</h3>
-                        <p class="text-gray-300">Open until July 22, 6:00 PM</p>
+                        <p class="text-gray-300">Open until July 23, 6:00 PM</p>
                     </div>
                     <div class="text-right">
                         @if($now < $registrationDeadline)
@@ -285,9 +285,9 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 @php
                     $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0);
-                    $registrationEnd = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                    $registrationEnd = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                     $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);
-                    $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                    $githubDeadline = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                     $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
                 @endphp
                 

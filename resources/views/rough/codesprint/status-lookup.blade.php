@@ -20,7 +20,7 @@
         @php
             $now = now();
             $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0); // July 13, 2025 6:00 PM
-            $registrationEnd = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);   // July 22, 2025 6:00 PM
+            $registrationEnd = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);   // July 23, 2025 6:00 PM
             $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);  // July 16, 2025 6:00 PM
             $projectEnd = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);       // July 30, 2025 11:59 PM
         @endphp
@@ -292,7 +292,7 @@
                     <i class="bi bi-clock me-2"></i>
                     Registration Opens {{ $registrationStart->format('M d, g:i A') }}
                 </button>
-            @elseif($now >= $competitionStart && $now <= \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0))
+            @elseif($now >= $competitionStart && $now <= \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0))
                 <!-- GitHub submission phase -->
                 <a href="{{ route('codesprint.github.form') }}" class="btn btn-primary me-3">
                     <i class="bi bi-github me-2"></i>
@@ -302,7 +302,7 @@
                     <i class="bi bi-bar-chart me-2"></i>
                     View Statistics
                 </a>
-            @elseif($now > \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0))
+            @elseif($now > \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0))
                 <!-- Project submission phase -->
                 <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary me-3">
                     <i class="bi bi-upload me-2"></i>

@@ -270,7 +270,7 @@ class CodeSprint25Registration extends Model
      */
     public function canSubmitGithub()
     {
-        $deadline = now()->create(2025, 7, 22, 18, 0, 0); // July 22, 2025 6:00 PM
+        $deadline = now()->create(2025, 7, 23, 18, 0, 0); // July 23, 2025 6:00 PM
         return now() <= $deadline && $this->isComplete();
     }
 

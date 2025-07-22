@@ -20,7 +20,7 @@
         <!-- Header -->
         <header class="text-center mb-12 pt-8">
             <div class="inline-block mb-4 px-4 py-1 bg-indigo-900/30 text-indigo-300 rounded-full text-sm font-medium border border-indigo-700/50">
-                Registration Deadline: July 22, 2025 6:00 PM
+                Registration Deadline: July 23, 2025 6:00 PM
             </div>
             <h1 class="text-4xl sm:text-5xl font-bold mb-4 header-gradient">
                 Register Your Team

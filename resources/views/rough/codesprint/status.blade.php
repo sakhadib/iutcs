@@ -128,10 +128,10 @@
                     <div class="flex justify-between items-center">
                         <span class="text-gray-400">GitHub Submission:</span>
                         <div class="text-right">
-                            <div class="font-semibold">July 22, 2025 6:00 PM</div>
+                            <div class="font-semibold">July 23, 2025 6:00 PM</div>
                             @php
                                 $now = now();
-                                $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                                $githubDeadline = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                             @endphp
                             @if($now > $githubDeadline)
                                 <span class="badge badge-danger text-xs">Deadline Passed</span>
@@ -245,7 +245,7 @@
         @if($registration->payment_status === 'verified' && $registration->registration_status === 'active')
             @php
                 $now = now();
-                $githubDeadline = \Carbon\Carbon::create(2025, 7, 22, 18, 0, 0);
+                $githubDeadline = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);
                 $projectDeadline = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);
             @endphp
             @if($now <= $githubDeadline && !$registration->github_repo_url)

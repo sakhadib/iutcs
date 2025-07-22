@@ -15,7 +15,7 @@ class CodeSprintRegistrationController extends Controller
     public function showRegistrationForm()
     {
         // Check if registration is still open
-        $registrationDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        $registrationDeadline = Carbon::create(2025, 7, 23, 18, 0, 0);
         if (now() > $registrationDeadline) {
             return redirect()->route('codesprint.rulebook')
                 ->with('error', 'Registration deadline has passed.');
@@ -30,7 +30,7 @@ class CodeSprintRegistrationController extends Controller
     public function submitRegistration(Request $request)
     {
         // Check if registration is still open
-        $registrationDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        $registrationDeadline = Carbon::create(2025, 7, 23, 18, 0, 0);
         if (now() > $registrationDeadline) {
             return back()->with('error', 'Registration deadline has passed.');
         }
@@ -180,7 +180,7 @@ class CodeSprintRegistrationController extends Controller
     public function showGitHubSubmissionForm()
     {
         // Check if GitHub submission is still open
-        $githubDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        $githubDeadline = Carbon::create(2025, 7, 23, 18, 0, 0);
         $now = now();
         
         return view('rough.codesprint.github-submit', [
@@ -256,7 +256,7 @@ class CodeSprintRegistrationController extends Controller
     public function submitGitHub(Request $request)
     {
         // Check if GitHub submission is still open
-        $githubDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        $githubDeadline = Carbon::create(2025, 7, 23, 18, 0, 0);
         if (now() > $githubDeadline) {
             return back()->with('error', 'GitHub submission deadline has passed.');
         }
@@ -305,7 +305,7 @@ class CodeSprintRegistrationController extends Controller
         
         // GitHub submission opens at 6 PM Bangladesh time on July 16, 2025
         $githubOpenTime = Carbon::create(2025, 7, 16, 18, 0, 0, $bangladeshTimezone);
-        $githubDeadline = Carbon::create(2025, 7, 22, 23, 59, 0, $bangladeshTimezone);
+        $githubDeadline = Carbon::create(2025, 7, 23, 18, 0, 0, $bangladeshTimezone);
         $projectDeadline = Carbon::create(2025, 7, 30, 23, 59, 0, $bangladeshTimezone);
         
         // Current time in Bangladesh timezone

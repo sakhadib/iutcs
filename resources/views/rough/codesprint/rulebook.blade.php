@@ -265,7 +265,7 @@
                                         <i class="bi bi-hourglass-split me-2"></i>Registration Closes
                                     </div>
                                 </div>
-                                <h3 class="text-xl font-bold text-white mb-2">July 22, 2025 (6:00 PM)</h3>
+                                <h3 class="text-xl font-bold text-white mb-2">July 23, 2025 (6:00 PM)</h3>
                                 <p class="text-gray-300">Final deadline for registration and GitHub repo submission</p>
                             </div>
                         </div>
@@ -407,7 +407,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-lg mb-2 text-white">Repository Link</h3>
-                                <p>Submit your GitHub repository link by <span class="font-bold text-indigo-300">July 22, 2025, 6:00 PM</span>.</p>
+                                <p>Submit your GitHub repository link by <span class="font-bold text-indigo-300">July 23, 2025, 6:00 PM</span>.</p>
                                 <div class="mt-3">
                                     <span class="badge bg-purple-900/30 text-purple-300">
                                         <i class="bi bi-git me-1"></i> Commit Monitoring

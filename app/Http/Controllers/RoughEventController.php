@@ -18,8 +18,8 @@ class RoughEventController extends Controller
 
     public function codeSprint2025RegistrationSubmission(Request $request)
     {
-        // Check if registration is still open (until July 22, 2025 6:00 PM)
-        $registrationDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        // Check if registration is still open (until July 23, 2025 6:00 PM)
+        $registrationDeadline = Carbon::create(2025, 7, 23, 18, 0, 0);
         if (now() > $registrationDeadline) {
             return back()->with('error', 'Registration deadline has passed.');
         }
@@ -100,8 +100,8 @@ class RoughEventController extends Controller
 
     public function codeSprint2025GitHubSubmission(Request $request)
     {
-        // Check if GitHub submission is still open (until July 22, 2025 6:00 PM)
-        $githubDeadline = Carbon::create(2025, 7, 22, 18, 0, 0);
+        // Check if GitHub submission is still open (until July 23, 2025 6:00 PM)
+        $githubDeadline = Carbon::create(2025, 7, 23, 18, 0, 0);
         if (now() > $githubDeadline) {
             return back()->with('error', 'GitHub submission deadline has passed.');
         }
