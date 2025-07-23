@@ -15,6 +15,8 @@ use App\Http\Controllers\EventReportController;
 use App\Http\Controllers\RoughEventController;
 use App\Http\Controllers\CodeSprintRegistrationController;
 
+use App\Http\Controllers\RoughEvent\iiutpcRegistrationAndViewController;
+
 use App\Http\Controllers\AdminController;
 use App\Models\Event;
 
@@ -65,6 +67,10 @@ Route::post('team/remove/member', [TeamController::class, 'removeMember']);
 Route::get('/about', [HomeController::class, 'showAboutPage']);
 
 
+
+
+
+
 // CodeSprint Routes
 Route::get('/codesprint', function () {
     return view('rough.codesprint.home');
@@ -92,6 +98,29 @@ Route::post('/codesprint/project/submit', [CodeSprintRegistrationController::cla
 Route::post('/codesprint/registration/submit', [RoughEventController::class, 'codeSprint2025RegistrationSubmission'])->name('codesprint.legacy.register');
 Route::post('/codesprint/github/legacy/submit', [RoughEventController::class, 'codeSprint2025GitHubSubmission'])->name('codesprint.legacy.github');
 Route::post('/codesprint/project/legacy/submit', [RoughEventController::class, 'codeSprint2025ProjectSubmission'])->name('codesprint.legacy.project');
+
+
+
+
+
+
+
+
+// IIUTPC Routes
+Route::get('/ahiupc', [iiutpcRegistrationAndViewController::class, 'home'])->name('iiutpc.home');
+Route::get('/ahiupc/register', [iiutpcRegistrationAndViewController::class, 'register'])->name('iiutpc.register');
+Route::post('/ahiupc/register', [iiutpcRegistrationAndViewController::class, 'submitRegistration'])->name('iiutpc.register.submit');
+Route::get('/ahiupc/registration/success/{token}', [iiutpcRegistrationAndViewController::class, 'registrationSuccess'])->name('iiutpc.registration.success');
+Route::get('/ahiupc/check', [iiutpcRegistrationAndViewController::class, 'checkRegistration'])->name('iiutpc.check');
+Route::post('/ahiupc/check', [iiutpcRegistrationAndViewController::class, 'checkRegistration'])->name('iiutpc.check.submit');
+
+// IIUTPC Admin Routes
+Route::get('/ahiupc/admin', [iiutpcRegistrationAndViewController::class, 'adminDashboard'])->name('iiutpc.admin');
+Route::post('/ahiupc/admin/update-status/{id}', [iiutpcRegistrationAndViewController::class, 'updateTeamStatus'])->name('iiutpc.admin.update-status');
+Route::get('/ahiupc/admin/team/{id}', [iiutpcRegistrationAndViewController::class, 'viewTeamDetails'])->name('iiutpc.admin.team-details');
+
+
+
 
 
 

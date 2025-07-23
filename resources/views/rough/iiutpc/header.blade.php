@@ -1,42 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <title>IUTCS | IUT Computer Society</title>
-
-    {{-- Bootstrap --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    {{-- End Bootstrap --}}
-
-    {{-- Utility CSS --}}
-    <link rel="stylesheet" href="/css/util.css">
-    {{-- End Utility CSS --}}
-
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-      @theme {
-        --color-navy: #0a1929;
-        --color-red: #e63946;
-        --color-cyan: #00a8e8;
-      }
-    </style>
-    <link
-      rel="stylesheet"
-      href="./home.css"
-    />
-    <link
-      rel="stylesheet"
-      href="./global.css"
-    />
-  </head>
-  <body>
-
-    <header class="bg-navy sticky text-white top-0 z-50 shadow-md px-4 py-6">
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $eventName }} - IUTCS</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('css/codesprint-style.css') }}">
+   </head>
+   <body>
+       
+    
+    <header class="bg-navy/80 backdrop-blur-lg backdrop-saturate-150 sticky text-white top-0 z-50 shadow-xl border-b border-white/10 px-4 py-6">
       <div class="container mx-auto">
         <div class="flex justify-between items-center">
           <a href="/">
@@ -79,13 +60,8 @@
               About
             </a>
             <!-- CodeSprint CTA Desktop -->
-            <a href="/codesprint" class="ml-4 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
+            <a href="/ahiupc/" class="ml-4 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/></svg>
-              CodeSprint 2025
-            </a>
-            <!-- Abid Hasan IUPC CTA Desktop -->
-            <a href="/ahiupc/" class="px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-orange-500 via-red-600 to-pink-600 shadow-lg hover:from-orange-600 hover:to-pink-700 transition-all duration-200 border-2 border-orange-400 flex items-center gap-2 animate-pulse">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               Abid Hasan IUPC 2025
             </a>
             <div class="flex items-center space-x-4 ml-6">
@@ -128,13 +104,8 @@
           <a href="/fests" class="block nav-link py-2 hover:text-cyan transition-colors">Fests</a>
           <a href="/about" class="block nav-link py-2 hover:text-cyan transition-colors">About</a>
           <!-- CodeSprint CTA Mobile -->
-          <a href="/codesprint" class="my-2 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
+          <a href="/ahiupc/" class="my-2 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 shadow-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-200 border-2 border-cyan-400 flex items-center gap-2 animate-pulse">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/></svg>
-            CodeSprint 2025
-          </a>
-          <!-- Abid Hasan IUPC CTA Mobile -->
-          <a href="/ahiupc/" class="my-2 px-5 py-2 rounded-full font-bold text-white bg-gradient-to-r from-orange-500 via-red-600 to-pink-600 shadow-lg hover:from-orange-600 hover:to-pink-700 transition-all duration-200 border-2 border-orange-400 flex items-center gap-2 animate-pulse">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             Abid Hasan IUPC 2025
           </a>
           <div class="flex flex-col items-start space-y-2 ml-0">

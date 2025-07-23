@@ -1,8 +1,8 @@
-@if(session('user_id'))
+{{-- @if(session('user_id'))
     @include('layouts.admin-header')
-@else
+@else --}}
     @include('layouts.header')
-@endif
+{{-- @endif --}}
 
 @yield('main')
 @include('layouts.footer')
