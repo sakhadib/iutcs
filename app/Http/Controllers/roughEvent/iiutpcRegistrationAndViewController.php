@@ -22,7 +22,7 @@ class iiutpcRegistrationAndViewController extends Controller
         $this->eventName = 'Abid Hasan Intra University Programming Contest';
         $this->eventSlug = 'ahiupc';
         // $this->registrationStarts = Carbon::create(2025, 7, 25, 18, 0, 0);
-        $this->registrationStarts = Carbon::create(2025, 7, 20, 18, 0, 0);
+        $this->registrationStarts = Carbon::create(2025, 7, 25, 18, 0, 0);
         $this->registrationEnds = Carbon::create(2025, 7, 30, 23, 59, 0);
         $this->competitionDate = Carbon::create(2025, 8, 3, 9, 0, 0);
     }
