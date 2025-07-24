@@ -23,7 +23,7 @@
         --color-navy: #0a1929;
         --color-red: #e63946;
         --color-cyan: #00a8e8;
-}
+      }
     </style>
     <link
       rel="stylesheet"
@@ -46,7 +46,6 @@
           <button id="mobile-menu-button" class="md:hidden focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-
               class="h-6 w-6 text-white"
               fill="none"
               viewBox="0 0 24 24"
@@ -63,21 +62,18 @@
           <nav class="hidden md:flex flex items-center gap-x-6">
             <a
               href="/home"
-
               class="nav-link py-2 hover:text-cyan transition-colors"
             >
               Home
             </a>
             <a
               href="/fests"
-
               class="nav-link py-2 hover:text-cyan transition-colors"
             >
               Fests
             </a>
             <a
               href="/about"
-
               class="nav-link py-2 hover:text-cyan transition-colors"
             >
               About
@@ -97,7 +93,6 @@
                 @if(session('role') === 'admin')
                   <a
                     href="{{ route('iiutpc.admin') }}"
-
                     class="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors border-2 border-green-400 flex items-center gap-2"
                   >
                     <i class="bi bi-speedometer2"></i>
@@ -106,7 +101,6 @@
                 @endif
                 <a
                   href="/logout"
-
                   class="bg-transparent border-2 border-red hover:bg-red/10 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Logout
@@ -114,14 +108,12 @@
               @else
                 <a
                   href="/login"
-
                   class="bg-transparent border-2 border-cyan hover:bg-cyan/10 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Login
                 </a>
                 <a
                   href="/signup"
-
                   class="text-white bg-red hover:bg-red/90 px-4 py-2 rounded-md text-sm font-medium transition-colors border-2 border-red"
                 >
                   Sign Up
@@ -169,9 +161,8 @@
       </div>
     </header>
      <script>
-
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
         var mobileMenu = document.getElementById('mobile-menu');
         mobileMenu.classList.toggle('hidden');
-}
+        });
      </script>
