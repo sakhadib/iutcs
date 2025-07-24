@@ -41,7 +41,7 @@
                 Check Registration
             </a>
             
-            <a href="#" class="btn btn-success btn-lg" onclick="alert('Rulebook will be available soon!')">
+            <a href="https://docs.google.com/document/d/1dJbUsOPNTEWBk669yNT5BsSKDcIXtBmgKM_2RAAgCNs/edit?usp=sharing" class="btn btn-success btn-lg" onclick="alert('Rulebook will be available soon!')">
                 <i class="bi bi-book me-2"></i>
                 View Rulebook
             </a>
