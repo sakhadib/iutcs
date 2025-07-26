@@ -464,6 +464,14 @@
                                 <span class="bg-green-500/20 text-green-400 text-xs font-bold px-2 py-1 rounded mr-3 mt-0.5">1</span>
                                 <p>Open your bKash app and select <strong>"Send Money"</strong></p>
                             </div>
+                            <div class="flex items-start bg-yellow-900/60 border-l-4 border-yellow-400 rounded-lg p-3 my-2 animate-pulse">
+                                <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded mr-3 mt-0.5">IMPORTANT</span>
+                                <p class="font-semibold text-yellow-200">
+                                    <span class="text-yellow-300">You <u>MUST</u> add a reference in bKash:</span>
+                                    <span class="block text-lg font-bold text-yellow-300 mt-1">ref → <span class="font-mono bg-yellow-100/20 text-yellow-400 px-2 py-1 rounded">ahiupc_&lt;team_name&gt;</span></span>
+                                    <span class="block text-yellow-200 text-xs mt-1">(Replace <span class="font-mono">&lt;team_name&gt;</span> with your actual team name. This is required for payment verification!)</span>
+                                </p>
+                            </div>
                             <div class="flex items-start">
                                 <span class="bg-green-500/20 text-green-400 text-xs font-bold px-2 py-1 rounded mr-3 mt-0.5">2</span>
                                 <p>Send exactly <span class="text-green-400 font-bold">৳300</span> to this number: <span class="text-gray-200 font-mono font-bold text-lg">01681365712</span></p>
