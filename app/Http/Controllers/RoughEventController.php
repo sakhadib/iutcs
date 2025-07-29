@@ -142,8 +142,8 @@ class RoughEventController extends Controller
 
     public function codeSprint2025ProjectSubmission(Request $request)
     {
-        // Check if project submission is still open (until July 30, 2025 11:59 PM)
-        $projectDeadline = Carbon::create(2025, 7, 30, 23, 59, 0);
+        // Check if project submission is still open (until August 3, 2025 6:00 PM)
+        $projectDeadline = Carbon::create(2025, 8, 3, 18, 0, 0);
         if (now() > $projectDeadline) {
             return back()->with('error', 'Project submission deadline has passed.');
         }

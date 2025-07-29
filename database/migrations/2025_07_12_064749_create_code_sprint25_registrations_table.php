@@ -57,7 +57,7 @@ return new class extends Migration
             
             // Important Dates Tracking
             $table->timestamp('github_submitted_at')->nullable(); // Deadline: July 22, 2025 6:00 PM
-            $table->timestamp('project_submitted_at')->nullable(); // Deadline: July 30, 2025 11:59 PM
+            $table->timestamp('project_submitted_at')->nullable(); // Deadline: August 3, 2025 6:00 PM
             
             // Project Submission (for final submission)
             $table->string('project_zip_path')->nullable(); // Path to uploaded project zip
