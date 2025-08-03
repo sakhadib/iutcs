@@ -20,12 +20,12 @@
         <!-- Header -->
         <header class="text-center mb-12 pt-8">
             <div class="inline-block mb-4 px-4 py-1 
-                {{ $isDeadlinePassed ? 'bg-red-900/30 text-red-300 border-red-700/50' : 'bg-indigo-900/30 text-indigo-300 border-indigo-700/50' }} 
+                {{ $isDeadlinePassed ? 'bg-red-900/30 text-red-300 border-red-700/50' : 'bg-red-900/40 text-red-200 border-red-600/70 animate-pulse' }} 
                 rounded-full text-sm font-medium border">
                 @if($isDeadlinePassed)
                     <i class="bi bi-x-circle me-2"></i>Final Submission Deadline Passed
                 @else
-                    <i class="bi bi-clock me-2"></i>Final Submission Deadline: {{ $projectDeadline->format('F j, Y g:i A') }}
+                    <i class="bi bi-clock me-2"></i>🚨 FINAL DEADLINE TODAY: {{ $projectDeadline->format('F j, Y g:i A') }}
                 @endif
             </div>
             <h1 class="text-4xl sm:text-5xl font-bold mb-4 header-gradient">
@@ -106,6 +106,27 @@
                 </div>
             </div>
         @else
+            <!-- URGENT DEADLINE WARNING -->
+            <div class="form-card mb-8 bg-gradient-to-r from-red-900/20 to-orange-900/20 border-2 border-red-500/50">
+                <div class="p-6 text-center">
+                    <div class="flex justify-center items-center mb-4">
+                        <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center animate-pulse">
+                            <i class="bi bi-exclamation-triangle-fill text-red-400 text-3xl"></i>
+                        </div>
+                    </div>
+                    <h2 class="text-2xl font-bold text-red-300 mb-2">⚠️ URGENT: Final Deadline Today!</h2>
+                    <p class="text-red-200 text-lg mb-4">
+                        Project submission deadline: <strong>August 3, 2025 at 11:59 PM</strong>
+                    </p>
+                    <div class="bg-red-800/30 rounded-lg p-4 max-w-2xl mx-auto">
+                        <p class="text-red-100 text-sm">
+                            <i class="bi bi-clock text-red-300 mr-2"></i>
+                            This is your final chance to submit your project. No extensions will be granted after the deadline.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Page Header -->
             <div class="form-card mb-8">
                 <div class="p-8 text-center">
@@ -409,8 +430,8 @@ Examples:
                         </div>
                         
                         <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto">
-                            <button type="submit" class="btn btn-primary btn-lg px-8 py-4 text-lg w-full sm:w-auto">
-                                <i class="bi bi-upload me-2"></i>Submit Project
+                            <button type="submit" class="btn btn-primary btn-lg px-8 py-4 text-lg w-full sm:w-auto bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 animate-pulse">
+                                <i class="bi bi-upload me-2"></i>🚨 SUBMIT PROJECT NOW
                             </button>
                             <a href="{{ route('codesprint.home') }}" class="btn btn-secondary btn-lg px-8 py-4 text-lg w-full sm:w-auto">
                                 <i class="bi bi-arrow-left me-2"></i>Cancel

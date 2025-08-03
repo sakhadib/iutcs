@@ -195,7 +195,7 @@ class CodeSprintRegistrationController extends Controller
     public function showProjectSubmissionForm()
     {
         // Check if project submission is still open
-        $projectDeadline = Carbon::create(2025, 8, 3, 18, 0, 0);
+        $projectDeadline = Carbon::create(2025, 8, 3, 23, 59, 0);
         $now = now();
         
         return view('rough.codesprint.project-submit', [
@@ -306,7 +306,7 @@ class CodeSprintRegistrationController extends Controller
         // GitHub submission opens at 6 PM Bangladesh time on July 16, 2025
         $githubOpenTime = Carbon::create(2025, 7, 16, 18, 0, 0, $bangladeshTimezone);
         $githubDeadline = Carbon::create(2025, 7, 23, 18, 0, 0, $bangladeshTimezone);
-        $projectDeadline = Carbon::create(2025, 8, 3, 18, 0, 0, $bangladeshTimezone);
+        $projectDeadline = Carbon::create(2025, 8, 3, 23, 59, 0, $bangladeshTimezone);
         
         // Current time in Bangladesh timezone
         $now = Carbon::now($bangladeshTimezone);
@@ -329,7 +329,7 @@ class CodeSprintRegistrationController extends Controller
     public function submitProject(Request $request)
     {
         // Check if project submission is still open
-        $projectDeadline = Carbon::create(2025, 8, 3, 18, 0, 0);
+        $projectDeadline = Carbon::create(2025, 8, 3, 23, 59, 0);
         if (now() > $projectDeadline) {
             return back()->with('error', 'Project submission deadline has passed.');
         }

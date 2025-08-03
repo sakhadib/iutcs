@@ -46,7 +46,7 @@
                 $registrationStart = \Carbon\Carbon::create(2025, 7, 13, 18, 0, 0); // July 13, 2025 6:00 PM
                 $registrationEnd = \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0);   // July 23, 2025 6:00 PM
                 $competitionStart = \Carbon\Carbon::create(2025, 7, 16, 18, 0, 0);  // July 16, 2025 6:00 PM
-                $projectEnd = \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0);       // July 30, 2025 11:59 PM
+                $projectEnd = \Carbon\Carbon::create(2025, 8, 3, 23, 59, 0);        // August 3, 2025 11:59 PM
             @endphp
             
             @if($now < $registrationStart)
@@ -62,8 +62,8 @@
                     📋 Registration Closed - Competition Starts {{ $competitionStart->format('M d, g:i A') }}
                 </div>
             @elseif($now >= $competitionStart && $now < $projectEnd)
-                <div class="inline-block mb-6 px-6 py-2 bg-purple-900/30 text-purple-300 rounded-full text-lg font-medium border border-purple-700/50">
-                    🚀 Competition Active! (Ends {{ $projectEnd->format('M d, g:i A') }})
+                <div class="inline-block mb-6 px-6 py-2 bg-red-900/40 text-red-200 rounded-full text-lg font-medium border border-red-600/70 animate-pulse">
+                    � FINAL SUBMISSION DAY! Deadline: {{ $projectEnd->format('M d, g:i A') }}
                 </div>
             @else
                 <div class="inline-block mb-6 px-6 py-2 bg-gray-900/30 text-gray-300 rounded-full text-lg font-medium border border-gray-700/50">
@@ -75,6 +75,101 @@
                 IUTCS <span class="font-mono">CodeSprint 2025</span>
             </h1>
             <p class="text-2xl max-w-3xl mx-auto text-gray-300 mb-12">The Premier Coding Competition at IUT - Where Innovation Meets Excellence</p>
+            
+            <!-- URGENT PROJECT SUBMISSION CTA -->
+            @if($now >= $competitionStart && $now < $projectEnd)
+            <div class="mb-16">
+                <div class="max-w-6xl mx-auto">
+                    <!-- URGENT DEADLINE WARNING -->
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-red-900 via-red-800 to-orange-900 border-2 border-red-500/50 shadow-2xl shadow-red-500/20">
+                        <!-- Animated background -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-500/10 via-transparent to-orange-500/10 animate-pulse"></div>
+                        
+                        <!-- Urgent indicator -->
+                        <div class="absolute top-4 right-4">
+                            <div class="flex items-center px-3 py-1 bg-red-500 rounded-full text-xs font-bold text-white animate-bounce">
+                                🚨 URGENT
+                            </div>
+                        </div>
+                        
+                        <div class="relative p-8 lg:p-12 text-center">
+                            <!-- Countdown or deadline info -->
+                            <div class="mb-6">
+                                <div class="inline-flex items-center px-4 py-2 bg-red-500/20 border border-red-400/40 rounded-full mb-4">
+                                    <i class="bi bi-clock-fill text-red-300 mr-2"></i>
+                                    <span class="text-sm font-medium text-red-200">FINAL DEADLINE TODAY</span>
+                                </div>
+                                <h2 class="text-4xl lg:text-6xl font-black text-white mb-4 leading-tight">
+                                    🔥 SUBMIT YOUR 
+                                    <span class="text-transparent bg-gradient-to-r from-yellow-400 to-red-400 bg-clip-text">
+                                        FINAL PROJECT
+                                    </span>
+                                </h2>
+                                <div class="text-2xl lg:text-3xl font-bold text-red-200 mb-2">
+                                    Deadline: August 3, 2025 at 11:59 PM
+                                </div>
+                                <div class="text-lg text-red-300 mb-8">
+                                    ⏰ Less than 24 hours remaining! Don't miss out!
+                                </div>
+                            </div>
+                            
+                            <!-- Key submission points -->
+                            <div class="grid md:grid-cols-3 gap-6 mb-8 text-left">
+                                <div class="bg-red-800/30 backdrop-blur-sm rounded-xl p-4 border border-red-600/30">
+                                    <div class="flex items-center mb-2">
+                                        <i class="bi bi-file-zip-fill text-yellow-400 text-xl mr-3"></i>
+                                        <h4 class="font-bold text-white">Project ZIP</h4>
+                                    </div>
+                                    <p class="text-red-100 text-sm">Complete source code with documentation</p>
+                                </div>
+                                
+                                <div class="bg-red-800/30 backdrop-blur-sm rounded-xl p-4 border border-red-600/30">
+                                    <div class="flex items-center mb-2">
+                                        <i class="bi bi-play-circle-fill text-yellow-400 text-xl mr-3"></i>
+                                        <h4 class="font-bold text-white">Demo Video</h4>
+                                    </div>
+                                    <p class="text-red-100 text-sm">15-minute maximum project demonstration</p>
+                                </div>
+                                
+                                <div class="bg-red-800/30 backdrop-blur-sm rounded-xl p-4 border border-red-600/30">
+                                    <div class="flex items-center mb-2">
+                                        <i class="bi bi-clipboard-check-fill text-yellow-400 text-xl mr-3"></i>
+                                        <h4 class="font-bold text-white">Requirements</h4>
+                                    </div>
+                                    <p class="text-red-100 text-sm">All mandatory fields and documentation</p>
+                                </div>
+                            </div>
+                            
+                            <!-- CTA Buttons -->
+                            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+                                <a href="{{ route('codesprint.project.form') }}" 
+                                   class="group relative inline-flex items-center justify-center px-12 py-6 bg-gradient-to-r from-yellow-500 to-red-500 rounded-2xl font-black text-xl text-black transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/30 hover:-translate-y-1 transform">
+                                    <i class="bi bi-upload text-2xl mr-3"></i>
+                                    <span>SUBMIT PROJECT NOW</span>
+                                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full animate-ping"></div>
+                                </a>
+                                
+                                <a href="{{ route('codesprint.status.lookup') }}" 
+                                   class="group inline-flex items-center justify-center px-8 py-6 bg-red-800/50 border-2 border-red-500/50 rounded-2xl font-bold text-lg text-red-100 transition-all duration-300 hover:bg-red-700/50 hover:border-red-400/70">
+                                    <i class="bi bi-search text-xl mr-3"></i>
+                                    <span>Check Submission Status</span>
+                                </a>
+                            </div>
+                            
+                            <!-- Warning message -->
+                            <div class="bg-yellow-900/40 border border-yellow-600/50 rounded-lg p-4 max-w-2xl mx-auto">
+                                <div class="flex items-center justify-center text-yellow-200">
+                                    <i class="bi bi-exclamation-triangle-fill text-yellow-400 text-lg mr-2"></i>
+                                    <span class="font-semibold text-sm">
+                                        Submissions cannot be modified after the deadline. Submit early to avoid last-minute issues!
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
             
             <!-- MODERN REQUIREMENTS CTA -->
             @if($now >= $competitionStart)
@@ -172,7 +267,17 @@
             @endif
 
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                @if($now >= $registrationStart && $now < $registrationEnd)
+                @if($now >= $competitionStart && $now < $projectEnd)
+                    <!-- PRIORITY: Project submission -->
+                    <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary text-xl px-8 py-4 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 animate-pulse">
+                        <i class="bi bi-upload me-2"></i>
+                        🚨 SUBMIT FINAL PROJECT
+                    </a>
+                    <a href="{{ route('codesprint.github.form') }}" class="btn btn-outline text-xl px-8 py-4">
+                        <i class="bi bi-github me-2"></i>
+                        Submit GitHub Repository
+                    </a>
+                @elseif($now >= $registrationStart && $now < $registrationEnd)
                     <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-8 py-4">
                         <i class="bi bi-rocket me-2"></i>
                         Register Your Team
@@ -187,17 +292,7 @@
                         <i class="bi bi-search me-2"></i>
                         Check Your Status
                     </a>
-                @elseif($now >= $competitionStart && $now <= \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0))
-                    <!-- GitHub submission phase -->
-                    <a href="{{ route('codesprint.github.form') }}" class="btn btn-primary text-xl px-8 py-4">
-                        <i class="bi bi-github me-2"></i>
-                        Submit GitHub Repository
-                    </a>
-                    <a href="{{ route('codesprint.status.lookup') }}" class="btn btn-outline text-xl px-8 py-4">
-                        <i class="bi bi-search me-2"></i>
-                        Check Status
-                    </a>
-                @elseif($now > \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0))
+                @elseif($now > \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 8, 3, 23, 59, 0))
                     <!-- Project submission phase -->
                     <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary text-xl px-8 py-4">
                         <i class="bi bi-upload me-2"></i>
@@ -298,7 +393,7 @@
                     <div class="timeline-item mb-10">
                         <div class="card p-8">
                             <h3 class="text-2xl font-bold text-white mb-3">Final Submission</h3>
-                            <div class="text-lg font-semibold text-rose-300 mb-2">July 30, 2025 - 11:59 PM</div>
+                            <div class="text-lg font-semibold text-rose-300 mb-2">August 3, 2025 - 11:59 PM</div>
                             <p class="text-gray-300">Complete project submission with demo video</p>
                         </div>
                     </div>
@@ -436,7 +531,12 @@
                     Showcase your skills, learn new technologies
                 </p>
                 <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                    @if($now >= $registrationStart && $now < $registrationEnd)
+                    @if($now >= $competitionStart && $now < $projectEnd)
+                        <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary text-xl px-10 py-4 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700">
+                            <i class="bi bi-upload me-2"></i>
+                            🚨 Submit Final Project NOW
+                        </a>
+                    @elseif($now >= $registrationStart && $now < $registrationEnd)
                         <a href="{{ route('codesprint.register') }}" class="btn btn-primary text-xl px-10 py-4">
                             <i class="bi bi-rocket me-2"></i>
                             Register Now
@@ -451,13 +551,7 @@
                             <i class="bi bi-search me-2"></i>
                             Check Your Status
                         </a>
-                    @elseif($now >= $competitionStart && $now <= \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0))
-                        <!-- GitHub submission phase -->
-                        <a href="{{ route('codesprint.github.form') }}" class="btn btn-primary text-xl px-10 py-4">
-                            <i class="bi bi-github me-2"></i>
-                            Submit GitHub Repository
-                        </a>
-                    @elseif($now > \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 7, 30, 23, 59, 0))
+                    @elseif($now > \Carbon\Carbon::create(2025, 7, 23, 18, 0, 0) && $now <= \Carbon\Carbon::create(2025, 8, 3, 23, 59, 0))
                         <!-- Project submission phase -->
                         <a href="{{ route('codesprint.project.form') }}" class="btn btn-primary text-xl px-10 py-4">
                             <i class="bi bi-upload me-2"></i>
